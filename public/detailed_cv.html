@@ -11,15 +11,15 @@
     input{padding:8px;border:1px solid #ccc;border-radius:6px;width:100%;box-sizing:border-box;}
     button{padding:10px 14px;border-radius:8px;border:0;background:#111;color:#fff;font-weight:600;cursor:pointer;}
     .hint{color:#555;font-size:0.95rem;}
+    .error { color: #b00020; margin-top:8px; }
   </style>
 </head>
 <body>
   <h1>Get my Detailed CV</h1>
   <p class="hint">Please enter your contact details. After you submit, you'll be redirected to a thank-you page with the download link.</p>
 
-  <form action="https://formspree.io/f/mzzaydpe" method="POST">
+  <form id="detailedCvForm">
     <input type="hidden" name="cv_version" value="detailed" />
-    <input type="hidden" name="_next" value="https://www.soumenroy.com/thank-you-detailed.html" />
     <input type="hidden" name="_captcha" value="false" />
 
     <label for="name">Name (required)</label>
@@ -35,8 +35,59 @@
     <input id="linkedin" name="linkedin" type="url" placeholder="https://www.linkedin.com/in/yourname" />
 
     <div>
-      <button type="submit">Get Detailed CV</button>
+      <button id="submitBtnDetailed" type="submit">Get Detailed CV</button>
     </div>
+
+    <div id="messageDetailed" role="status" aria-live="polite"></div>
   </form>
+
+  <script>
+    (function () {
+      const endpoint = "https://formspree.io/f/mzzaydpe"; // your Formspree endpoint
+      const form = document.getElementById("detailedCvForm");
+      const submitBtn = document.getElementById("submitBtnDetailed");
+      const message = document.getElementById("messageDetailed");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        message.textContent = "";
+        message.className = "";
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Please wait…";
+
+        try {
+          const fd = new FormData(form);
+
+          const res = await fetch(endpoint, {
+            method: "POST",
+            body: fd,
+            headers: {
+              "Accept": "application/json"
+            }
+          });
+
+          if (res.ok) {
+            // success — redirect to your thank-you page
+            window.location.href = "https://www.soumenroy.com/thank-you-detailed.html";
+            return;
+          } else {
+            let text = "Submission failed. Please try again.";
+            try {
+              const data = await res.json();
+              if (data && data.error) text = data.error;
+            } catch (err) { /* ignore parse errors */ }
+            throw new Error(text);
+          }
+        } catch (err) {
+          console.error("Form submit error:", err);
+          message.textContent = err.message || "Submission failed — please try again later.";
+          message.className = "error";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Get Detailed CV";
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -6,8 +6,6 @@ import {
   NAME,
   ROLE,
   YEARS,
-  RESUME_URL,
-  DETAILED_RESUME_URL,
   LINKEDIN,
   EMAIL,
 } from "@/lib/constants";
@@ -38,11 +36,11 @@ export default function HomePage() {
         </p>
 
         <div className="mt-6 flex gap-3 justify-center">
-          {/* Primary CV (existing) */}
-          <Button href={RESUME_URL}>Download CV (PDF)</Button>
+          {/* Primary CV (form page instead of direct PDF) */}
+          <Button href="/cv.html">Download CV</Button>
 
-          {/* Detailed CV */}
-          <Button href={DETAILED_RESUME_URL}>Download Detailed CV (PDF)</Button>
+          {/* Detailed CV (form page instead of direct PDF) */}
+          <Button href="/detailed_cv.html">Download Detailed CV</Button>
 
           {/* Book / contact */}
           <Button href="/contact" variant="outline">

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Get Soumen Roy's Detailed CV</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding:28px; max-width:720px; margin:auto; }
+    form { display:grid; gap:10px; }
+    label{display:block;font-weight:600;margin-bottom:4px;}
+    input{padding:8px;border:1px solid #ccc;border-radius:6px;width:100%;}
+    button{padding:10px 14px;border-radius:8px;border:0;background:#111;color:#fff;font-weight:600;cursor:pointer;}
+  </style>
+</head>
+<body>
+  <h1>Get my Detailed CV</h1>
+  <p>Please enter your contact details. After you submit, you'll be redirected to a thank-you page with the download link.</p>
+
+  <form action="https://formspree.io/f/mzzaydpe" method="POST">
+    <input type="hidden" name="cv_version" value="detailed" />
+    <input type="hidden" name="_next" value="/thank-you-detailed.html" />
+    <input type="hidden" name="_captcha" value="false" />
+
+    <label for="name">Name (required)</label>
+    <input id="name" name="name" type="text" required />
+
+    <label for="email">Email (required)</label>
+    <input id="email" name="email" type="email" required />
+
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" />
+
+    <label for="linkedin">LinkedIn (optional)</label>
+    <input id="linkedin" name="linkedin" type="url" placeholder="https://www.linkedin.com/in/yourname" />
+
+    <div>
+      <button type="submit">Get Detailed CV</button>
+    </div>
+  </form>
+</body>
+</html>

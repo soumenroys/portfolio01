@@ -3,91 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Get Soumen Roy's Detailed CV</title>
+  <title>Thank You — Detailed CV</title>
   <style>
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding:28px; max-width:720px; margin:auto; }
-    form { display:grid; gap:10px; }
-    label{display:block;font-weight:600;margin-bottom:4px;}
-    input{padding:8px;border:1px solid #ccc;border-radius:6px;width:100%;box-sizing:border-box;}
-    button{padding:10px 14px;border-radius:8px;border:0;background:#111;color:#fff;font-weight:600;cursor:pointer;}
-    .hint{color:#555;font-size:0.95rem;}
-    .error { color: #b00020; margin-top:8px; }
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;text-align:center;padding:40px;}
+    a.button{display:inline-block;margin-top:20px;padding:12px 20px;background:#111;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;}
   </style>
 </head>
 <body>
-  <h1>Get my Detailed CV</h1>
-  <p class="hint">Please enter your contact details. After you submit, you'll be redirected to a thank-you page with the download link.</p>
-
-  <form id="detailedCvForm">
-    <input type="hidden" name="cv_version" value="detailed" />
-    <input type="hidden" name="_captcha" value="false" />
-
-    <label for="name">Name (required)</label>
-    <input id="name" name="name" type="text" required />
-
-    <label for="email">Email (required)</label>
-    <input id="email" name="email" type="email" required />
-
-    <label for="phone">Phone</label>
-    <input id="phone" name="phone" type="tel" />
-
-    <label for="linkedin">LinkedIn (optional)</label>
-    <input id="linkedin" name="linkedin" type="url" placeholder="https://www.linkedin.com/in/yourname" />
-
-    <div>
-      <button id="submitBtnDetailed" type="submit">Get Detailed CV</button>
-    </div>
-
-    <div id="messageDetailed" role="status" aria-live="polite"></div>
-  </form>
+  <h1>Thank you!</h1>
+  <p>Your details have been submitted successfully.</p>
+  <p>You can now download the detailed CV:</p>
+  <a href="/Detail-CV_Soumen-Roy.pdf" class="button">Download Detailed CV</a>
 
   <script>
-    (function () {
-      const endpoint = "https://formspree.io/f/mzzaydpe"; // your Formspree endpoint
-      const form = document.getElementById("detailedCvForm");
-      const submitBtn = document.getElementById("submitBtnDetailed");
-      const message = document.getElementById("messageDetailed");
-
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        message.textContent = "";
-        message.className = "";
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Please wait…";
-
-        try {
-          const fd = new FormData(form);
-
-          const res = await fetch(endpoint, {
-            method: "POST",
-            body: fd,
-            headers: {
-              "Accept": "application/json"
-            }
-          });
-
-          if (res.ok) {
-            // success — redirect to your thank-you page
-            window.location.href = "https://www.soumenroy.com/thank-you-detailed.html";
-            return;
-          } else {
-            let text = "Submission failed. Please try again.";
-            try {
-              const data = await res.json();
-              if (data && data.error) text = data.error;
-            } catch (err) { /* ignore parse errors */ }
-            throw new Error(text);
-          }
-        } catch (err) {
-          console.error("Form submit error:", err);
-          message.textContent = err.message || "Submission failed — please try again later.";
-          message.className = "error";
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Get Detailed CV";
-        }
-      });
-    })();
+    // Auto-download after 1 second
+    setTimeout(function () {
+      window.location.href = "/Detail-CV_Soumen-Roy.pdf";
+    }, 1000);
   </script>
 </body>
 </html>

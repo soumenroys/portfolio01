@@ -11,15 +11,16 @@
     input{padding:8px;border:1px solid #ccc;border-radius:6px;width:100%;box-sizing:border-box;}
     button{padding:10px 14px;border-radius:8px;border:0;background:#111;color:#fff;font-weight:600;cursor:pointer;}
     .hint{color:#555;font-size:0.95rem;}
+    .error { color: #b00020; margin-top:8px; }
+    .success { color: #0a8a00; margin-top:8px; }
   </style>
 </head>
 <body>
   <h1>Get my CV (Short)</h1>
   <p class="hint">Please enter your contact details. After you submit, you'll be redirected to a thank-you page with the download link.</p>
 
-  <form action="https://formspree.io/f/mzzaydpe" method="POST">
+  <form id="cvForm">
     <input type="hidden" name="cv_version" value="short" />
-    <input type="hidden" name="_next" value="https://www.soumenroy.com/thank-you-cv.html" />
     <input type="hidden" name="_captcha" value="false" />
 
     <label for="name">Name (required)</label>
@@ -35,8 +36,62 @@
     <input id="linkedin" name="linkedin" type="url" placeholder="https://www.linkedin.com/in/yourname" />
 
     <div>
-      <button type="submit">Get Short CV</button>
+      <button id="submitBtn" type="submit">Get Short CV</button>
     </div>
+
+    <div id="message" role="status" aria-live="polite"></div>
   </form>
+
+  <script>
+    (function () {
+      const endpoint = "https://formspree.io/f/mzzaydpe"; // your Formspree endpoint
+      const form = document.getElementById("cvForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const message = document.getElementById("message");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        message.textContent = "";
+        message.className = "";
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Please wait…";
+
+        try {
+          const fd = new FormData(form);
+          // Optional: append _next but we will handle redirect client-side
+          // fd.append("_next", "https://www.soumenroy.com/thank-you-cv.html");
+
+          const res = await fetch(endpoint, {
+            method: "POST",
+            body: fd,
+            headers: {
+              "Accept": "application/json"
+            }
+          });
+
+          if (res.ok) {
+            // success — redirect to your thank-you page
+            window.location.href = "https://www.soumenroy.com/thank-you-cv.html";
+            return;
+          } else {
+            // try to parse response for message (Formspree sometimes returns JSON)
+            let text = "Submission failed. Please try again.";
+            try {
+              const data = await res.json();
+              if (data && data.error) text = data.error;
+            } catch (err) { /* ignore JSON parse errors */ }
+            throw new Error(text);
+          }
+        } catch (err) {
+          console.error("Form submit error:", err);
+          message.textContent = err.message || "Submission failed — please try again later.";
+          message.className = "error";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Get Short CV";
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

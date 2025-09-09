@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 import nodemailer from "nodemailer";
 
 type Body = {
@@ -13,42 +14,62 @@ type Body = {
   downloadUrl?: string | null;
 };
 
-const CONTACTS_FILE = path.join(process.cwd(), "data", "contacts.json");
+// prefer project data path when writable (local dev); in prod fallback to tmp
+const PROJECT_CONTACTS = path.join(process.cwd(), "data", "contacts.json");
+const TMP_CONTACTS = path.join(os.tmpdir(), "contacts.json");
 
-// Ensure data folder and file exist
-function ensureDataFolder() {
-  const dir = path.dirname(CONTACTS_FILE);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  if (!fs.existsSync(CONTACTS_FILE)) fs.writeFileSync(CONTACTS_FILE, "[]");
+// helper: read JSON file safely
+function readJson(filePath: string) {
+  try {
+    if (!fs.existsSync(filePath)) return [];
+    const raw = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(raw || "[]");
+  } catch (e) {
+    console.warn("readJson error for", filePath, e);
+    return [];
+  }
 }
 
-// Append one record to contacts.json
-function appendContact(record: any) {
-  ensureDataFolder();
-  const raw = fs.readFileSync(CONTACTS_FILE, "utf8");
-  let arr = [];
-  try {
-    arr = JSON.parse(raw || "[]");
-  } catch {
-    arr = [];
+// helper: write JSON file safely
+function writeJson(filePath: string, arr: any[]) {
+  const dir = path.dirname(filePath);
+  if (!fs.existsSync(dir)) {
+    try {
+      fs.mkdirSync(dir, { recursive: true });
+    } catch (e) {
+      // ignore - may be read-only
+    }
   }
-  arr.push(record);
-  fs.writeFileSync(CONTACTS_FILE, JSON.stringify(arr, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(arr, null, 2));
+}
+
+// Try append to a candidate path; returns true if succeeded
+function tryAppendToFile(candidatePath: string, record: any): boolean {
+  try {
+    const arr = readJson(candidatePath);
+    arr.push(record);
+    writeJson(candidatePath, arr);
+    console.log(`Appended contact to ${candidatePath}`);
+    return true;
+  } catch (err: any) {
+    console.warn(`Failed to append to ${candidatePath}:`, err && err.code ? err.code : err);
+    return false;
+  }
 }
 
 // Send email using nodemailer (best-effort)
 async function sendEmailNotification(record: any) {
   const host = process.env.SMTP_HOST;
-  if (!host) return; // SMTP not configured — skip
+  if (!host) {
+    console.warn("SMTP not configured; skipping email notification.");
+    return;
+  }
 
-  // Prefer explicit NOTIFY_EMAIL, otherwise use SMTP_USER or EMAIL
   const to =
     process.env.NOTIFY_EMAIL || process.env.SMTP_USER || process.env.EMAIL || "";
 
   if (!to) {
-    console.warn(
-      "⚠️ Skipping email notification: no recipient (NOTIFY_EMAIL/SMTP_USER/EMAIL) configured."
-    );
+    console.warn("Skipping email notification: no recipient configured.");
     return;
   }
 
@@ -71,10 +92,7 @@ async function sendEmailNotification(record: any) {
     <p><strong>Email:</strong> ${record.email || "—"}</p>
     <p><strong>Contact:</strong> ${record.contact || "—"}</p>
     <p><strong>Subject:</strong> ${record.subject || "—"}</p>
-    <p><strong>Message:</strong><br/>${(record.message || "—").replace(
-      /\n/g,
-      "<br/>"
-    )}</p>
+    <p><strong>Message:</strong><br/>${(record.message || "—").replace(/\n/g, "<br/>")}</p>
     <p><strong>Download URL:</strong> ${record.downloadUrl || "—"}</p>
     <p><strong>Time:</strong> ${new Date(record.timestamp).toLocaleString()}</p>
   `;
@@ -113,19 +131,31 @@ export async function POST(req: Request) {
       timestamp: Date.now(),
     };
 
-    // Save locally
-    appendContact(record);
+    // First attempt: try appending to project data path (works locally)
+    let saved = tryAppendToFile(PROJECT_CONTACTS, record);
 
-    // Try to send notification email (don’t block if fails)
+    // If failed (likely read-only in production), try temp dir (ephemeral)
+    if (!saved) {
+      saved = tryAppendToFile(TMP_CONTACTS, record);
+      if (saved) {
+        console.warn(`Data saved to tmp path (${TMP_CONTACTS}) — note: this is ephemeral on serverless hosts.`);
+      }
+    }
+
+    if (!saved) {
+      console.warn("Could not persist contact to disk; continuing without file save.");
+    }
+
+    // try to send notification email; don't fail the request if email fails
     try {
       await sendEmailNotification(record);
     } catch (e) {
-      console.error("❌ Failed to send mail:", e);
+      console.error("Failed to send mail:", e);
     }
 
     return NextResponse.json({ ok: true });
   } catch (err: any) {
-    console.error("❌ contact route error:", err);
+    console.error("contact route error:", err);
     return NextResponse.json(
       { ok: false, error: err?.message || "unknown" },
       { status: 500 }

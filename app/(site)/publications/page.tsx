@@ -1,9 +1,10 @@
+// /app/publications/page.tsx
 "use client";
 
-import PublicationsWithLinks from "@/components/PublicationsWithLinks";
-
-// /app/publications/page.tsx
 import Link from "next/link";
+import { useState } from "react";
+import PublicationsWithLinks from "@/components/PublicationsWithLinks";
+import ContactForm from "@/components/ContactForm";
 import {
   NAME,
   ROLE,
@@ -12,7 +13,6 @@ import {
   RESUME_URL,
   DETAILED_RESUME_URL,
 } from "@/lib/constants";
-import { useState } from "react";
 
 export default function PublicationsPage() {
   // image paths — change if you stored images under different filenames
@@ -22,12 +22,21 @@ export default function PublicationsPage() {
   // local state to detect avatar load failure and show initials fallback
   const [avatarFailed, setAvatarFailed] = useState(false);
 
+  // state for download form modal
+  const [openDownloadForm, setOpenDownloadForm] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+
   const initials = NAME
     .split(" ")
     .map((n) => (n ? n[0] : ""))
     .slice(0, 2)
     .join("")
     .toUpperCase();
+
+  const openFormFor = (url: string) => {
+    setDownloadUrl(url);
+    setOpenDownloadForm(true);
+  };
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
@@ -69,19 +78,20 @@ export default function PublicationsPage() {
               Buy on Amazon →
             </a>
 
-            <Link
-              href={RESUME_URL as any}
+            {/* Buttons now open the contact/download form modal */}
+            <button
+              onClick={() => openFormFor(RESUME_URL as string)}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               Download CV
-            </Link>
+            </button>
 
-            <Link
-              href={DETAILED_RESUME_URL as any}
+            <button
+              onClick={() => openFormFor(DETAILED_RESUME_URL as string)}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               Download Detailed CV
-            </Link>
+            </button>
           </div>
         </div>
       </header>
@@ -216,6 +226,17 @@ export default function PublicationsPage() {
           Contact the author
         </Link>
       </div>
+
+      {/* Render the shared ContactForm modal when requested */}
+      {openDownloadForm && downloadUrl && (
+        <ContactForm
+          downloadUrl={downloadUrl}
+          onClose={() => {
+            setOpenDownloadForm(false);
+            setDownloadUrl(null);
+          }}
+        />
+      )}
     </div>
   );
 }

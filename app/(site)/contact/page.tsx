@@ -80,7 +80,8 @@ export default function ContactPage() {
             <h2 className="text-lg font-semibold mb-2">Send a message</h2>
             <p className="text-sm text-slate-400 mb-4">Fill this form — it will POST to <code>/api/contact</code> if you implement it, otherwise it falls back to your email client.</p>
 
-            <ContactForm />
+            {/* Render the form inline on this page (mode="page") */}
+            <ContactForm mode="page" />
           </div>
         </main>
       </div>

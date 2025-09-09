@@ -1,21 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/(site)/case-studies/executive-dashboards-scale/page": "app/(site)/case-studies/executive-dashboards-scale/page.js",
-  "/(site)/case-studies/grp/page": "app/(site)/case-studies/grp/page.js",
-  "/(site)/case-studies/manufacturing-analytics-roi/page": "app/(site)/case-studies/manufacturing-analytics-roi/page.js",
-  "/(site)/case-studies/microservices-reporting-platform/page": "app/(site)/case-studies/microservices-reporting-platform/page.js",
-  "/(site)/approach/page": "app/(site)/approach/page.js",
-  "/(site)/case-studies/page": "app/(site)/case-studies/page.js",
-  "/(site)/case-studies/tata-steel-digital-engineering/page": "app/(site)/case-studies/tata-steel-digital-engineering/page.js",
-  "/(site)/case-studies/tata-steel/page": "app/(site)/case-studies/tata-steel/page.js",
-  "/(site)/countries/page": "app/(site)/countries/page.js",
   "/(site)/experience/page": "app/(site)/experience/page.js",
-  "/(site)/platforms-built/page": "app/(site)/platforms-built/page.js",
-  "/(site)/publications/page": "app/(site)/publications/page.js",
-  "/(site)/case-studies/openlm/page": "app/(site)/case-studies/openlm/page.js",
-  "/(site)/talks/page": "app/(site)/talks/page.js",
-  "/(site)/teams-led/page": "app/(site)/teams-led/page.js",
-  "/(site)/transformations/page": "app/(site)/transformations/page.js",
   "/page": "app/page.js",
+  "/(site)/publications/page": "app/(site)/publications/page.js",
+  "/(site)/approach/page": "app/(site)/approach/page.js",
   "/(site)/contact/page": "app/(site)/contact/page.js"
 }

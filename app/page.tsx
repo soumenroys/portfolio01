@@ -1,16 +1,30 @@
+// /app/page.tsx
+"use client";
+
+import { useState } from "react";
 import Button from "@/components/Button";
 import StatBar from "@/components/StatBar";
 import Link from "next/link";
-
+import ContactForm from "@/components/ContactForm";
 import {
   NAME,
   ROLE,
   YEARS,
   LINKEDIN,
   EMAIL,
+  RESUME_URL,
+  DETAILED_RESUME_URL,
 } from "@/lib/constants";
 
 export default function HomePage() {
+  const [openDownloadForm, setOpenDownloadForm] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+
+  const openFormFor = (url: string) => {
+    setDownloadUrl(url);
+    setOpenDownloadForm(true);
+  };
+
   return (
     <div>
       <section className="text-center">
@@ -36,11 +50,15 @@ export default function HomePage() {
         </p>
 
         <div className="mt-6 flex gap-3 justify-center">
-          {/* Primary CV (form page instead of direct PDF) */}
-          <Button href="/cv.html">Download CV</Button>
+          {/* Primary CV (opens form modal) */}
+          <Button onClick={() => openFormFor(RESUME_URL as string)}>
+            Download CV
+          </Button>
 
-          {/* Detailed CV (form page instead of direct PDF) */}
-          <Button href="/detailed_cv.html">Download Detailed CV</Button>
+          {/* Detailed CV (opens form modal) */}
+          <Button onClick={() => openFormFor(DETAILED_RESUME_URL as string)}>
+            Download Detailed CV
+          </Button>
 
           {/* Book / contact */}
           <Button href="/contact" variant="outline">
@@ -107,6 +125,17 @@ export default function HomePage() {
           </a>
         ))}
       </section>
+
+      {/* Render ContactForm modal when a download is requested */}
+      {openDownloadForm && downloadUrl && (
+        <ContactForm
+          downloadUrl={downloadUrl}
+          onClose={() => {
+            setOpenDownloadForm(false);
+            setDownloadUrl(null);
+          }}
+        />
+      )}
     </div>
   );
 }

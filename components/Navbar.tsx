@@ -1,8 +1,9 @@
-'use client';
+// /components/Navbar.tsx
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDown,
@@ -29,12 +30,13 @@ type NavItem = {
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // refs for submenu items focus management (anchor elements)
-  const dropdownRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  // refs for submenu items focus management (now generic HTMLElements)
+  const dropdownRefs = useRef<Array<HTMLElement | null>>([]);
 
   const links: NavItem[] = [
     { href: "/", label: "Home", icon: <Home size={16} /> },
@@ -113,13 +115,14 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  // Keyboard nav inside dropdown
+  // Keyboard nav inside dropdown (works on focusable child elements)
   const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLAnchorElement>,
+    e: React.KeyboardEvent<HTMLElement>,
     parentIndex: number,
     childIndex?: number
   ) => {
-    if (e.key === "Enter" || e.key === " ") {
+    // When on parent (button), Enter/Space toggles dropdown
+    if ((e.key === "Enter" || e.key === " ") && childIndex === undefined) {
       if (links[parentIndex].children) {
         e.preventDefault();
         setActiveDropdown(parentIndex);
@@ -188,12 +191,13 @@ export default function Navbar() {
         className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between"
         aria-label="Main navigation"
       >
-        {/* Logo: single child wrapper span so Link gets a single child */}
-        <Link href="/" className="font-semibold tracking-tight">
-          <span className="font-semibold tracking-tight inline-flex items-center gap-1">
-            <span className="text-accent">Soumen</span>
-            <span>Roy</span>
-          </span>
+        {/* Logo: Link with content (single child) */}
+        <Link
+          href="/"
+          className="font-semibold tracking-tight inline-flex items-center gap-1"
+        >
+          <span className="text-accent">Soumen</span>
+          <span>Roy</span>
         </Link>
 
         {/* Desktop nav */}
@@ -220,6 +224,7 @@ export default function Navbar() {
                     }
                     aria-expanded={isOpen}
                     aria-haspopup="true"
+                    onKeyDown={(e) => handleKeyDown(e as any, index)}
                     className={`px-3 py-2 rounded-md transition font-medium inline-flex items-center gap-2 ${
                       isActive
                         ? "bg-accent text-white shadow-md"
@@ -247,23 +252,30 @@ export default function Navbar() {
                         transition={{ duration: 0.22, ease: "easeOut" }}
                         className="absolute mt-2 bg-slate-900 border border-slate-700 rounded-lg shadow-lg py-2 w-64 z-50"
                         role="menu"
-                        aria-label="Case Studies submenu"
+                        aria-label={`${item.label} submenu`}
                       >
                         {item.children!.map((child, childIndex) => {
                           const subActive = pathname === child.href;
                           return (
                             <li key={child.href} role="none">
-                              {/* Link must have exactly one child element -> wrapper span */}
-                              <Link
-                                href={child.href as any}
+                              {/* Focusable single element used instead of inner <a> */}
+                              <div
                                 role="menuitem"
-                                onClick={() => setActiveDropdown(null)}
-                                onKeyDown={(e) =>
-                                  handleKeyDown(e as any, index, childIndex)
-                                }
+                                tabIndex={0}
+                                onClick={() => {
+                                  setActiveDropdown(null);
+                                  router.push(child.href as any);
+                                }}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    setActiveDropdown(null);
+                                    router.push(child.href as any);
+                                  } else {
+                                    handleKeyDown(e as any, index, childIndex);
+                                  }
+                                }}
                                 ref={(el) => {
-                                  // Link forwards ref to anchor; store anchor ref for focus management
-                                  dropdownRefs.current[childIndex] = el as any;
+                                  dropdownRefs.current[childIndex] = el;
                                 }}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-md transition font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                                   subActive
@@ -271,11 +283,9 @@ export default function Navbar() {
                                     : "hover:bg-slate-800 hover:shadow-md"
                                 }`}
                               >
-                                <span className="flex items-center gap-2">
-                                  {child.icon}
-                                  <span>{child.label}</span>
-                                </span>
-                              </Link>
+                                {child.icon}
+                                <span>{child.label}</span>
+                              </div>
                             </li>
                           );
                         })}
@@ -296,11 +306,8 @@ export default function Navbar() {
                       : "hover:bg-slate-800 hover:shadow-md"
                   } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900`}
                 >
-                  {/* single wrapper so Link gets a single child */}
-                  <span className="inline-flex items-center gap-2">
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </span>
+                  {item.icon}
+                  <span>{item.label}</span>
                 </Link>
               </li>
             );
@@ -340,17 +347,15 @@ export default function Navbar() {
                 <div key={item.href}>
                   <Link
                     href={item.href as any}
-                    onClick={() => setMobileOpen(false)}
                     className={`block py-2 rounded-md font-medium inline-flex items-center gap-2 ${
                       isActive
                         ? "bg-accent text-white px-3 py-2 shadow-md"
                         : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
                     }`}
+                    onClick={() => setMobileOpen(false)}
                   >
-                    <span className="inline-flex items-center gap-2">
-                      {item.icon}
-                      <span>{item.label}</span>
-                    </span>
+                    {item.icon}
+                    <span>{item.label}</span>
                   </Link>
 
                   {item.children && (
@@ -358,21 +363,20 @@ export default function Navbar() {
                       {item.children.map((child) => {
                         const subActive = pathname === child.href;
                         return (
-                          <Link
-                            key={child.href}
-                            href={child.href as any}
-                            onClick={() => setMobileOpen(false)}
-                            className={`flex items-center gap-2 py-1 rounded-md ${
-                              subActive
-                                ? "bg-accent text-white px-3 py-2 shadow-md"
-                                : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
-                            }`}
-                          >
-                            <span className="inline-flex items-center gap-2">
+                          <div key={child.href}>
+                            <Link
+                              href={child.href as any}
+                              className={`flex items-center gap-2 py-1 rounded-md ${
+                                subActive
+                                  ? "bg-accent text-white px-3 py-2 shadow-md"
+                                  : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
+                              }`}
+                              onClick={() => setMobileOpen(false)}
+                            >
                               {child.icon}
                               <span>{child.label}</span>
-                            </span>
-                          </Link>
+                            </Link>
+                          </div>
                         );
                       })}
                     </div>

@@ -188,12 +188,12 @@ export default function Navbar() {
         className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between"
         aria-label="Main navigation"
       >
-        {/* Logo: single child <a> to satisfy Link */}
-        <Link href="/" legacyBehavior>
-          <a className="font-semibold tracking-tight inline-flex items-center gap-1">
+        {/* Logo: single child wrapper span so Link gets a single child */}
+        <Link href="/" className="font-semibold tracking-tight">
+          <span className="font-semibold tracking-tight inline-flex items-center gap-1">
             <span className="text-accent">Soumen</span>
             <span>Roy</span>
-          </a>
+          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -253,25 +253,28 @@ export default function Navbar() {
                           const subActive = pathname === child.href;
                           return (
                             <li key={child.href} role="none">
-                              <Link href={child.href as any} legacyBehavior>
-                                <a
-                                  role="menuitem"
-                                  onClick={() => setActiveDropdown(null)}
-                                  onKeyDown={(e) =>
-                                    handleKeyDown(e as any, index, childIndex)
-                                  }
-                                  ref={(el) => {
-                                    dropdownRefs.current[childIndex] = el;
-                                  }}
-                                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                                    subActive
-                                      ? "bg-accent text-white shadow-md"
-                                      : "hover:bg-slate-800 hover:shadow-md"
-                                  }`}
-                                >
+                              {/* Link must have exactly one child element -> wrapper span */}
+                              <Link
+                                href={child.href as any}
+                                role="menuitem"
+                                onClick={() => setActiveDropdown(null)}
+                                onKeyDown={(e) =>
+                                  handleKeyDown(e as any, index, childIndex)
+                                }
+                                ref={(el) => {
+                                  // Link forwards ref to anchor; store anchor ref for focus management
+                                  dropdownRefs.current[childIndex] = el as any;
+                                }}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-md transition font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
+                                  subActive
+                                    ? "bg-accent text-white shadow-md"
+                                    : "hover:bg-slate-800 hover:shadow-md"
+                                }`}
+                              >
+                                <span className="flex items-center gap-2">
                                   {child.icon}
                                   <span>{child.label}</span>
-                                </a>
+                                </span>
                               </Link>
                             </li>
                           );
@@ -285,17 +288,19 @@ export default function Navbar() {
 
             return (
               <li key={item.href}>
-                <Link href={item.href as any} legacyBehavior>
-                  <a
-                    className={`px-3 py-2 rounded-md transition font-medium inline-flex items-center gap-2 ${
-                      isActive
-                        ? "bg-accent text-white shadow-md"
-                        : "hover:bg-slate-800 hover:shadow-md"
-                    } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900`}
-                  >
+                <Link
+                  href={item.href as any}
+                  className={`px-3 py-2 rounded-md transition font-medium inline-flex items-center gap-2 ${
+                    isActive
+                      ? "bg-accent text-white shadow-md"
+                      : "hover:bg-slate-800 hover:shadow-md"
+                  } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900`}
+                >
+                  {/* single wrapper so Link gets a single child */}
+                  <span className="inline-flex items-center gap-2">
                     {item.icon}
                     <span>{item.label}</span>
-                  </a>
+                  </span>
                 </Link>
               </li>
             );
@@ -333,18 +338,19 @@ export default function Navbar() {
                   : pathname === item.href;
               return (
                 <div key={item.href}>
-                  <Link href={item.href as any} legacyBehavior>
-                    <a
-                      className={`block py-2 rounded-md font-medium inline-flex items-center gap-2 ${
-                        isActive
-                          ? "bg-accent text-white px-3 py-2 shadow-md"
-                          : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
-                      }`}
-                      onClick={() => setMobileOpen(false)}
-                    >
+                  <Link
+                    href={item.href as any}
+                    onClick={() => setMobileOpen(false)}
+                    className={`block py-2 rounded-md font-medium inline-flex items-center gap-2 ${
+                      isActive
+                        ? "bg-accent text-white px-3 py-2 shadow-md"
+                        : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
+                    }`}
+                  >
+                    <span className="inline-flex items-center gap-2">
                       {item.icon}
                       <span>{item.label}</span>
-                    </a>
+                    </span>
                   </Link>
 
                   {item.children && (
@@ -352,18 +358,20 @@ export default function Navbar() {
                       {item.children.map((child) => {
                         const subActive = pathname === child.href;
                         return (
-                          <Link key={child.href} href={child.href as any} legacyBehavior>
-                            <a
-                              className={`flex items-center gap-2 py-1 rounded-md ${
-                                subActive
-                                  ? "bg-accent text-white px-3 py-2 shadow-md"
-                                  : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
-                              }`}
-                              onClick={() => setMobileOpen(false)}
-                            >
+                          <Link
+                            key={child.href}
+                            href={child.href as any}
+                            onClick={() => setMobileOpen(false)}
+                            className={`flex items-center gap-2 py-1 rounded-md ${
+                              subActive
+                                ? "bg-accent text-white px-3 py-2 shadow-md"
+                                : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
+                            }`}
+                          >
+                            <span className="inline-flex items-center gap-2">
                               {child.icon}
                               <span>{child.label}</span>
-                            </a>
+                            </span>
                           </Link>
                         );
                       })}

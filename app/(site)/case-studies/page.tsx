@@ -19,14 +19,14 @@ const studies = [
     summary:
       "Industry 4.0 adoption with digitized shop-floor data, ROI dashboards, and cloud-native automation.",
   },
-] as const; // 👈 tells TS these are readonly constants
+] as const;
 
 export default function CaseStudies() {
   return (
     <article className="prose prose-invert max-w-none">
       <h1>Case Studies</h1>
       <p>
-        Selected projects that highlight my contributions to digital transformation, 
+        Selected projects that highlight my contributions to digital transformation,
         engineering modernization, and business impact.
       </p>
       <div className="mt-8 space-y-6">
@@ -36,7 +36,7 @@ export default function CaseStudies() {
             className="border border-slate-700 rounded-lg p-4 hover:border-accent transition"
           >
             <h2 className="text-xl font-semibold">
-              <Link href={s.href as any} className="hover:text-accent" legacyBehavior>
+              <Link href={s.href} className="hover:text-accent">
                 {s.title}
               </Link>
             </h2>

@@ -16,7 +16,7 @@ export default function StatBar() {
               href={href as any}
               className="rounded-2xl border border-white/10 p-4 hover:border-white/30 transition block text-center"
               aria-label={`View details for ${s.label}`}
-              legacyBehavior>
+            >
               <div className="text-2xl font-semibold text-accent">{s.value}</div>
               <div className="mt-2 flex items-center justify-center gap-3 text-2xl">
                 <span role="img" aria-label="India" className="drop-shadow-sm">
@@ -41,7 +41,7 @@ export default function StatBar() {
             href={href as any}
             className="rounded-2xl border border-white/10 p-4 hover:border-white/30 transition block text-center"
             aria-label={`View details for ${s.label}`}
-            legacyBehavior>
+          >
             <div className="text-2xl font-semibold text-accent">{s.value}</div>
             <div className="mt-3 text-sm text-slate-400">{s.label}</div>
           </Link>

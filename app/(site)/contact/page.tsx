@@ -1,4 +1,5 @@
 // app/(site)/contact/page.tsx
+import React, { Suspense } from "react";
 import Link from "next/link";
 import ContactForm from "../../../components/ContactForm";
 import {
@@ -16,10 +17,6 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  // NOTE: This is a Server Component (no "use client" here).
-  // The interactive logic (reading the query param and triggering downloads)
-  // should live in the client-side ContactForm component.
-
   // Use absolute links so navigation always goes to the contact page
   const shortResumeHref = `/contact?download=short#form`;
   const detailedResumeHref = `/contact?download=detailed#form`;
@@ -113,9 +110,12 @@ export default function ContactPage() {
               Fill this form — it will POST to <code>/api/contact</code> if you implement it, otherwise it falls back to your email client.
             </p>
 
-            {/* ContactForm should be a client component that reads the `download` query param
-                (e.g. via useSearchParams()) and shows the download flow after successful submit. */}
-            <ContactForm mode="page" />
+            {/* ContactForm is a client component (has "use client").
+                Wrap it in Suspense so Next can handle the CSR bailout for
+                useSearchParams() and similar client hooks. */}
+            <Suspense fallback={<div className="py-8 text-center text-slate-400">Loading form…</div>}>
+              <ContactForm mode="page" />
+            </Suspense>
           </div>
         </main>
       </div>

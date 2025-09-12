@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
@@ -33,7 +33,7 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // refs for submenu items focus management
+  // refs for submenu items focus management (anchor elements)
   const dropdownRefs = useRef<Array<HTMLAnchorElement | null>>([]);
 
   const links: NavItem[] = [
@@ -107,11 +107,9 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  // IMPORTANT: close dropdown and mobile menu when pathname changes (fixes your bug)
+  // Close dropdown and mobile menu when pathname changes
   useEffect(() => {
-    // close dropdown when route changes (covers Link clicks and programmatic navigation)
     setActiveDropdown(null);
-    // close mobile menu as well
     setMobileOpen(false);
   }, [pathname]);
 
@@ -190,9 +188,12 @@ export default function Navbar() {
         className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between"
         aria-label="Main navigation"
       >
-        {/* Logo */}
-        <Link href="/" className="font-semibold tracking-tight" legacyBehavior>
-          <span className="text-accent">Soumen</span> Roy
+        {/* Logo: single child <a> to satisfy Link */}
+        <Link href="/" legacyBehavior>
+          <a className="font-semibold tracking-tight inline-flex items-center gap-1">
+            <span className="text-accent">Soumen</span>
+            <span>Roy</span>
+          </a>
         </Link>
 
         {/* Desktop nav */}
@@ -226,7 +227,7 @@ export default function Navbar() {
                     } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900`}
                   >
                     {item.icon}
-                    {item.label}
+                    <span>{item.label}</span>
                     <motion.span
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.2 }}
@@ -252,24 +253,25 @@ export default function Navbar() {
                           const subActive = pathname === child.href;
                           return (
                             <li key={child.href} role="none">
-                              <Link
-                                href={child.href as any}
-                                role="menuitem"
-                                onClick={() => setActiveDropdown(null)}
-                                onKeyDown={(e) =>
-                                  handleKeyDown(e, index, childIndex)
-                                }
-                                ref={(el) => {
-                                  dropdownRefs.current[childIndex] = el;
-                                }}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-md transition font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                                  subActive
-                                    ? "bg-accent text-white shadow-md"
-                                    : "hover:bg-slate-800 hover:shadow-md"
-                                }`}
-                                legacyBehavior>
-                                {child.icon}
-                                {child.label}
+                              <Link href={child.href as any} legacyBehavior>
+                                <a
+                                  role="menuitem"
+                                  onClick={() => setActiveDropdown(null)}
+                                  onKeyDown={(e) =>
+                                    handleKeyDown(e as any, index, childIndex)
+                                  }
+                                  ref={(el) => {
+                                    dropdownRefs.current[childIndex] = el;
+                                  }}
+                                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
+                                    subActive
+                                      ? "bg-accent text-white shadow-md"
+                                      : "hover:bg-slate-800 hover:shadow-md"
+                                  }`}
+                                >
+                                  {child.icon}
+                                  <span>{child.label}</span>
+                                </a>
                               </Link>
                             </li>
                           );
@@ -283,16 +285,17 @@ export default function Navbar() {
 
             return (
               <li key={item.href}>
-                <Link
-                  href={item.href as any}
-                  className={`px-3 py-2 rounded-md transition font-medium inline-flex items-center gap-2 ${
-                    isActive
-                      ? "bg-accent text-white shadow-md"
-                      : "hover:bg-slate-800 hover:shadow-md"
-                  } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900`}
-                  legacyBehavior>
-                  {item.icon}
-                  {item.label}
+                <Link href={item.href as any} legacyBehavior>
+                  <a
+                    className={`px-3 py-2 rounded-md transition font-medium inline-flex items-center gap-2 ${
+                      isActive
+                        ? "bg-accent text-white shadow-md"
+                        : "hover:bg-slate-800 hover:shadow-md"
+                    } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900`}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </a>
                 </Link>
               </li>
             );
@@ -310,6 +313,7 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
+
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
@@ -329,35 +333,37 @@ export default function Navbar() {
                   : pathname === item.href;
               return (
                 <div key={item.href}>
-                  <Link
-                    href={item.href as any}
-                    className={`block py-2 rounded-md font-medium inline-flex items-center gap-2 ${
-                      isActive
-                        ? "bg-accent text-white px-3 py-2 shadow-md"
-                        : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
-                    }`}
-                    onClick={() => setMobileOpen(false)}
-                    legacyBehavior>
-                    {item.icon}
-                    {item.label}
+                  <Link href={item.href as any} legacyBehavior>
+                    <a
+                      className={`block py-2 rounded-md font-medium inline-flex items-center gap-2 ${
+                        isActive
+                          ? "bg-accent text-white px-3 py-2 shadow-md"
+                          : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
+                      }`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.icon}
+                      <span>{item.label}</span>
+                    </a>
                   </Link>
+
                   {item.children && (
                     <div className="pl-6 mt-2 space-y-1">
                       {item.children.map((child) => {
                         const subActive = pathname === child.href;
                         return (
-                          <Link
-                            key={child.href}
-                            href={child.href as any}
-                            className={`flex items-center gap-2 py-1 rounded-md ${
-                              subActive
-                                ? "bg-accent text-white px-3 py-2 shadow-md"
-                                : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
-                            }`}
-                            onClick={() => setMobileOpen(false)}
-                            legacyBehavior>
-                            {child.icon}
-                            {child.label}
+                          <Link key={child.href} href={child.href as any} legacyBehavior>
+                            <a
+                              className={`flex items-center gap-2 py-1 rounded-md ${
+                                subActive
+                                  ? "bg-accent text-white px-3 py-2 shadow-md"
+                                  : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
+                              }`}
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              {child.icon}
+                              <span>{child.label}</span>
+                            </a>
                           </Link>
                         );
                       })}

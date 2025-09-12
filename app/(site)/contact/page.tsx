@@ -15,14 +15,12 @@ export default function ContactPage() {
       <Link href="/" className="text-sm underline hover:text-accent mb-6 inline-block">
         ← Back to Home
       </Link>
-
       <header className="mb-6">
         <h1 className="text-3xl font-bold text-accent">Get in touch</h1>
         <p className="mt-2 text-slate-300">
           I consult on data platforms, Industry 4.0 and transformation programs. Use the form below to share a short brief and I’ll get back within 48 hours.
         </p>
       </header>
-
       <div className="grid md:grid-cols-2 gap-8">
         <aside className="space-y-6">
           <div className="rounded-2xl border border-white/10 p-6">
@@ -85,7 +83,6 @@ export default function ContactPage() {
           </div>
         </main>
       </div>
-
       <div className="mt-12 text-sm text-slate-500">
         <p>
           By contacting me you agree to share the information you provide for the purpose of evaluating a potential engagement. I will treat your information responsibly.

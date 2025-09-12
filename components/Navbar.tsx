@@ -191,7 +191,7 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <Link href="/" className="font-semibold tracking-tight">
+        <Link href="/" className="font-semibold tracking-tight" legacyBehavior>
           <span className="text-accent">Soumen</span> Roy
         </Link>
 
@@ -236,7 +236,6 @@ export default function Navbar() {
                       <ChevronDown size={16} />
                     </motion.span>
                   </button>
-
                   <AnimatePresence>
                     {isOpen && (
                       <motion.ul
@@ -268,7 +267,7 @@ export default function Navbar() {
                                     ? "bg-accent text-white shadow-md"
                                     : "hover:bg-slate-800 hover:shadow-md"
                                 }`}
-                              >
+                                legacyBehavior>
                                 {child.icon}
                                 {child.label}
                               </Link>
@@ -291,7 +290,7 @@ export default function Navbar() {
                       ? "bg-accent text-white shadow-md"
                       : "hover:bg-slate-800 hover:shadow-md"
                   } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900`}
-                >
+                  legacyBehavior>
                   {item.icon}
                   {item.label}
                 </Link>
@@ -311,7 +310,6 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
-
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
@@ -339,11 +337,10 @@ export default function Navbar() {
                         : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
                     }`}
                     onClick={() => setMobileOpen(false)}
-                  >
+                    legacyBehavior>
                     {item.icon}
                     {item.label}
                   </Link>
-
                   {item.children && (
                     <div className="pl-6 mt-2 space-y-1">
                       {item.children.map((child) => {
@@ -358,7 +355,7 @@ export default function Navbar() {
                                 : "hover:bg-slate-800 hover:shadow-md px-3 py-2"
                             }`}
                             onClick={() => setMobileOpen(false)}
-                          >
+                            legacyBehavior>
                             {child.icon}
                             {child.label}
                           </Link>

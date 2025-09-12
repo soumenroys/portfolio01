@@ -37,7 +37,12 @@ export default function Button({
   if (href) {
     // cast href to any to satisfy Next's Link typing
     return (
-      <Link href={href as any} className={classes} onClick={onClick} {...anchorProps}>
+      <Link
+        href={href as any}
+        className={classes}
+        onClick={onClick}
+        {...anchorProps}
+        legacyBehavior>
         {children}
       </Link>
     );

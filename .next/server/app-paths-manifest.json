@@ -1,3 +1,7 @@
 {
+  "/api/contact/route": "app/api/contact/route.js",
+  "/(site)/approach/page": "app/(site)/approach/page.js",
+  "/(site)/publications/page": "app/(site)/publications/page.js",
+  "/(site)/contact/page": "app/(site)/contact/page.js",
   "/page": "app/page.js"
 }

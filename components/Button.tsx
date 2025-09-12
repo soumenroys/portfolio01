@@ -1,4 +1,4 @@
-// components/Button.tsx
+// /components/Button.tsx
 "use client";
 
 import React from "react";
@@ -8,8 +8,8 @@ type Variant = "default" | "outline";
 
 export type Props = {
   children: React.ReactNode;
-  href?: string; // optional link target
-  onClick?: React.MouseEventHandler<HTMLElement>;
+  href?: string; // keep as string for easy use
+  onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   variant?: Variant;
   className?: string;
   buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -35,15 +35,13 @@ export default function Button({
   const classes = `${base} ${variants[variant]} ${className}`.trim();
 
   if (href) {
-    // Use Next.js <Link> directly without legacyBehavior
+    // Link must have a single child element. Wrap children in a span if they might be multiple nodes.
+    const content =
+      typeof children === "string" ? <span>{children}</span> : <span>{children}</span>;
+
     return (
-      <Link
-        href={href}
-        onClick={onClick as any}
-        className={classes}
-        {...(anchorProps as any)} // allow anchor-specific props like target, rel
-      >
-        {children}
+      <Link href={href as any} className={classes} onClick={onClick} {...anchorProps}>
+        {content}
       </Link>
     );
   }

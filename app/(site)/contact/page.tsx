@@ -1,8 +1,14 @@
 // app/(site)/contact/page.tsx
 import Link from "next/link";
-// IMPORTANT: relative import from app/(site)/contact -> project-root/components
 import ContactForm from "../../../components/ContactForm";
-import { NAME, ROLE, EMAIL, LINKEDIN, RESUME_URL } from "@/lib/constants";
+import {
+  NAME,
+  ROLE,
+  EMAIL,
+  LINKEDIN,
+  RESUME_URL,
+  DETAILED_RESUME_URL,
+} from "@/lib/constants";
 
 export const metadata = {
   title: "Contact — Soumen Roy",
@@ -10,30 +16,45 @@ export const metadata = {
 };
 
 export default function ContactPage() {
+  // NOTE: This is a Server Component (no "use client" here).
+  // The interactive logic (reading the query param and triggering downloads)
+  // should live in the client-side ContactForm component.
+
+  // Use absolute links so navigation always goes to the contact page
+  const shortResumeHref = `/contact?download=short#form`;
+  const detailedResumeHref = `/contact?download=detailed#form`;
+  const requestCallHref = `/contact?download=none#form`; // opens form without download
+
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
       <Link href="/" className="text-sm underline hover:text-accent mb-6 inline-block">
         ← Back to Home
       </Link>
+
       <header className="mb-6">
         <h1 className="text-3xl font-bold text-accent">Get in touch</h1>
         <p className="mt-2 text-slate-300">
           I consult on data platforms, Industry 4.0 and transformation programs. Use the form below to share a short brief and I’ll get back within 48 hours.
         </p>
       </header>
+
       <div className="grid md:grid-cols-2 gap-8">
+        {/* Sidebar */}
         <aside className="space-y-6">
           <div className="rounded-2xl border border-white/10 p-6">
             <h2 className="text-lg font-semibold">Direct contact</h2>
             <p className="mt-2 text-slate-300">
-              <strong>{NAME}</strong><br />
+              <strong>{NAME}</strong>
+              <br />
               <span className="text-sm text-slate-400">{ROLE}</span>
             </p>
 
             <div className="mt-4 space-y-2 text-sm">
               <div>
                 <span className="block text-xs text-slate-400">Email</span>
-                <a className="underline hover:text-accent" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+                <a className="underline hover:text-accent" href={`mailto:${EMAIL}`}>
+                  {EMAIL}
+                </a>
               </div>
 
               <div>
@@ -45,9 +66,18 @@ export default function ContactPage() {
 
               <div>
                 <span className="block text-xs text-slate-400">Resume</span>
-                <a className="underline hover:text-accent" href={RESUME_URL} download>
+                {/* Link opens form and sets download=short */}
+                <Link href={shortResumeHref} className="underline hover:text-accent">
                   Download CV (PDF)
-                </a>
+                </Link>
+              </div>
+
+              <div>
+                <span className="block text-xs text-slate-400">Detailed resume</span>
+                {/* Link opens form and sets download=detailed */}
+                <Link href={detailedResumeHref} className="underline hover:text-accent">
+                  Download Detailed CV (PDF)
+                </Link>
               </div>
             </div>
           </div>
@@ -58,13 +88,15 @@ export default function ContactPage() {
               If you’d like a short intro call, include preferred time windows and your timezone in the message. I’ll propose a 20-minute slot.
             </p>
             <div className="mt-4">
-              <a href="#form" className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition">
+              <Link
+                href={requestCallHref}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition"
+              >
                 Request 20-min intro
-              </a>
+              </Link>
             </div>
           </div>
 
-          {/* Polished one-line contact guidance */}
           <div className="rounded-2xl border border-white/10 p-6">
             <h4 className="text-md font-semibold text-accent mb-2">Getting started</h4>
             <p className="text-sm text-slate-400 leading-relaxed">
@@ -73,16 +105,21 @@ export default function ContactPage() {
           </div>
         </aside>
 
+        {/* Main content: form */}
         <main>
           <div id="form" className="rounded-2xl border border-white/10 p-6 bg-gradient-to-b from-transparent to-white/2">
             <h2 className="text-lg font-semibold mb-2">Send a message</h2>
-            <p className="text-sm text-slate-400 mb-4">Fill this form — it will POST to <code>/api/contact</code> if you implement it, otherwise it falls back to your email client.</p>
+            <p className="text-sm text-slate-400 mb-4">
+              Fill this form — it will POST to <code>/api/contact</code> if you implement it, otherwise it falls back to your email client.
+            </p>
 
-            {/* Render the form inline on this page (mode="page") */}
+            {/* ContactForm should be a client component that reads the `download` query param
+                (e.g. via useSearchParams()) and shows the download flow after successful submit. */}
             <ContactForm mode="page" />
           </div>
         </main>
       </div>
+
       <div className="mt-12 text-sm text-slate-500">
         <p>
           By contacting me you agree to share the information you provide for the purpose of evaluating a potential engagement. I will treat your information responsibly.

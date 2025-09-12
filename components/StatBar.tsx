@@ -8,42 +8,45 @@ export default function StatBar() {
       {STATS.map((s) => {
         const href = `/${s.slug ?? s.label.toLowerCase().replace(/\s+/g, "-")}`;
 
-        // Special rendering for Countries: show flag emojis
+        // Ensure Link has a single child element (wrap internal elements in one container)
         if (s.slug === "countries") {
           return (
             <Link
               key={s.label}
               href={href as any}
-              className="rounded-2xl border border-white/10 p-4 hover:border-white/30 transition block text-center"
               aria-label={`View details for ${s.label}`}
+              className="block rounded-2xl border border-white/10 p-4 hover:border-white/30 transition text-center"
             >
-              <div className="text-2xl font-semibold text-accent">{s.value}</div>
-              <div className="mt-2 flex items-center justify-center gap-3 text-2xl">
-                <span role="img" aria-label="India" className="drop-shadow-sm">
-                  🇮🇳
-                </span>
-                <span role="img" aria-label="Indonesia" className="drop-shadow-sm">
-                  🇮🇩
-                </span>
-                <span role="img" aria-label="Canada" className="drop-shadow-sm">
-                  🇨🇦
-                </span>
+              <div>
+                <div className="text-2xl font-semibold text-accent">{s.value}</div>
+                <div className="mt-2 flex items-center justify-center gap-3 text-2xl">
+                  <span role="img" aria-label="India" className="drop-shadow-sm">
+                    🇮🇳
+                  </span>
+                  <span role="img" aria-label="Indonesia" className="drop-shadow-sm">
+                    🇮🇩
+                  </span>
+                  <span role="img" aria-label="Canada" className="drop-shadow-sm">
+                    🇨🇦
+                  </span>
+                </div>
+                <div className="mt-3 text-sm text-slate-400">{s.label}</div>
               </div>
-              <div className="mt-3 text-sm text-slate-400">{s.label}</div>
             </Link>
           );
         }
 
-        // Default rendering for all other stats
         return (
           <Link
             key={s.label}
             href={href as any}
-            className="rounded-2xl border border-white/10 p-4 hover:border-white/30 transition block text-center"
             aria-label={`View details for ${s.label}`}
+            className="block rounded-2xl border border-white/10 p-4 hover:border-white/30 transition text-center"
           >
-            <div className="text-2xl font-semibold text-accent">{s.value}</div>
-            <div className="mt-3 text-sm text-slate-400">{s.label}</div>
+            <div>
+              <div className="text-2xl font-semibold text-accent">{s.value}</div>
+              <div className="mt-3 text-sm text-slate-400">{s.label}</div>
+            </div>
           </Link>
         );
       })}

@@ -1,8 +1,9 @@
-// /components/ContactForm.tsx
+// components/ContactForm.tsx
 "use client";
 
-import { useState } from "react";
-import { EMAIL } from "@/lib/constants";
+import { useEffect, useRef, useState } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { EMAIL, RESUME_URL, DETAILED_RESUME_URL } from "@/lib/constants";
 
 type FormState = {
   name: string;
@@ -13,16 +14,22 @@ type FormState = {
 };
 
 interface ContactFormProps {
-  downloadUrl?: string | null; // optional CV/Detailed CV link
-  onClose?: () => void;        // optional callback to close modal
-  mode?: "modal" | "page";     // render mode: modal (default) or page (inline)
+  downloadUrl?: string | null; // optional explicit CV/Detailed CV link (prop overrides query)
+  onClose?: () => void; // optional callback to close modal
+  mode?: "modal" | "page"; // render mode: modal (default) or page (inline)
 }
 
 export default function ContactForm({
-  downloadUrl = null,
+  downloadUrl: downloadUrlProp = null,
   onClose,
   mode = "modal",
 }: ContactFormProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
@@ -33,6 +40,59 @@ export default function ContactForm({
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<null | { ok: boolean; msg: string }>(null);
 
+  // resolved download URL (either from explicit prop or read from ?download=)
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(downloadUrlProp);
+
+  // Resolve query param into concrete download URL
+  useEffect(() => {
+    if (downloadUrlProp !== null) {
+      setDownloadUrl(downloadUrlProp);
+      return;
+    }
+
+    const qp = searchParams?.get?.("download") ?? null;
+    if (!qp) {
+      setDownloadUrl(null);
+      return;
+    }
+
+    const raw = qp.trim().toLowerCase();
+    if (raw === "detailed" || raw === "detail" || raw === "long") {
+      setDownloadUrl(DETAILED_RESUME_URL);
+      return;
+    }
+    if (raw === "resume" || raw === "short" || raw === "cv") {
+      setDownloadUrl(RESUME_URL);
+      return;
+    }
+    // allow passing absolute/relative path via query (e.g. ?download=/files/foo.pdf)
+    try {
+      const decoded = decodeURIComponent(qp);
+      if (decoded.startsWith("/")) {
+        setDownloadUrl(decoded);
+        return;
+      }
+    } catch {
+      // ignore decode errors
+    }
+
+    // fallback: no download
+    setDownloadUrl(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, downloadUrlProp]);
+
+  // If opened with ?download or #form, scroll the form into view on mount
+  useEffect(() => {
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    if (hash?.includes("#form") || searchParams?.get("download")) {
+      setTimeout(() => {
+        const el = document.getElementById("form") || formRef.current;
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 120);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function update<K extends keyof FormState>(k: K, v: FormState[K]) {
     setForm((s) => ({ ...s, [k]: v }));
     setStatus(null);
@@ -40,6 +100,7 @@ export default function ContactForm({
 
   const triggerDownload = (url: string) => {
     try {
+      // If same-origin, download attribute will prompt download; otherwise open in new tab
       const a = document.createElement("a");
       a.href = url;
       a.setAttribute("download", "");
@@ -52,25 +113,30 @@ export default function ContactForm({
     }
   };
 
+  // Remove the ?download query param while preserving hash (so reload won't re-trigger)
+  const clearDownloadQuery = () => {
+    try {
+      const hash = window.location.hash || "#form";
+      // router.replace() expects typed route; cast to any to avoid TS errors in app router
+      router.replace((pathname + hash) as any);
+    } catch {
+      // ignore errors
+    }
+  };
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus(null);
 
-    // Always require name and email
+    // always require name and email
     if (!form.name.trim() || !form.email.trim()) {
-      setStatus({
-        ok: false,
-        msg: "Please provide your name and email.",
-      });
+      setStatus({ ok: false, msg: "Please provide your name and email." });
       return;
     }
 
     // If not a download flow, require subject + message
     if (!downloadUrl && (!form.subject.trim() || !form.message.trim())) {
-      setStatus({
-        ok: false,
-        msg: "Please provide a subject and a short message.",
-      });
+      setStatus({ ok: false, msg: "Please provide a subject and a short message." });
       return;
     }
 
@@ -104,13 +170,20 @@ export default function ContactForm({
           : "Message sent — thank you! I'll respond shortly.",
       });
 
-      // trigger download if applicable
       if (downloadUrl) {
-        triggerDownload(downloadUrl);
+        // let success message render, then trigger download
+        setTimeout(() => {
+          triggerDownload(downloadUrl);
+          clearDownloadQuery();
+        }, 250);
+
         if (onClose) setTimeout(() => onClose(), 700);
+      } else {
+        // if user opened via a query like ?download=none, clear it after successful send
+        clearDownloadQuery();
       }
 
-      // reset form after success
+      // reset form
       setForm({ name: "", email: "", contact: "", subject: "", message: "" });
     } catch (err: any) {
       setStatus({ ok: false, msg: err?.message || "Something went wrong." });
@@ -119,9 +192,9 @@ export default function ContactForm({
     }
   }
 
-  // Shared form element
+  // Shared form JSX
   const formEl = (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form ref={formRef} id="form" onSubmit={handleSubmit} className="space-y-4">
       <div className="grid md:grid-cols-2 gap-4">
         <label className="block">
           <span className="text-sm text-slate-400">Your name</span>
@@ -224,7 +297,9 @@ export default function ContactForm({
         <div
           role="status"
           className={`mt-2 rounded-md p-3 ${
-            status.ok ? "bg-green-900/40 border border-green-700 text-green-200" : "bg-red-900/40 border border-red-700 text-red-200"
+            status.ok
+              ? "bg-green-900/40 border border-green-700 text-green-200"
+              : "bg-red-900/40 border border-red-700 text-red-200"
           }`}
         >
           {status.msg}
@@ -234,7 +309,10 @@ export default function ContactForm({
       {mode === "page" && (
         <p className="mt-4 text-xs text-slate-500">
           Privacy: I will only use the details you provide to reply about the enquiry. If you prefer not to share, email directly at{" "}
-          <a className="underline" href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+          <a className="underline" href={`mailto:${EMAIL}`}>
+            {EMAIL}
+          </a>
+          .
         </p>
       )}
     </form>
@@ -243,25 +321,17 @@ export default function ContactForm({
   if (mode === "modal") {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center">
-        {/* backdrop */}
-        <div
-          className="absolute inset-0 bg-black/60"
-          onClick={() => onClose && onClose()}
-        />
-
-        {/* modal content */}
+        <div className="absolute inset-0 bg-black/60" onClick={() => onClose && onClose()} />
         <div className="relative z-10 w-full max-w-md rounded-2xl p-6 bg-slate-900">
           <h3 className="text-lg font-semibold mb-4">
             {downloadUrl ? "Please fill your details to download" : "Send me a message"}
           </h3>
-
           {formEl}
         </div>
       </div>
     );
   }
 
-  // mode === "page" -> inline rendering for /contact page
   return (
     <div className="max-w-2xl mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6 text-accent">Contact me</h1>

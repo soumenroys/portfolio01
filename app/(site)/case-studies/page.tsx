@@ -1,3 +1,4 @@
+// app/(site)/case-studies/page.tsx
 import Link from "next/link";
 
 const studies = [
@@ -36,7 +37,7 @@ export default function CaseStudies() {
             className="border border-slate-700 rounded-lg p-4 hover:border-accent transition"
           >
             <h2 className="text-xl font-semibold">
-              <Link href={s.href} className="hover:text-accent">
+              <Link href={s.href as any} className="hover:text-accent">
                 {s.title}
               </Link>
             </h2>

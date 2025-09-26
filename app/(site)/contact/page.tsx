@@ -63,7 +63,6 @@ export default function ContactPage() {
 
               <div>
                 <span className="block text-xs text-slate-400">Resume</span>
-                {/* Link opens form and sets download=short */}
                 <Link href={shortResumeHref} className="underline hover:text-accent">
                   Download CV (PDF)
                 </Link>
@@ -71,7 +70,6 @@ export default function ContactPage() {
 
               <div>
                 <span className="block text-xs text-slate-400">Detailed resume</span>
-                {/* Link opens form and sets download=detailed */}
                 <Link href={detailedResumeHref} className="underline hover:text-accent">
                   Download Detailed CV (PDF)
                 </Link>
@@ -107,12 +105,10 @@ export default function ContactPage() {
           <div id="form" className="rounded-2xl border border-white/10 p-6 bg-gradient-to-b from-transparent to-white/2">
             <h2 className="text-lg font-semibold mb-2">Send a message</h2>
             <p className="text-sm text-slate-400 mb-4">
-              Fill this form — it will POST to <code>/api/contact</code> if you implement it, otherwise it falls back to your email client.
+              Share your project details or inquiry along with your contact information.  
+              I typically respond within 24–48 hours.
             </p>
 
-            {/* ContactForm is a client component (has "use client").
-                Wrap it in Suspense so Next can handle the CSR bailout for
-                useSearchParams() and similar client hooks. */}
             <Suspense fallback={<div className="py-8 text-center text-slate-400">Loading form…</div>}>
               <ContactForm mode="page" />
             </Suspense>

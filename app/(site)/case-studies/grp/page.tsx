@@ -1,8 +1,6 @@
-"use client";
-
-// /app/case-studies/grp/page.tsx
+// /app/(site)/case-studies/grp/page.tsx
 import Link from "next/link";
-import { useState } from "react";
+import LightboxGallery from "@/components/LightboxGallery";
 
 export default function GRPCaseStudy() {
   // Update these with the actual filenames you save under /public/images/case-studies/grp/
@@ -18,17 +16,18 @@ export default function GRPCaseStudy() {
     "Operations analytics dashboard — real-time KPIs",
   ];
 
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      {/* Back to home link */}
-      <Link href="/" className="text-sm underline hover:text-accent mb-6 inline-block">
-        ← Back to Home
+      {/* Back to Case Studies */}
+      <Link
+        href="/case-studies"
+        className="text-sm underline hover:text-accent mb-6 inline-block"
+      >
+        ← Back to Case Studies
       </Link>
 
       {/* Title */}
-      <h1 className="text-3xl font-bold mb-6 text-accent">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-accent">
         GRP (Gunung Raja Paksi) — Manufacturing Modernization & Industry 4.0
       </h1>
 
@@ -42,7 +41,7 @@ export default function GRPCaseStudy() {
       <section className="space-y-8 text-slate-400">
         {/* Key Contributions */}
         <article>
-          <h2 className="text-xl font-semibold text-accent">Key Contributions</h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-accent">Key Contributions</h2>
           <ul className="list-disc pl-6 mt-2 space-y-2 text-sm">
             <li>
               <strong>Cross-functional program leadership:</strong> managed engineering, OT, IT and analytics teams to deliver plant modernization roadmaps.
@@ -64,7 +63,7 @@ export default function GRPCaseStudy() {
 
         {/* Context & Challenges */}
         <article>
-          <h2 className="text-xl font-semibold text-accent">Context & Challenges</h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-accent">Context & Challenges</h2>
           <p className="mt-2 text-sm">
             GRP operated multiple brownfield facilities with heterogeneous control systems and fragmented reporting. Key challenges included:
           </p>
@@ -78,7 +77,7 @@ export default function GRPCaseStudy() {
 
         {/* Approach */}
         <article>
-          <h2 className="text-xl font-semibold text-accent">Approach</h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-accent">Approach</h2>
           <p className="mt-2 text-sm">
             The program used a phased, risk-managed approach:
           </p>
@@ -92,7 +91,7 @@ export default function GRPCaseStudy() {
 
         {/* Solution & Tech */}
         <article>
-          <h2 className="text-xl font-semibold text-accent">Solution & Technology</h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-accent">Solution & Technology</h2>
           <p className="mt-2 text-sm">
             Delivered an integrated stack combining OT adapters, streaming ingestion, curated serving layer and BI/visualization:
           </p>
@@ -107,7 +106,7 @@ export default function GRPCaseStudy() {
 
         {/* Impact & Outcomes */}
         <article>
-          <h2 className="text-xl font-semibold text-accent">Business Impact</h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-accent">Business Impact</h2>
           <ul className="list-disc pl-6 mt-2 space-y-2 text-sm">
             <li>Reduced scrap rates by identifying process drivers — measurable material cost savings.</li>
             <li>Improved first-time yield and throughput through focused operator interventions and predictive alerts.</li>
@@ -116,87 +115,26 @@ export default function GRPCaseStudy() {
           </ul>
         </article>
 
-        {/* Image gallery */}
+        {/* Image gallery (shared Lightbox) */}
         <article>
-          <h2 className="text-xl font-semibold text-accent">Selected Visuals</h2>
+          <h2 className="text-xl md:text-2xl font-semibold text-accent">Selected Visuals</h2>
           <p className="mt-2 text-sm text-slate-300">Click any image to enlarge.</p>
 
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {images.map((src, idx) => (
-              <button
-                key={src}
-                onClick={() => setLightboxIndex(idx)}
-                className="group relative block overflow-hidden rounded-lg border border-white/10 p-0"
-                aria-label={captions[idx] ?? `GRP image ${idx + 1}`}
-              >
-                <div style={{ width: "100%", height: 160, position: "relative", overflow: "hidden" }}>
-                  <img
-                    src={src}
-                    alt={captions[idx] ?? `GRP image ${idx + 1}`}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src =
-                        "/images/case-studies/grp/placeholder.png";
-                    }}
-                  />
-                </div>
-                <div className="p-3 text-sm text-slate-300">{captions[idx]}</div>
-              </button>
-            ))}
-          </div>
-
-          {/* Lightbox modal */}
-          {typeof lightboxIndex === "number" && (
-            <div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
-              role="dialog"
-              aria-modal="true"
-              onClick={() => setLightboxIndex(null)}
-            >
-              <div
-                className="relative w-full max-w-4xl max-h-full"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button
-                  onClick={() => setLightboxIndex(null)}
-                  className="absolute top-3 right-3 z-50 rounded-full bg-black/50 px-3 py-1 text-white"
-                  aria-label="Close image"
-                >
-                  ✕
-                </button>
-
-                <div style={{ width: "100%", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <img
-                    src={images[lightboxIndex]}
-                    alt={captions[lightboxIndex] ?? `GRP image ${lightboxIndex + 1}`}
-                    style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src =
-                        "/images/case-studies/grp/placeholder.png";
-                    }}
-                  />
-                </div>
-
-                <p className="mt-3 text-center text-sm text-slate-300">
-                  {captions[lightboxIndex]}
-                </p>
-              </div>
-            </div>
-          )}
+          <LightboxGallery images={images} captions={captions} />
         </article>
 
-        {/* CTA Buttons */}
-        <div className="mt-10 flex gap-4">
+        {/* CTA Buttons – unified with other case study pages */}
+        <div className="mt-10 flex flex-wrap gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition"
+            className="inline-flex items-center rounded-lg bg-accent px-5 py-2 text-sm font-medium text-black hover:bg-accent/90 transition"
           >
             Explore how Industry 4.0 modernization can improve plant performance →
           </Link>
 
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+            className="inline-flex items-center rounded-lg border border-accent px-5 py-2 text-sm font-medium text-accent hover:bg-accent hover:text-black transition"
           >
             Book a 20-min Intro
           </Link>

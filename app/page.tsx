@@ -28,25 +28,42 @@ export default function HomePage() {
   return (
     <div>
       <section className="text-center">
+        {/* Credibility strip (optional, subtle) */}
+        <p className="text-xs md:text-sm text-slate-400 mb-2">
+          Trusted by leaders across manufacturing & software — India & APAC
+        </p>
+
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
           {NAME} — <span className="text-accent">{ROLE}</span>
         </h1>
 
-        {/* Tagline with clickable link */}
-        <p className="mt-3 text-slate-300">
-          I have delivered{" "}
-          <Link
-            href="/transformations"
-            className="underline hover:text-accent"
-          >
-            10+ transformations
-          </Link>{" "}
-          across industries with measurable ROI.
+        {/* Executive sub-headline */}
+        <p className="mt-3 text-slate-300 md:text-lg">
+          {YEARS}+ years aligning technology with business outcomes: scaling data
+          platforms, modernizing engineering, and delivering measurable ROI for
+          enterprises.
         </p>
 
-        <p className="mt-2 text-slate-400">
-          {YEARS} of experience scaling data platforms, modernizing engineering,
-          and delivering measurable ROI across India & APAC.
+        {/* Positioning line */}
+        <p className="mt-1 text-slate-400">
+          From <span className="font-medium text-slate-200">Steel to SaaS</span> — strategy to execution for C-suite impact.
+        </p>
+
+        {/* Author badge */}
+        <div className="inline-flex items-center gap-2 mt-4 rounded-full border border-white/10 bg-white/5 px-4 py-1.5">
+          <span className="text-xs uppercase tracking-wide text-slate-400">Author</span>
+          <span className="text-sm text-slate-200">
+            “Mastering 3D Plant Engineering, Digitalisation & Automation”
+          </span>
+        </div>
+
+        {/* Impact teaser linking to transformations */}
+        <p className="mt-4 text-slate-300">
+          I’ve delivered{" "}
+          <Link href="/transformations" className="underline hover:text-accent">
+            10+ enterprise transformations
+          </Link>{" "}
+          with clear ROI and executive adoption.
         </p>
 
         <div className="mt-6 flex gap-3 justify-center">
@@ -60,9 +77,9 @@ export default function HomePage() {
             Download Detailed CV
           </Button>
 
-          {/* Book / contact */}
-          <Button href="/contact" variant="outline">
-            Book a 20-min Intro
+          {/* Executive discussion CTA - now primary */}
+          <Button href="/contact" variant="primary">
+            Schedule an Executive Discussion
           </Button>
         </div>
 
@@ -89,25 +106,25 @@ export default function HomePage() {
           {
             title: "Microservices Reporting Platform",
             context:
-              "From monolith to microservices for enterprise reporting (Kafka, Spark, S3/MinIO).",
+              "Enterprise reporting re-architected from monolith to microservices (Kafka, Spark, S3/MinIO).",
             result:
-              "Cut report latency from hours to minutes; multi-tenant analytics live across regions.",
+              "Reduced latency from hours to near-real-time; enabled multi-tenant analytics and faster C-suite decisions across regions.",
             href: "/case-studies/microservices-reporting-platform",
           },
           {
             title: "Manufacturing Analytics ROI",
             context:
-              "Analytics-driven procurement and scrap cost prediction in heavy industry.",
+              "Predictive analytics for procurement and scrap cost in heavy industry; governed data for plant operations.",
             result:
-              "Material cost savings and faster decision cycles for plant operations.",
+              "Material cost reductions and shorter decision cycles; measurable bottom-line impact with transparent metrics.",
             href: "/case-studies/manufacturing-analytics-roi",
           },
           {
             title: "Executive Dashboards at Scale",
             context:
-              "Power BI/QuickSight roll-out with governed datasets and semantic models.",
+              "Power BI / QuickSight with governed datasets and semantic models; change management for leadership adoption.",
             result:
-              "C-suite adoption; measurable business outcomes with trusted metrics.",
+              "Standardized KPI definitions; C-suite adoption and confident, data-driven reviews across business units.",
             href: "/case-studies/executive-dashboards-scale",
           },
         ].map((card) => (

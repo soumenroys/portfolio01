@@ -1,50 +1,78 @@
-// app/(site)/case-studies/page.tsx
+// /app/(site)/case-studies/page.tsx
 import Link from "next/link";
+import type { Route } from "next";
+
+export const metadata = {
+  title: "Case Studies",
+  description:
+    "Selected case studies across BIM, Industry 4.0, and SaaS optimization — including Tata Steel, GRP, OpenLM, and M. N. Dastur.",
+};
 
 const studies = [
   {
     href: "/case-studies/tata-steel",
-    title: "Tata Steel Digital Engineering",
-    summary:
-      "Modernization of engineering processes with Industry 4.0 workflows and advanced analytics.",
+    title: "Tata Steel — Digital Engineering Transformation",
+    blurb:
+      "Drones, LiDAR, photogrammetry, GIS, and BIM — reduced rework and accelerated engineering at scale.",
+    image: "/images/case-studies/tata-steel/drone-survey.png",
   },
   {
     href: "/case-studies/openlm",
-    title: "OpenLM Reporting Modernization",
-    summary:
-      "Microservices-driven reporting platform delivering real-time analytics and multi-tenancy.",
+    title: "OpenLM — Reporting & License Optimization",
+    blurb:
+      "Telemetry, automation, and policy-driven reclamation to cut license waste and improve governance.",
+    image: "/images/case-studies/openlm/license_monitoring.png",
   },
   {
     href: "/case-studies/grp",
-    title: "GRP Manufacturing Analytics ROI",
-    summary:
-      "Industry 4.0 adoption with digitized shop-floor data, ROI dashboards, and cloud-native automation.",
+    title: "GRP — Manufacturing Modernization & Industry 4.0",
+    blurb:
+      "OT/IT convergence, real-time analytics, and predictive insights to improve yield and throughput.",
+    image: "/images/case-studies/grp/plant-overview.png",
   },
-] as const;
+  {
+    href: "/case-studies/mn-dastur-bim",
+    title: "M. N. Dastur — BIM Transformation at Scale",
+    blurb:
+      "Converted 50+ years of classical 2D engineering to BIM-based virtual engineering across 32 disciplines.",
+    image: "/images/bim-collaboration.jpg", // ensure this file exists
+  },
+] as const satisfies ReadonlyArray<{
+  href: Route;
+  title: string;
+  blurb: string;
+  image: string;
+}>;
 
 export default function CaseStudies() {
   return (
-    <article className="prose prose-invert max-w-none">
-      <h1>Case Studies</h1>
-      <p>
-        Selected projects that highlight my contributions to digital transformation,
-        engineering modernization, and business impact.
+    <div className="max-w-5xl mx-auto py-12 px-6">
+      <h1 className="text-3xl md:text-4xl font-bold text-accent">Case Studies</h1>
+      <p className="mt-3 text-slate-300">
+        Selected initiatives that delivered measurable impact — from cost reduction and efficiency gains to enterprise adoption of digital platforms.
       </p>
-      <div className="mt-8 space-y-6">
+
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
         {studies.map((s) => (
-          <div
+          <Link
             key={s.href}
-            className="border border-slate-700 rounded-lg p-4 hover:border-accent transition"
+            href={s.href}
+            className="block rounded-lg border border-white/10 overflow-hidden hover:bg-white/5 transition"
           >
-            <h2 className="text-xl font-semibold">
-              <Link href={s.href as any} className="hover:text-accent">
-                {s.title}
-              </Link>
-            </h2>
-            <p className="text-slate-300">{s.summary}</p>
-          </div>
+            <div style={{ width: "100%", height: 160, position: "relative", overflow: "hidden" }}>
+              <img
+                src={s.image}
+                alt={s.title}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-accent">{s.title}</h3>
+              <p className="mt-1 text-sm text-slate-300">{s.blurb}</p>
+            </div>
+          </Link>
         ))}
       </div>
-    </article>
+    </div>
   );
 }

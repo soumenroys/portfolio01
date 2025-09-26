@@ -48,6 +48,8 @@ export default function Navbar() {
         { href: "/case-studies/tata-steel", label: "Tata Steel", icon: <Factory size={16} /> },
         { href: "/case-studies/openlm", label: "OpenLM", icon: <BarChart3 size={16} /> },
         { href: "/case-studies/grp", label: "GRP", icon: <Database size={16} /> },
+        // Updated label: removed "(BIM)"
+        { href: "/case-studies/mn-dastur-bim", label: "M. N. Dastur", icon: <Factory size={16} /> },
       ],
     },
     { href: "/experience", label: "Experience", icon: <Briefcase size={16} /> },

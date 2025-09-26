@@ -4,11 +4,11 @@
 import React from "react";
 import Link from "next/link";
 
-type Variant = "default" | "outline";
+type Variant = "primary" | "secondary" | "outline";
 
 export type Props = {
   children: React.ReactNode;
-  href?: string; // keep as string for easy use
+  href?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   variant?: Variant;
   className?: string;
@@ -20,27 +20,34 @@ export default function Button({
   children,
   href,
   onClick,
-  variant = "default",
+  variant = "secondary",
   className = "",
   buttonProps,
   anchorProps,
 }: Props) {
   const base =
-    "inline-flex items-center gap-2 px-4 py-2 rounded-2xl font-medium transition";
+    "inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black";
   const variants: Record<Variant, string> = {
-    default: "bg-accent text-black hover:opacity-95",
-    outline: "border border-white/10 text-sm hover:bg-white/5",
+    primary:
+      "bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-md hover:shadow-lg hover:opacity-95",
+    secondary: "bg-accent text-black hover:opacity-95",
+    outline:
+      "border border-white/20 text-sm text-slate-200 hover:bg-white/5 hover:border-accent",
   };
 
   const classes = `${base} ${variants[variant]} ${className}`.trim();
 
   if (href) {
-    // Link must have a single child element. Wrap children in a span if they might be multiple nodes.
     const content =
       typeof children === "string" ? <span>{children}</span> : <span>{children}</span>;
 
     return (
-      <Link href={href as any} className={classes} onClick={onClick} {...anchorProps}>
+      <Link
+        href={href as any}
+        className={classes}
+        onClick={onClick}
+        {...anchorProps}
+      >
         {content}
       </Link>
     );

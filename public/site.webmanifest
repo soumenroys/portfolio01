@@ -1,0 +1,14 @@
+{
+  "name": "Soumen Roy — Portfolio",
+  "short_name": "Soumen Roy",
+  "description": "Engineering leader in Digital Transformation & 3D Plant Engineering.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0f1a",
+  "theme_color": "#0b0f1a",
+  "icons": [
+  { "src": "/android-chrome-192x192.png?v=2", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+  { "src": "/android-chrome-512x512.png?v=2", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -2,6 +2,33 @@
 import Link from "next/link";
 import LightboxGallery from "@/components/LightboxGallery";
 
+import type { Metadata } from "next";
+import { canonical } from "@/lib/seo";
+import { NAME } from "@/lib/constants";
+
+const OG = "/og/case-studies/tata-steel.png"; // 1200×630 (optional). If missing, keep site.ogDefault instead.
+
+export const metadata: Metadata = {
+  title: `Tata Steel — Digital Engineering Transformation | ${NAME}`,
+  description:
+    "Drones, LiDAR, photogrammetry, GIS, and BIM: reduced rework, accelerated engineering delivery, and enabled data-driven decisions.",
+  alternates: { canonical: canonical("/case-studies/tata-steel") },
+  openGraph: {
+    url: canonical("/case-studies/tata-steel"),
+    title: `Tata Steel — Digital Engineering Transformation | ${NAME}`,
+    description:
+      "Drones, LiDAR, photogrammetry, GIS, and BIM: reduced rework, accelerated engineering delivery, and enabled data-driven decisions.",
+    images: [{ url: OG, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Tata Steel — Digital Engineering Transformation | ${NAME}`,
+    description:
+      "Drones, LiDAR, photogrammetry, GIS, and BIM: reduced rework and accelerated engineering.",
+    images: [OG],
+  },
+};
+
 export default function TataSteelCaseStudy() {
   // ✅ PNG file paths in /public/images/case-studies/tata-steel/
   const images = [

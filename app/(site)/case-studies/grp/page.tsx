@@ -2,6 +2,33 @@
 import Link from "next/link";
 import LightboxGallery from "@/components/LightboxGallery";
 
+import type { Metadata } from "next";
+import { canonical } from "@/lib/seo";
+import { NAME } from "@/lib/constants";
+
+const OG = "/og/case-studies/grp.png"; // optional per-page OG image
+
+export const metadata: Metadata = {
+  title: `GRP — Manufacturing Modernization & Industry 4.0 | ${NAME}`,
+  description:
+    "OT/IT convergence, real-time analytics, and predictive insights to improve yield, throughput, and reliability.",
+  alternates: { canonical: canonical("/case-studies/grp") },
+  openGraph: {
+    url: canonical("/case-studies/grp"),
+    title: `GRP — Manufacturing Modernization & Industry 4.0 | ${NAME}`,
+    description:
+      "OT/IT convergence, real-time analytics, and predictive insights to improve yield and throughput.",
+    images: [{ url: OG, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `GRP — Manufacturing Modernization & Industry 4.0 | ${NAME}`,
+    description:
+      "Analytics-driven improvements in yield, throughput, and reliability.",
+    images: [OG],
+  },
+};
+
 export default function GRPCaseStudy() {
   // Update these with the actual filenames you save under /public/images/case-studies/grp/
   const images = [

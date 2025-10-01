@@ -1,11 +1,29 @@
 // /app/(site)/case-studies/page.tsx
+import type { Metadata, Route } from "next";
 import Link from "next/link";
-import type { Route } from "next";
+import Image from "next/image";
+import { canonical, site } from "@/lib/seo";
+import { NAME } from "@/lib/constants";
 
-export const metadata = {
-  title: "Case Studies",
+export const metadata: Metadata = {
+  title: `Case Studies | ${NAME}`,
   description:
     "Selected case studies across BIM, Industry 4.0, and SaaS optimization — including Tata Steel, GRP, OpenLM, and M. N. Dastur.",
+  alternates: { canonical: canonical("/case-studies") },
+  openGraph: {
+    url: canonical("/case-studies"),
+    title: `Case Studies | ${NAME}`,
+    description:
+      "Selected case studies across BIM, Industry 4.0, and SaaS optimization — including Tata Steel, GRP, OpenLM, and M. N. Dastur.",
+    images: [{ url: site.ogDefault, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Case Studies | ${NAME}`,
+    description:
+      "Selected case studies across BIM, Industry 4.0, and SaaS optimization — including Tata Steel, GRP, OpenLM, and M. N. Dastur.",
+    images: [site.ogDefault],
+  },
 };
 
 const studies = [
@@ -49,7 +67,8 @@ export default function CaseStudies() {
     <div className="max-w-5xl mx-auto py-12 px-6">
       <h1 className="text-3xl md:text-4xl font-bold text-accent">Case Studies</h1>
       <p className="mt-3 text-slate-300">
-        Selected initiatives that delivered measurable impact — from cost reduction and efficiency gains to enterprise adoption of digital platforms.
+        Selected initiatives that delivered measurable impact — from cost reduction and efficiency gains
+        to enterprise adoption of digital platforms.
       </p>
 
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -59,11 +78,14 @@ export default function CaseStudies() {
             href={s.href}
             className="block rounded-lg border border-white/10 overflow-hidden hover:bg-white/5 transition"
           >
-            <div style={{ width: "100%", height: 160, position: "relative", overflow: "hidden" }}>
-              <img
+            <div className="relative w-full" style={{ aspectRatio: "16 / 9" }}>
+              <Image
                 src={s.image}
                 alt={s.title}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                fill
+                sizes="(max-width: 640px) 100vw, 50vw"
+                priority={false}
+                className="object-cover"
               />
             </div>
             <div className="p-4">

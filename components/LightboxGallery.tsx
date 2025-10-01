@@ -1,6 +1,8 @@
+// components/LightboxGallery.tsx
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type Props = {
   images: string[];
@@ -22,7 +24,8 @@ export default function LightboxGallery({
     if (index === null) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIndex(null);
-      if (e.key === "ArrowRight") setIndex((i) => (i === null ? 0 : (i + 1) % images.length));
+      if (e.key === "ArrowRight")
+        setIndex((i) => (i === null ? 0 : (i + 1) % images.length));
       if (e.key === "ArrowLeft")
         setIndex((i) => (i === null ? 0 : (i - 1 + images.length) % images.length));
     };
@@ -48,12 +51,20 @@ export default function LightboxGallery({
             aria-label={captions[i] ?? `Image ${i + 1}`}
           >
             <div
-              style={{ width: "100%", height: thumbHeight, position: "relative", overflow: "hidden" }}
+              style={{
+                width: "100%",
+                height: thumbHeight,
+                position: "relative",
+                overflow: "hidden",
+              }}
             >
-              <img
+              <Image
                 src={src}
                 alt={captions[i] ?? `Image ${i + 1}`}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+                className="object-cover transition group-hover:scale-[1.02]"
               />
             </div>
             {captions[i] && (
@@ -88,14 +99,20 @@ export default function LightboxGallery({
             {images.length > 1 && (
               <>
                 <button
-                  onClick={() => setIndex((i) => (i === null ? 0 : (i - 1 + images.length) % images.length))}
+                  onClick={() =>
+                    setIndex((i) =>
+                      i === null ? 0 : (i - 1 + images.length) % images.length
+                    )
+                  }
                   className="absolute left-2 top-1/2 -translate-y-1/2 z-50 rounded-full bg-black/60 px-3 py-2 text-white"
                   aria-label="Previous image"
                 >
                   ‹
                 </button>
                 <button
-                  onClick={() => setIndex((i) => (i === null ? 0 : (i + 1) % images.length))}
+                  onClick={() =>
+                    setIndex((i) => (i === null ? 0 : (i + 1) % images.length))
+                  }
                   className="absolute right-2 top-1/2 -translate-y-1/2 z-50 rounded-full bg-black/60 px-3 py-2 text-white"
                   aria-label="Next image"
                 >
@@ -107,12 +124,15 @@ export default function LightboxGallery({
             {/* Image */}
             <div
               className="flex items-center justify-center"
-              style={{ width: "100%", height: "70vh" }}
+              style={{ width: "100%", height: "70vh", position: "relative" }}
             >
-              <img
+              <Image
                 src={images[index]}
                 alt={captions[index] ?? `Image ${index + 1}`}
-                style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+                fill
+                sizes="100vw"
+                priority
+                className="object-contain"
               />
             </div>
 

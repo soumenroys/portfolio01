@@ -2,6 +2,33 @@
 import Link from "next/link";
 import LightboxGallery from "@/components/LightboxGallery";
 
+import type { Metadata } from "next";
+import { canonical } from "@/lib/seo";
+import { NAME } from "@/lib/constants";
+
+const OG = "/og/case-studies/openlm.png"; // optional per-page OG image
+
+export const metadata: Metadata = {
+  title: `OpenLM — Reporting & License Optimization | ${NAME}`,
+  description:
+    "Telemetry-driven reporting, policy-based reclamation, and automation to cut license waste and improve governance.",
+  alternates: { canonical: canonical("/case-studies/openlm") },
+  openGraph: {
+    url: canonical("/case-studies/openlm"),
+    title: `OpenLM — Reporting & License Optimization | ${NAME}`,
+    description:
+      "Telemetry-driven reporting, policy-based reclamation, and automation to cut license waste and improve governance.",
+    images: [{ url: OG, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `OpenLM — Reporting & License Optimization | ${NAME}`,
+    description:
+      "Telemetry-driven reporting and automation for governance and cost reduction.",
+    images: [OG],
+  },
+};
+
 export default function OpenLMCaseStudy() {
   // ✅ Image files in /public/images/case-studies/openlm/
   const images = [

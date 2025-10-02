@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import "./../styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import GAReporter from "@/components/GAReporter";
 import { NAME, ROLE, TAGLINE } from "@/lib/constants";
 import Script from "next/script";
 import { site } from "@/lib/seo";
@@ -109,8 +110,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body suppressHydrationWarning>
         <Navbar />
+        <GAReporter />
         <main className="mx-auto max-w-6xl px-4 py-10">{children}</main>
         <Footer />
+
+        {/* Google Analytics 4 */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="ga4-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  window.gtag = window.gtag || function(){dataLayer.push(arguments)};
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { send_page_view: false });
+                `,
+              }}
+            />
+          </>
+        )}
 
         {/* JSON-LD: Organization */}
         <Script

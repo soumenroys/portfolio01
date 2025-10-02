@@ -4,6 +4,7 @@ import "./../styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GAReporter from "@/components/GAReporter";
+import { Suspense } from "react";
 import { NAME, ROLE, TAGLINE } from "@/lib/constants";
 import Script from "next/script";
 import { site } from "@/lib/seo";
@@ -110,7 +111,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body suppressHydrationWarning>
         <Navbar />
-        <GAReporter />
+        {/* Wrap hooks like useSearchParams/usePathname in Suspense */}
+        <Suspense fallback={null}>
+          <GAReporter />
+        </Suspense>
+
         <main className="mx-auto max-w-6xl px-4 py-10">{children}</main>
         <Footer />
 

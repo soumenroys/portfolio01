@@ -1,4 +1,6 @@
 node_modules/
+.env.local
+.env*.local
 smtp-test.js
 smtp-test-verbose.js
 .next/

@@ -4,13 +4,6 @@ import Link from "next/link";
 export default function CountriesPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Link
-        href="/"
-        className="text-sm underline hover:text-accent mb-6 inline-block"
-      >
-        ← Back to Home
-      </Link>
-
       <h1 className="text-3xl font-bold mb-6 text-accent">3 Countries</h1>
 
       <p className="text-slate-300 mb-8">
@@ -63,15 +56,6 @@ export default function CountriesPage() {
         transformation journeys across industries.
       </p>
 
-      {/* Back Button at the bottom */}
-      <div className="mt-10">
-        <Link
-          href="/"
-          className="inline-block px-4 py-2 rounded-md border border-white/10 text-sm hover:bg-white/5"
-        >
-          ← Back to Home
-        </Link>
-      </div>
     </div>
   );
 }

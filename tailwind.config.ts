@@ -1,17 +1,23 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+import type { Config } from "tailwindcss";
+
+const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
       colors: {
         accent: {
-          DEFAULT: "#0ea5e9"
+          DEFAULT: "#2563eb"
         }
       }
     }
   },
   plugins: []
-}
+};
+
+export default config;

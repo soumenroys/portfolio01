@@ -4,10 +4,6 @@ import Link from "next/link";
 export default function PlatformsBuiltPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Link href="/" className="text-sm underline hover:text-accent mb-6 inline-block">
-        ← Back to Home
-      </Link>
-
       <h1 className="text-3xl font-bold mb-4 text-accent">
         Platforms Built — Data & Microservices
       </h1>
@@ -63,7 +59,46 @@ export default function PlatformsBuiltPage() {
 
         <article>
           <h2 className="text-xl font-semibold text-accent">
-            SaaS Activation, License Monitoring & Optimization
+            NLP-Based Conversational Analytics Platform
+          </h2>
+          <p className="mt-2">
+            Built an NLP/MCP reporting interface that converts complex BI queries into
+            plain language — enabling non-technical users to interrogate license and usage
+            data without analyst dependency.
+          </p>
+          <ul className="list-disc pl-6 mt-2 space-y-1">
+            <li>LLM integration (Claude, Gemini, GPT) for natural language query parsing.</li>
+            <li>Semantic layer mapping user intent to governed dataset APIs.</li>
+            <li>Context-aware responses with drill-down into underlying data.</li>
+          </ul>
+          <p className="mt-2 text-sm text-slate-300">
+            Impact: simplified BI adoption for enterprise customers — reduced onboarding
+            friction and improved product stickiness.
+          </p>
+        </article>
+
+        <article>
+          <h2 className="text-xl font-semibold text-accent">
+            AI-Based Monitoring &amp; Anomaly Detection Platform
+          </h2>
+          <p className="mt-2">
+            Implemented predictive alerting and AI-driven anomaly detection across
+            microservices — replacing reactive incident response with proactive
+            intelligence.
+          </p>
+          <ul className="list-disc pl-6 mt-2 space-y-1">
+            <li>ML-based baseline modelling for service health metrics.</li>
+            <li>Automated anomaly classification and severity scoring.</li>
+            <li>Integrated runbook triggers for common incident patterns.</li>
+          </ul>
+          <p className="mt-2 text-sm text-slate-300">
+            Outcomes: 50% reduction in downtime, 20% reduction in support tickets.
+          </p>
+        </article>
+
+        <article>
+          <h2 className="text-xl font-semibold text-accent">
+            SaaS Activation, License Monitoring &amp; Optimization
           </h2>
           <p className="mt-2">
             Built SaaS lifecycle services for activation/deactivation, usage telemetry,
@@ -173,6 +208,7 @@ export default function PlatformsBuiltPage() {
 
           {/* Diagram Placeholder */}
           <div className="mt-6 flex justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/iceberg-architecture.png"
               alt="Apache Iceberg & Parquet Migration Architecture"
@@ -223,15 +259,6 @@ export default function PlatformsBuiltPage() {
         </article>
       </section>
 
-      {/* Back Button at the bottom */}
-      <div className="mt-10">
-        <Link
-          href="/"
-          className="inline-block px-4 py-2 rounded-md border border-white/10 text-sm hover:bg-white/5"
-        >
-          ← Back to Home
-        </Link>
-      </div>
     </div>
   );
 }

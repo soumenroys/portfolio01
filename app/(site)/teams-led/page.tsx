@@ -4,26 +4,35 @@ import Link from "next/link";
 export default function TeamsLedPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Link
-        href="/"
-        className="text-sm underline hover:text-accent mb-6 inline-block"
-      >
-        ← Back to Home
-      </Link>
-
       <h1 className="text-3xl font-bold mb-6 text-accent">200+ Teams Led</h1>
 
       <p className="text-slate-300 mb-6">
-        Over the span of 27+ years, I have had the privilege of leading and
-        mentoring diverse teams of engineers, technologists, and business
-        analysts across some of the world’s most challenging industrial and
-        digital transformation programs. These teams, often numbering over{" "}
-        <strong>200 professionals</strong>, operated in highly complex,
+        Over 28+ years I have had the privilege of leading and mentoring diverse
+        teams of engineers, technologists, and business analysts across some of
+        the world&apos;s most challenging industrial and digital transformation programs.
+        These teams — often numbering over{" "}
+        <strong>200 professionals</strong> — operated in highly complex,
         multi-disciplinary environments where precision, safety, and innovation
         were non-negotiable.
       </p>
 
       <div className="space-y-8 text-slate-400">
+        <div>
+          <h2 className="text-xl font-semibold text-accent">
+            OpenLM — SaaS &amp; AI Platform (India &amp; Global)
+          </h2>
+          <p className="mt-2">
+            My most concentrated team-building achievement: scaling the engineering and
+            support organisation from{" "}
+            <strong>3 people to 85+ professionals</strong> across 4 product lines in
+            under two years. I designed the hiring strategy, org structure, and operating
+            model from scratch — building squads across product engineering, data platform,
+            AI/ML, BI, DevOps, and customer support. The team achieved{" "}
+            <strong>GEM certification</strong> for government contracts and delivered daily
+            deployments at global enterprise scale.
+          </p>
+        </div>
+
         <div>
           <h2 className="text-xl font-semibold text-accent">
             Steel Plant Consultancy — India
@@ -94,15 +103,6 @@ export default function TeamsLedPage() {
         measurable outcomes.
       </p>
 
-      {/* Back Button at the bottom */}
-      <div className="mt-10">
-        <Link
-          href="/"
-          className="inline-block px-4 py-2 rounded-md border border-white/10 text-sm hover:bg-white/5"
-        >
-          ← Back to Home
-        </Link>
-      </div>
     </div>
   );
 }

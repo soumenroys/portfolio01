@@ -9,12 +9,8 @@ import GovernanceDiagramClient from "@/components/GovernanceDiagramClient";
 export default function ApproachPage() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-6">
-      <a href="/" className="text-sm underline hover:text-accent mb-6 inline-block">
-        ← Back to Home
-      </a>
-
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-accent">Our Approach to Transformation</h1>
+        <h1 className="text-3xl font-bold text-accent">My Approach to Transformation</h1>
         <p className="mt-3 text-slate-300">
           Pragmatic, risk-aware, outcome-driven transformation for industrial engineering and data platforms — a playbook I use to convert pilots into sustained
           business value while keeping operations running.
@@ -116,18 +112,61 @@ export default function ApproachPage() {
         </div>
       </section>
 
-      <div className="mt-8 rounded-2xl border border-white/10 p-6 bg-gradient-to-b from-transparent to-white/2">
+      {/* Leadership Philosophy */}
+      <section className="mb-10 mt-8">
+        <h2 className="text-2xl font-semibold text-accent">Leadership Philosophy</h2>
+        <p className="mt-3 text-slate-300">
+          Technology is only as valuable as the business outcome it enables. Every investment I drive
+          is anchored to a measurable result — cost, speed, quality, or revenue — agreed upfront and
+          tracked rigorously.
+        </p>
+        <div className="mt-5 grid sm:grid-cols-2 gap-4">
+          {[
+            {
+              heading: "Align technology with business outcomes",
+              body: "Every platform decision traces back to a KPI. I reject technology for its own sake — if it does not move the needle, it does not get built.",
+            },
+            {
+              heading: "Build scalable, future-ready platforms",
+              body: "Foundations matter. I design systems that outlast the immediate project — with governance, observability, and extensibility built in from the start.",
+            },
+            {
+              heading: "Drive innovation with execution discipline",
+              body: "Ideas are easy; delivery is hard. I combine ambitious technical vision with milestone-driven execution, keeping teams focused and stakeholders confident.",
+            },
+            {
+              heading: "Bridge business, operations, and technology",
+              body: "The best solutions come from understanding the shop floor as well as the boardroom. I translate between these worlds — eliminating the gap that derails most transformations.",
+            },
+            {
+              heading: "Develop talent, empower decisions",
+              body: "I build teams that own outcomes, not just tasks. Strong leaders emerge from environments where ownership, accountability, and learning are non-negotiable.",
+            },
+            {
+              heading: "Practical execution over theoretical design",
+              body: "A working pilot beats a perfect plan. I favour early value delivery that informs architecture decisions — reducing risk while building organizational confidence.",
+            },
+          ].map((item) => (
+            <div key={item.heading} className="rounded-xl border border-white/10 bg-white/3 p-4">
+              <div className="font-medium text-slate-200 text-sm mb-1">{item.heading}</div>
+              <p className="text-sm text-slate-400 leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="mt-8 rounded-xl border border-white/10 p-6 bg-gradient-to-b from-transparent to-white/2">
         <h3 className="text-lg font-semibold">Want a customised transformation plan?</h3>
         <p className="mt-2 text-slate-300">
           I prepare bespoke, phased plans aligned to your priorities — from a short discovery to full delivery. Share your challenge and I’ll propose a concrete next step.
         </p>
 
         <div className="mt-4 flex gap-3">
-          <a href="/contact" className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition">
+          <a href="/contact" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-accent text-white font-medium hover:opacity-95 transition">
             Book a discussion
           </a>
 
-          <a href={DETAILED_RESUME_URL} className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition">
+          <a href={DETAILED_RESUME_URL} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition">
             Request the playbook
           </a>
         </div>

@@ -16,7 +16,7 @@ export default function Page() {
       </header>
 
       {/* Contributions */}
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-8 space-y-6">
+      <section className="rounded-xl border border-white/10 bg-white/5 p-8 space-y-6">
         <h2 className="text-2xl font-semibold">My Contributions</h2>
         <ul className="list-disc space-y-3 pl-6 text-slate-200 leading-7">
           <li>
@@ -59,7 +59,7 @@ export default function Page() {
       </section>
 
       {/* Sample Visuals */}
-      <section className="space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+      <section className="space-y-6 rounded-xl border border-white/10 bg-white/5 p-6">
         <h2 className="text-2xl font-semibold">Digital Engineering in Action</h2>
         <p className="leading-7 text-slate-200">
           Integrating drones, 3D modeling, and LiDAR enabled digital twins and predictive
@@ -94,7 +94,7 @@ export default function Page() {
       </section>
 
       {/* Results */}
-      <section className="space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+      <section className="space-y-6 rounded-xl border border-white/10 bg-white/5 p-6">
         <h2 className="text-2xl font-semibold">Results</h2>
         <ul className="list-disc space-y-2 pl-6 text-slate-200 leading-7">
           <li><strong>Inspection efficiency:</strong> Reduced inspection cycles from weeks to days with UAVs.</li>
@@ -106,7 +106,7 @@ export default function Page() {
       </section>
 
       {/* Tech Stack */}
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-6">
+      <section className="rounded-xl border border-white/10 bg-white/5 p-6">
         <h2 className="text-2xl font-semibold">Tech Stack</h2>
         <p className="mt-3 leading-7 text-slate-200">
           Drones (UAVs) • BIM Tools (Revit/Navisworks) • LiDAR • GIS • Python • CAD Automation •
@@ -118,7 +118,7 @@ export default function Page() {
       <div className="pt-2">
         <a
           href="/contact"
-          className="inline-flex items-center rounded-2xl bg-accent px-4 py-2 font-medium text-slate-900 hover:opacity-90"
+          className="inline-flex items-center rounded-xl bg-accent px-4 py-2 font-medium text-slate-900 hover:opacity-90"
         >
           Explore how digital engineering can transform your enterprise →
         </a>
@@ -130,7 +130,7 @@ export default function Page() {
 /* Helper Components */
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/5 p-6">
+    <section className="rounded-xl border border-white/10 bg-white/5 p-6">
       <h3 className="text-xl md:text-2xl font-semibold">{title}</h3>
       <div className="mt-3">{children}</div>
     </section>
@@ -147,7 +147,7 @@ function Figure({
   caption: string;
 }) {
   return (
-    <figure className="rounded-2xl border border-white/10 bg-black/10 p-3">
+    <figure className="rounded-xl border border-white/10 bg-black/10 p-3">
       <Image src={src} alt={alt} width={600} height={400} className="rounded-xl" />
       <figcaption className="mt-2 text-xs text-slate-400">{caption}</figcaption>
     </figure>

@@ -26,11 +26,11 @@ export default function Button({
   anchorProps,
 }: Props) {
   const base =
-    "inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black";
+    "inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black";
   const variants: Record<Variant, string> = {
     primary:
       "bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-md hover:shadow-lg hover:opacity-95",
-    secondary: "bg-accent text-black hover:opacity-95",
+    secondary: "bg-accent text-white hover:opacity-95",
     outline:
       "border border-white/20 text-sm text-slate-200 hover:bg-white/5 hover:border-accent",
   };

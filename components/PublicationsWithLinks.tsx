@@ -47,7 +47,7 @@ export default function PublicationsWithLinks() {
 
       <div className="grid gap-4">
         {recordings.map((r) => (
-          <div key={r.id} className="rounded-2xl border border-white/10 p-4 flex items-center justify-between">
+          <div key={r.id} className="rounded-xl border border-white/10 p-4 flex items-center justify-between">
             <div className="pr-4">
               <div className="font-semibold">{r.title}</div>
               <div className="text-xs text-slate-400">{r.subtitle}</div>
@@ -57,7 +57,7 @@ export default function PublicationsWithLinks() {
               href={r.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-accent text-white font-medium hover:opacity-95 transition"
             >
               Watch recording
             </a>

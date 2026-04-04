@@ -1,5 +1,6 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./../styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +9,12 @@ import { Suspense } from "react";
 import { NAME, ROLE, TAGLINE } from "@/lib/constants";
 import Script from "next/script";
 import { site } from "@/lib/seo";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 const SITE_URL = "https://soumenroy.com";
 const OG_IMAGE = "/og/og-default.png"; // place a 1200×630 image at /public/og/og-default.png
@@ -21,9 +28,10 @@ export const metadata: Metadata = {
   description: `${NAME} | ${ROLE} | ${TAGLINE}`,
   keywords: [
     NAME,
-    "CTO",
-    "CIO",
+    "Technology Leader",
     "Engineering Leader",
+    "AI Leader",
+    "SaaS Leader",
     "Digital Transformation",
     "3D Plant Engineering",
     "Industry 4.0",
@@ -108,8 +116,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning>
+    <html lang="en" className={inter.variable}>
+      <body suppressHydrationWarning className="font-sans">
         <Navbar />
         {/* Wrap hooks like useSearchParams/usePathname in Suspense */}
         <Suspense fallback={null}>

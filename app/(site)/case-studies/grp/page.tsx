@@ -54,15 +54,33 @@ export default function GRPCaseStudy() {
       </Link>
 
       {/* Title */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-accent">
-        GRP (Gunung Raja Paksi) — Manufacturing Modernization & Industry 4.0
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 text-accent">
+        GRP — Manufacturing Modernization &amp; Industry 4.0
       </h1>
+      <p className="text-slate-400 text-sm mb-6">Jan 2019 – Sept 2022 &nbsp;·&nbsp; Head – Business Process (Indonesia)</p>
+
+      {/* Metrics banner */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        {[
+          { value: "$1M+", label: "Annual savings (procurement)" },
+          { value: "80%", label: "Inventory movement improvement" },
+          { value: "Months→Days", label: "Procurement cycle" },
+          { value: "25+", label: "ERP departments re-architected" },
+        ].map((s) => (
+          <div key={s.label} className="rounded-xl border border-white/10 bg-white/3 p-3 text-center">
+            <div className="text-lg font-bold text-accent">{s.value}</div>
+            <div className="text-xs text-slate-400 mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
 
       {/* Intro */}
       <p className="text-slate-300 mb-6">
-        I led large-scale cross-functional programs at GRP — Indonesia’s largest privately-owned steelmaker — to modernize plant operations,
-        introduce Industry 4.0 workflows, and establish enterprise-grade analytics and reporting. The work combined process engineering, OT/IT convergence,
-        and data platforms to drive measurable improvements in throughput, yield and operational visibility.
+        I led the digital transformation of Gunung Raja Paksi — Indonesia&apos;s largest privately-owned
+        steelmaker — during one of the most consequential periods in its history: its transition from a
+        private company to a publicly listed entity. The mandate covered ERP modernization across 25+
+        departments, AI-driven procurement intelligence, C-suite analytics, and operational digitalization
+        — all while keeping a 50-year-old steel plant running at full capacity.
       </p>
 
       <section className="space-y-8 text-slate-400">
@@ -135,10 +153,30 @@ export default function GRPCaseStudy() {
         <article>
           <h2 className="text-xl md:text-2xl font-semibold text-accent">Business Impact</h2>
           <ul className="list-disc pl-6 mt-2 space-y-2 text-sm">
-            <li>Reduced scrap rates by identifying process drivers — measurable material cost savings.</li>
-            <li>Improved first-time yield and throughput through focused operator interventions and predictive alerts.</li>
-            <li>Shortened incident resolution and RCA cycles via consolidated telemetry and historical analysis.</li>
-            <li>Created a repeatable blueprint for rolling out Industry 4.0 capabilities across other plants and regions.</li>
+            <li>
+              <strong className="text-slate-200">$1M+ annual savings</strong> from AI-driven procurement
+              intelligence — predictive scrap pricing and FX trend forecasting enabling optimal sourcing decisions.
+            </li>
+            <li>
+              <strong className="text-slate-200">Procurement cycle: months → days</strong> — automated workflows
+              and real-time supplier intelligence collapsed decision time across the procurement chain.
+            </li>
+            <li>
+              <strong className="text-slate-200">Inventory movement improved 80%</strong> — QR-code tracking,
+              mobile asset management, and just-in-time availability eliminated stock bottlenecks.
+            </li>
+            <li>
+              <strong className="text-slate-200">ERP modernized across 25+ departments</strong> — unified
+              finance, HR, production, and maintenance data for the first time in the company&apos;s history.
+            </li>
+            <li>
+              <strong className="text-slate-200">Board-level data governance enabled</strong> — C-suite
+              dashboards delivered data-driven strategic decisions during the IPO transition process.
+            </li>
+            <li>
+              <strong className="text-slate-200">Operational transparency at scale</strong> — real-time scrap
+              cost dashboards and location-aware sourcing guidance reduced procurement cost volatility.
+            </li>
           </ul>
         </article>
 
@@ -161,7 +199,7 @@ export default function GRPCaseStudy() {
 
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-lg border border-accent px-5 py-2 text-sm font-medium text-accent hover:bg-accent hover:text-black transition"
+            className="inline-flex items-center rounded-lg border border-accent px-5 py-2 text-sm font-medium text-accent hover:bg-accent hover:text-white transition"
           >
             Book a 20-min Intro
           </Link>

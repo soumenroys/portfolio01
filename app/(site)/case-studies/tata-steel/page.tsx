@@ -98,7 +98,7 @@ export default function TataSteelCaseStudy() {
 
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-lg border border-accent px-5 py-2 text-sm font-medium text-accent hover:bg-accent hover:text-black transition"
+            className="inline-flex items-center rounded-lg border border-accent px-5 py-2 text-sm font-medium text-accent hover:bg-accent hover:text-white transition"
           >
             Book a 20-min Intro
           </Link>

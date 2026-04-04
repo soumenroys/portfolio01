@@ -1,4 +1,5 @@
 // /app/publications/page.tsx
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Link from "next/link";
@@ -15,9 +16,8 @@ import {
 } from "@/lib/constants";
 
 export default function PublicationsPage() {
-  // image paths — change if you stored images under different filenames
   const coverSrc = "/images/publications/mastering-3d-plant-engineering-cover.png";
-  const avatarSrc = "/images/publications/author-avatar.png"; // optional, put a file here if available
+  const avatarSrc = "/images/avatar.jpg";
 
   // local state to detect avatar load failure and show initials fallback
   const [avatarFailed, setAvatarFailed] = useState(false);
@@ -40,12 +40,9 @@ export default function PublicationsPage() {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Link href="/" className="text-sm underline hover:text-accent mb-6 inline-block">
-        ← Back to Home
-      </Link>
-
       <header className="flex flex-col md:flex-row items-start gap-6 mb-6">
-        <img
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
           src={coverSrc}
           alt="Mastering 3D Plant Engineering — book cover"
           className="w-48 rounded-lg border border-white/10 shadow-md"
@@ -66,6 +63,17 @@ export default function PublicationsPage() {
             <div>
               <strong>Formats:</strong> Paperback / PDF
             </div>
+            <div>
+              <strong>Book website:</strong>{" "}
+              <a
+                href="https://3dplantengineering.com"
+                target="_blank"
+                rel="noreferrer"
+                className="underline hover:text-accent"
+              >
+                3dplantengineering.com
+              </a>
+            </div>
           </div>
 
           <div className="mt-4 flex flex-wrap gap-3">
@@ -73,7 +81,7 @@ export default function PublicationsPage() {
               href="https://www.amazon.com/dp/B0F7M239VJ"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white font-medium hover:opacity-95 transition"
             >
               Buy on Amazon →
             </a>
@@ -81,14 +89,14 @@ export default function PublicationsPage() {
             {/* Buttons now open the contact/download form modal */}
             <button
               onClick={() => openFormFor(RESUME_URL as string)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               Download CV
             </button>
 
             <button
               onClick={() => openFormFor(DETAILED_RESUME_URL as string)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               Download Detailed CV
             </button>
@@ -97,7 +105,7 @@ export default function PublicationsPage() {
       </header>
 
       {/* AUTHOR BIO PANEL */}
-      <section className="mb-8 flex flex-col md:flex-row gap-4 items-start rounded-2xl border border-white/8 p-4 bg-gradient-to-b from-transparent to-white/1">
+      <section className="mb-8 flex flex-col md:flex-row gap-4 items-start rounded-xl border border-white/8 p-4 bg-gradient-to-b from-transparent to-white/1">
         {/* Avatar (client-side onError allowed) */}
         <div className="flex-shrink-0">
           {!avatarFailed ? (
@@ -137,7 +145,7 @@ export default function PublicationsPage() {
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
               href="/publications"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               View all publications
             </Link>
@@ -145,7 +153,7 @@ export default function PublicationsPage() {
             {/* FIXED — using <a> instead of Link to avoid TS error if /talks page not present */}
             <a
               href="/talks"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               Talks & presentations
             </a>
@@ -154,14 +162,14 @@ export default function PublicationsPage() {
               href={LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               LinkedIn
             </a>
 
             <a
               href={`mailto:${EMAIL}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
             >
               Email the author
             </a>
@@ -214,14 +222,14 @@ export default function PublicationsPage() {
           href="https://www.amazon.com/dp/B0F7M239VJ"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-accent text-white font-medium hover:opacity-95 transition"
         >
           Buy on Amazon →
         </a>
 
         <Link
           href="/contact"
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/10 text-sm hover:bg-white/5 transition"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
         >
           Contact the author
         </Link>

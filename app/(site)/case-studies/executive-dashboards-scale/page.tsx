@@ -4,10 +4,6 @@ import Link from "next/link";
 export default function ExecutiveDashboardsScale() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <Link href="/" className="text-sm underline hover:text-accent mb-6 inline-block">
-        ← Back to Home
-      </Link>
-
       <h1 className="text-3xl font-bold mb-4 text-accent">Executive Dashboards at Scale</h1>
 
       <p className="text-slate-300 mb-6">
@@ -86,7 +82,7 @@ export default function ExecutiveDashboardsScale() {
         <article>
           <h2 className="text-xl font-semibold text-accent">How we ensured sustainability</h2>
           <p className="mt-2">
-            To keep dashboards healthy after rollout, we introduced governance cadence (dataset owners, monthly KPI reviews), automated freshness alerts, and a lightweight SLA for dataset issues. Analysts were empowered with semantic models and a "pattern library" to avoid one-off reports.
+            To keep dashboards healthy after rollout, we introduced governance cadence (dataset owners, monthly KPI reviews), automated freshness alerts, and a lightweight SLA for dataset issues. Analysts were empowered with semantic models and a &ldquo;pattern library&rdquo; to avoid one-off reports.
           </p>
         </article>
 
@@ -94,7 +90,7 @@ export default function ExecutiveDashboardsScale() {
         <div className="mt-8 flex gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-accent text-black font-medium hover:opacity-95 transition"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-accent text-white font-medium hover:opacity-95 transition"
             aria-label="Explore how executive dashboards can accelerate decision-making"
           >
             Explore how executive dashboards can accelerate decision-making →

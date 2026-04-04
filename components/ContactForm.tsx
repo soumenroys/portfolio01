@@ -494,7 +494,9 @@ export default function ContactForm({
             const body = encodeURIComponent(
               `${form.message || ""}\n\n— ${form.name || ""}\n${form.email ? `Reply: ${form.email}` : ""}\n${form.contact ? `Contact: ${form.contact}` : ""}`
             );
-            window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+            const a = document.createElement("a");
+            a.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+            a.click();
           }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
         >

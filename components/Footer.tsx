@@ -1,4 +1,5 @@
-import { NAME, ROLE, EMAIL, LINKEDIN, TAGLINE } from "@/lib/constants";
+import { NAME, ROLE, LINKEDIN, TAGLINE } from "@/lib/constants";
+import EmailLink from "@/components/EmailLink";
 
 export default function Footer() {
   return (
@@ -22,20 +23,16 @@ export default function Footer() {
             >
               LinkedIn
             </a>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="text-slate-400 hover:text-accent transition"
-            >
-              {EMAIL}
-            </a>
+            <EmailLink className="text-slate-400 hover:text-accent transition" />
             <a href="/contact" className="text-slate-400 hover:text-accent transition">
               Start a Conversation
             </a>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-white/6 text-xs text-slate-600">
-          © {new Date().getFullYear()} {NAME}. All rights reserved.
+        <div className="mt-8 pt-6 border-t border-white/6 text-xs text-slate-600 flex items-center justify-between gap-4">
+          <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
+          <span className="text-slate-700">v0.0.1</span>
         </div>
       </div>
     </footer>

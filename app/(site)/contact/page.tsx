@@ -2,10 +2,10 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import ContactForm from "../../../components/ContactForm";
+import EmailLink from "@/components/EmailLink";
 import {
   NAME,
   ROLE,
-  EMAIL,
   PHONE,
   LINKEDIN,
   RESUME_URL,
@@ -46,9 +46,7 @@ export default function ContactPage() {
             <div className="mt-4 space-y-2 text-sm">
               <div>
                 <span className="block text-xs text-slate-400">Email</span>
-                <a className="underline hover:text-accent" href={`mailto:${EMAIL}`}>
-                  {EMAIL}
-                </a>
+                <EmailLink className="underline hover:text-accent" />
               </div>
 
               <div>

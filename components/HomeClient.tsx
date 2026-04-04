@@ -6,13 +6,13 @@ import Image from "next/image";
 import Button from "@/components/Button";
 import StatBar from "@/components/StatBar";
 import ContactForm from "@/components/ContactForm";
+import EmailLink from "@/components/EmailLink";
 import {
   NAME,
   ROLE,
   YEARS,
   QUOTE,
   LINKEDIN,
-  EMAIL,
   RESUME_URL,
   DETAILED_RESUME_URL,
 } from "@/lib/constants";
@@ -132,9 +132,9 @@ export default function HomeClient() {
               LinkedIn
             </a>
             <span className="text-white/15">|</span>
-            <a className="hover:text-accent transition" href={`mailto:${EMAIL}`}>
+            <EmailLink className="hover:text-accent transition">
               Email
-            </a>
+            </EmailLink>
             <span className="text-white/15">|</span>
             <button
               className="hover:text-accent transition underline underline-offset-2"

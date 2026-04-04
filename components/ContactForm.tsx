@@ -69,6 +69,7 @@ export default function ContactForm({
   });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<null | { ok: boolean; msg: string }>(null);
+  const [emailBtnLabel, setEmailBtnLabel] = useState("Open email client");
   const [downloadUrl, setDownloadUrl] = useState<string | null>(downloadUrlProp);
 
   // OTP verification state (download flow only)
@@ -497,10 +498,17 @@ export default function ContactForm({
             const a = document.createElement("a");
             a.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
             a.click();
+            // Copy email to clipboard as fallback when no mail client is configured
+            try {
+              navigator.clipboard.writeText(EMAIL).then(() => {
+                setEmailBtnLabel("Email copied!");
+                setTimeout(() => setEmailBtnLabel("Open email client"), 2500);
+              });
+            } catch { /* clipboard unavailable */ }
           }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"
         >
-          Open email client
+          {emailBtnLabel}
         </button>
 
         {mode === "modal" && onClose && (

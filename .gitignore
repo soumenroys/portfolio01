@@ -1,5 +1,9 @@
 node_modules/
-node_modules/
 smtp-test.js
 smtp-test-verbose.js
-.next
+.next/
+.vercel/
+.DS_Store
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+portfolio01.code-workspace

@@ -12,7 +12,7 @@ const config: Config = {
       },
       colors: {
         accent: {
-          DEFAULT: "#2563eb"
+          DEFAULT: "#6366f1"
         }
       }
     }

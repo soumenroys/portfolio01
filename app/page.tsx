@@ -55,6 +55,61 @@ const caseCards = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does Soumen Roy specialise in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Soumen Roy specialises in AI strategy, SaaS platform transformation, Industry 4.0, enterprise data platforms, and digital engineering. He has 28+ years of experience leading technology and transformation programmes across heavy industry, manufacturing, and enterprise software."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What industries has Soumen Roy worked in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Soumen Roy has led programmes at Tata Steel, Gunung Raja Paksi (Indonesia's largest private steelmaker), M. N. Dastur & Company, and OpenLM — spanning steel manufacturing, plant engineering, BIM, and AI-driven SaaS platforms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What ROI has Soumen Roy delivered?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Soumen Roy has delivered $50M+ in measurable ROI across 10+ enterprise transformations — including a 7× ARR uplift per enterprise customer at OpenLM, $1M+ annual procurement savings at GRP, and 70% infrastructure cost reduction through platform modernisation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Has Soumen Roy written any books?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Soumen Roy is the co-author of 'Mastering 3D Plant Engineering, Digitalisation & Automation' — a practical field guide for plant engineers and digital leaders covering photogrammetry, BIM, LiDAR, CAD automation, and Industry 4.0. Available on Amazon in paperback and digital formats."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Imotara?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Imotara is a privacy-first AI emotional wellness companion founded by Soumen Roy as a philanthropic initiative. It supports mental health for younger generations, helps counter excessive AI dependency, and is available in 22 languages including Bengali, Hindi, Tamil, and Telugu — with no ads, no paywalls, and full data privacy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I contact Soumen Roy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can contact Soumen Roy via the contact form at soumenroy.com/contact, by email at roysowmen@gmail.com, or on LinkedIn at linkedin.com/in/sowmenroy."
+      }
+    }
+  ]
+};
+
 export default function HomePage() {
   return (
     <div>
@@ -188,6 +243,12 @@ export default function HomePage() {
           </span>
         </a>
       </section>
+
+      {/* FAQPage JSON-LD — boosts rich results in Google */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
     </div>
   );
 }

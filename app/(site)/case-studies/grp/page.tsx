@@ -5,6 +5,7 @@ import LightboxGallery from "@/components/LightboxGallery";
 import type { Metadata } from "next";
 import { canonical } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 const OG = "/og?title=GRP+%E2%80%94+Industry+4.0+Transformation&sub=Manufacturing+analytics+%C2%B7+OT%2FIT+convergence+%C2%B7+Indonesia";
 
@@ -45,6 +46,7 @@ export default function GRPCaseStudy() {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Case Studies", href: "/case-studies" }, { name: "GRP Steel", href: "/case-studies/grp" }]} />
       {/* Back to Case Studies */}
       <Link
         href="/case-studies"

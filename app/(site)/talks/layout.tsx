@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Talks & Presentations | Soumen Roy",
@@ -15,5 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function TalksLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return <><BreadcrumbJsonLd items={[{ name: "Talks & Presentations", href: "/talks" }]} />{children}</>;
 }

@@ -1,6 +1,7 @@
 // /app/transformations/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Enterprise Transformations | Soumen Roy",
@@ -99,6 +100,7 @@ const transformations = [
 export default function TransformationsPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Enterprise Transformations", href: "/transformations" }]} />
       <h1 className="text-3xl font-bold mb-3 text-accent">10+ Enterprise Transformations</h1>
       <p className="text-slate-300 mb-8">
         Each transformation below started with a specific business problem and ended with measurable

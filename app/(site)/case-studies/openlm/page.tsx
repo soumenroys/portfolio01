@@ -5,6 +5,7 @@ import LightboxGallery from "@/components/LightboxGallery";
 import type { Metadata } from "next";
 import { canonical } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 const OG = "/og?title=OpenLM+%E2%80%94+SaaS+Transformation&sub=Microservices+%C2%B7+AI+Analytics+%C2%B7+3%E2%86%9285%2B+team";
 
@@ -45,6 +46,7 @@ export default function OpenLMCaseStudy() {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Case Studies", href: "/case-studies" }, { name: "OpenLM", href: "/case-studies/openlm" }]} />
       {/* Back to Case Studies */}
       <Link
         href="/case-studies"

@@ -1,6 +1,7 @@
 // /app/(site)/roi/page.tsx
 import Link from "next/link";
 import { YEARS } from "@/lib/constants";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata = {
   title: "ROI & Business Impact — Soumen Roy",
@@ -16,6 +17,7 @@ export const metadata = {
 export default function RoiPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "ROI & Business Impact", href: "/roi" }]} />
       <h1 className="text-3xl md:text-4xl font-bold text-accent">ROI &amp; Business Impact</h1>
 
       <p className="mt-4 text-slate-300">

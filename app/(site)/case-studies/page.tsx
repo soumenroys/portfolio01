@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { canonical, site } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: `Case Studies | ${NAME}`,
@@ -65,6 +66,7 @@ const studies = [
 export default function CaseStudies() {
   return (
     <div className="max-w-5xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Case Studies", href: "/case-studies" }]} />
       <h1 className="text-3xl md:text-4xl font-bold text-accent">Case Studies</h1>
       <p className="mt-3 text-slate-300">
         Selected initiatives that delivered measurable impact — from cost reduction and efficiency gains

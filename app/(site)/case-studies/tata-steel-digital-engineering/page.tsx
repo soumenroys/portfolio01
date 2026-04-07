@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Tata Steel Digital Engineering | Soumen Roy",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <section className="mx-auto max-w-5xl space-y-12">
+      <BreadcrumbJsonLd items={[{ name: "Case Studies", href: "/case-studies" }, { name: "Tata Steel Digital", href: "/case-studies/tata-steel-digital-engineering" }]} />
       {/* Title */}
       <header className="space-y-4">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">

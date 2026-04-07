@@ -1,6 +1,7 @@
 // /app/approach/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Transformation Approach | Soumen Roy",
@@ -24,6 +25,7 @@ import GovernanceDiagramClient from "@/components/GovernanceDiagramClient";
 export default function ApproachPage() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Approach", href: "/approach" }]} />
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-accent">My Approach to Transformation</h1>
         <p className="mt-3 text-slate-300">

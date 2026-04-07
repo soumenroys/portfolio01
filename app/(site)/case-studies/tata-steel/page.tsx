@@ -5,6 +5,7 @@ import LightboxGallery from "@/components/LightboxGallery";
 import type { Metadata } from "next";
 import { canonical } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 const OG = "/og?title=Tata+Steel+%E2%80%94+Digital+Engineering&sub=Drones+%C2%B7+LiDAR+%C2%B7+BIM+%C2%B7+Industry+4.0";
 
@@ -47,6 +48,7 @@ export default function TataSteelCaseStudy() {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Case Studies", href: "/case-studies" }, { name: "Tata Steel", href: "/case-studies/tata-steel" }]} />
       {/* Back to Case Studies */}
       <Link href="/case-studies" className="text-sm underline hover:text-accent mb-6 inline-block">
         ← Back to Case Studies

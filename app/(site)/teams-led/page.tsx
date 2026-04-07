@@ -1,6 +1,7 @@
 // /app/teams-led/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Global Teams Led | Soumen Roy",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function TeamsLedPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Global Teams Led", href: "/teams-led" }]} />
       <h1 className="text-3xl font-bold mb-6 text-accent">200+ Teams Led</h1>
 
       <p className="text-slate-300 mb-6">

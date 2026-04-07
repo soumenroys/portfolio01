@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from "next";
 import Link from "next/link";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 const IMOTARA_URL = "https://www.imotara.com/";
 
@@ -78,6 +79,7 @@ const IL = "inline-flex items-center gap-1 text-accent hover:underline underline
 export default function ImotaraPage() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Initiatives — Imotara", href: "/imotara" }]} />
 
       <script
         type="application/ld+json"

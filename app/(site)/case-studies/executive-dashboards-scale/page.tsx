@@ -1,6 +1,7 @@
 // /app/case-studies/executive-dashboards-scale/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Executive Dashboards at Scale | Soumen Roy",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function ExecutiveDashboardsScale() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Case Studies", href: "/case-studies" }, { name: "Executive Dashboards", href: "/case-studies/executive-dashboards-scale" }]} />
       <h1 className="text-3xl font-bold mb-4 text-accent">Executive Dashboards at Scale</h1>
 
       <p className="text-slate-300 mb-6">

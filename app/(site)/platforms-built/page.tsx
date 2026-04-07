@@ -1,6 +1,7 @@
 // /app/platforms-built/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Platforms Built | Soumen Roy",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function PlatformsBuiltPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
+      <BreadcrumbJsonLd items={[{ name: "Platforms Built", href: "/platforms-built" }]} />
       <h1 className="text-3xl font-bold mb-4 text-accent">
         Platforms Built — Data & Microservices
       </h1>

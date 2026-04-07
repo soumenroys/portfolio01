@@ -1,10 +1,10 @@
 // /app/(site)/case-studies/mn-dastur-bim/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import LightboxGallery from "@/components/LightboxGallery";
-import { canonical, site } from "@/lib/seo";
+import { canonical } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 const OG = "/og?title=M.+N.+Dastur+%E2%80%94+BIM+at+Scale&sub=32+disciplines+%C2%B7+50%2B+years+of+engineering+digitised";
 
@@ -45,23 +45,7 @@ export default function MNDasturBIM() {
 
   return (
     <>
-      {/* Breadcrumbs JSON-LD for rich results */}
-      <Script
-        id="ld-breadcrumb-mn-dastur-bim"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              { "@type": "ListItem", position: 1, name: "Home", item: site.url },
-              { "@type": "ListItem", position: 2, name: "Case Studies", item: `${site.url}/case-studies` },
-              { "@type": "ListItem", position: 3, name: "M. N. Dastur — BIM Transformation at Scale", item: `${site.url}/case-studies/mn-dastur-bim` }
-            ]
-          }),
-        }}
-      />
+      <BreadcrumbJsonLd items={[{ name: "Case Studies", href: "/case-studies" }, { name: "M. N. Dastur", href: "/case-studies/mn-dastur-bim" }]} />
 
       <div className="max-w-4xl mx-auto py-12 px-6">
         {/* Top back link */}

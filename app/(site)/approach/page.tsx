@@ -1,5 +1,19 @@
 // /app/approach/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Transformation Approach | Soumen Roy",
+  description:
+    "Pragmatic, risk-aware, outcome-driven transformation methodology — a proven playbook for converting pilots into sustained business value across enterprise and industrial platforms.",
+  alternates: { canonical: "/approach" },
+  openGraph: {
+    title: "Transformation Approach | Soumen Roy",
+    description:
+      "Discover → Pilot → Scale → Operate: the phased delivery framework Soumen Roy uses to de-risk enterprise and industrial digital transformations.",
+    url: "https://soumenroy.com/approach",
+  },
+};
 import { NAME, ROLE, DETAILED_RESUME_URL } from "@/lib/constants";
 
 // Import client components (interactive)

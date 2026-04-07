@@ -1,5 +1,17 @@
 // /app/countries/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Countries of Impact | Soumen Roy",
+  description:
+    "Enterprise transformation and technology leadership across India, Indonesia, and Canada — delivering ROI in diverse regulatory and operational environments.",
+  alternates: { canonical: "/countries" },
+  openGraph: {
+    title: "Countries of Impact | Soumen Roy",
+    url: "https://soumenroy.com/countries",
+  },
+};
 
 export default function CountriesPage() {
   return (

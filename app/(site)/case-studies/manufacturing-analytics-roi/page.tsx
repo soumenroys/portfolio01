@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Manufacturing Analytics ROI | Soumen Roy",
+  description:
+    "Case study: building a manufacturing analytics platform that delivered measurable ROI through real-time production monitoring, predictive maintenance, and executive dashboards.",
+  alternates: { canonical: "/case-studies/manufacturing-analytics-roi" },
+  openGraph: {
+    title: "Manufacturing Analytics ROI | Soumen Roy",
+    url: "https://soumenroy.com/case-studies/manufacturing-analytics-roi",
+  },
+};
 
 export default function Page() {
   return (

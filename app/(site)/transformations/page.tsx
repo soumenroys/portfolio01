@@ -1,5 +1,17 @@
 // /app/transformations/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Enterprise Transformations | Soumen Roy",
+  description:
+    "10+ enterprise digital transformations delivered across heavy industry, SaaS, and manufacturing — from pilot to production at scale.",
+  alternates: { canonical: "/transformations" },
+  openGraph: {
+    title: "Enterprise Transformations | Soumen Roy",
+    url: "https://soumenroy.com/transformations",
+  },
+};
 
 const transformations = [
   {

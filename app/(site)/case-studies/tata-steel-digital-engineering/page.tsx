@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Tata Steel Digital Engineering | Soumen Roy",
+  description:
+    "Case study: leading digital engineering and 3D plant modelling initiatives at Tata Steel — integrating drone surveys, LiDAR, and BIM to modernise brownfield asset management.",
+  alternates: { canonical: "/case-studies/tata-steel-digital-engineering" },
+  openGraph: {
+    title: "Tata Steel Digital Engineering | Soumen Roy",
+    url: "https://soumenroy.com/case-studies/tata-steel-digital-engineering",
+  },
+};
 
 export default function Page() {
   return (

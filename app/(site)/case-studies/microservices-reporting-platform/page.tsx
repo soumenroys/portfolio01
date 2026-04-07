@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Microservices Reporting Platform | Soumen Roy",
+  description:
+    "Case study: designing and delivering a microservices-based reporting platform that replaced a legacy monolith, reducing report generation time by 80% and enabling self-service analytics.",
+  alternates: { canonical: "/case-studies/microservices-reporting-platform" },
+  openGraph: {
+    title: "Microservices Reporting Platform | Soumen Roy",
+    url: "https://soumenroy.com/case-studies/microservices-reporting-platform",
+  },
+};
 
 export default function Page() {
   return (

@@ -1,5 +1,17 @@
 // /app/teams-led/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Global Teams Led | Soumen Roy",
+  description:
+    "Led 200+ engineers and specialists across India, Indonesia, and Canada — building high-performance, cross-functional teams for enterprise digital transformation.",
+  alternates: { canonical: "/teams-led" },
+  openGraph: {
+    title: "Global Teams Led | Soumen Roy",
+    url: "https://soumenroy.com/teams-led",
+  },
+};
 
 export default function TeamsLedPage() {
   return (

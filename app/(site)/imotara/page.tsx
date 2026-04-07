@@ -1,6 +1,7 @@
 // /app/(site)/imotara/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Imotara — Philanthropic Initiative | Soumen Roy",
@@ -72,6 +73,52 @@ const languages = [
 export default function ImotaraPage() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-6">
+
+      <Script
+        id="ld-imotara"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Imotara",
+            "applicationCategory": "HealthApplication",
+            "applicationSubCategory": "Mental Health",
+            "operatingSystem": "Web, iOS, Android",
+            "url": "https://imotara.app",
+            "description":
+              "A privacy-first AI emotional wellness companion designed to support mental health and help younger generations build healthier relationships with technology.",
+            "author": {
+              "@type": "Person",
+              "name": "Soumen Roy",
+              "url": "https://soumenroy.com"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            },
+            "inLanguage": [
+              "en", "bn", "hi", "ta", "te", "kn", "ml", "gu", "pa", "or",
+              "mr", "ar", "zh", "ja", "es", "fr", "de", "pt", "ru", "id", "he"
+            ],
+            "featureList": [
+              "AI emotional wellness companion",
+              "Multilingual emotion detection (22 languages)",
+              "Privacy-first local storage",
+              "Offline mode",
+              "Crisis detection and safety",
+              "Emotional history and mood tracking",
+              "Daily reflection prompts",
+              "No ads, no paywall on core features"
+            ],
+            "keywords":
+              "mental health app, emotional wellness, AI companion, youth mental health, Gen Z, Gen Alpha, AI dependency, privacy-first"
+          }),
+        }}
+      />
 
       {/* ── Header ─────────────────────────────────────────────────── */}
       <header className="mb-10">

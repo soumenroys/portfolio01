@@ -150,23 +150,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </>
         )}
 
-        {/* JSON-LD: Organization */}
+        {/* JSON-LD: WebSite — enables Sitelinks Searchbox in Google */}
         <Script
-          id="ld-org"
+          id="ld-website"
           type="application/ld+json"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": "WebSite",
               "name": NAME,
               "url": site.url,
-              "logo": "/favicon.ico",
-              "sameAs": [
-                "https://www.linkedin.com/in/soumenroy", // update with exact LinkedIn
-                "https://github.com/your-handle",        // update with exact GitHub
-                "https://www.goodreads.com/author/show/34690983-soumen-roy"
-              ]
+              "description": TAGLINE,
+              "inLanguage": "en-US",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": `${site.url}/case-studies?q={search_term_string}`
+                },
+                "query-input": "required name=search_term_string"
+              }
             }),
           }}
         />
@@ -184,12 +188,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "jobTitle": ROLE,
               "description": TAGLINE,
               "url": site.url,
-              "worksFor": { "@type": "Organization", "name": "OpenLM" }, // adjust if needed
+              "image": `${site.url}/images/avatar.jpg`,
+              "email": "roysowmen@gmail.com",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "OpenLM",
+                "url": "https://openlm.com"
+              },
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "IN",
                 "addressLocality": "Kolkata"
-              }
+              },
+              "knowsAbout": [
+                "AI Strategy", "SaaS", "Digital Transformation",
+                "Industry 4.0", "Data Platforms", "Enterprise Architecture",
+                "3D Plant Engineering", "BIM", "Mental Health Technology"
+              ],
+              "sameAs": [
+                "https://www.linkedin.com/in/sowmenroy",
+                "https://www.goodreads.com/author/show/34690983-soumen-roy",
+                "https://3dplantengineering.com",
+                "https://imotara.app"
+              ]
             }),
           }}
         />

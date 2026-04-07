@@ -1,5 +1,17 @@
 // /app/platforms-built/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Platforms Built | Soumen Roy",
+  description:
+    "Data lakehouses, microservices platforms, streaming pipelines, and analytics infrastructure — enterprise-grade platforms built and operated at scale.",
+  alternates: { canonical: "/platforms-built" },
+  openGraph: {
+    title: "Platforms Built | Soumen Roy",
+    url: "https://soumenroy.com/platforms-built",
+  },
+};
 
 export default function PlatformsBuiltPage() {
   return (

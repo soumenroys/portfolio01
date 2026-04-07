@@ -1,5 +1,17 @@
 // /app/case-studies/executive-dashboards-scale/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Executive Dashboards at Scale | Soumen Roy",
+  description:
+    "Case study: designing and deploying executive-grade analytics dashboards across multiple business units — enabling data-driven decisions at the C-suite level with governed, real-time KPIs.",
+  alternates: { canonical: "/case-studies/executive-dashboards-scale" },
+  openGraph: {
+    title: "Executive Dashboards at Scale | Soumen Roy",
+    url: "https://soumenroy.com/case-studies/executive-dashboards-scale",
+  },
+};
 
 export default function ExecutiveDashboardsScale() {
   return (

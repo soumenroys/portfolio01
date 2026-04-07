@@ -23,7 +23,7 @@ body {
     rgba(99, 102, 241, 0.12) 0%,
     transparent 70%
   );
-  background-attachment: fixed;
+  /* background-attachment: fixed removed — disables GPU compositing on mobile, hurts LCP */
 }
 
 /* ── Thin custom scrollbar ── */

@@ -3,6 +3,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const IMOTARA_URL = "https://www.imotara.com/";
+
 export const metadata: Metadata = {
   title: "Imotara — Philanthropic Initiative | Soumen Roy",
   description:
@@ -71,6 +73,8 @@ const languages = [
   "English", "+ more",
 ];
 
+const IL = "inline-flex items-center gap-1 text-accent hover:underline underline-offset-2 transition-colors";
+
 export default function ImotaraPage() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-6">
@@ -85,7 +89,7 @@ export default function ImotaraPage() {
             "applicationCategory": "HealthApplication",
             "applicationSubCategory": "Mental Health",
             "operatingSystem": "Web, iOS, Android",
-            "url": "https://imotara.app",
+            "url": IMOTARA_URL,
             "description":
               "A privacy-first AI emotional wellness companion designed to support mental health and help younger generations build healthier relationships with technology.",
             "author": {
@@ -120,17 +124,28 @@ export default function ImotaraPage() {
       />
 
       {/* ── Header ─────────────────────────────────────────────────── */}
-
       <header className="mb-10">
         <div className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
           Philanthropic Initiative · Founded by Soumen Roy
         </div>
-        <h1 className="text-3xl font-bold text-accent">Imotara</h1>
+        <h1 className="text-3xl font-bold">
+          <a
+            href={IMOTARA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:opacity-80 transition-opacity"
+          >
+            Imotara ↗
+          </a>
+        </h1>
         <p className="mt-1 text-lg text-slate-400 font-medium">
-          An Emotion-Aware Companion for Human Flourishing
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+            An Emotion-Aware Companion for Human Flourishing
+          </a>
         </p>
         <p className="mt-4 text-slate-300 max-w-3xl leading-relaxed">
-          Imotara is a privacy-first AI emotional wellness companion — a philanthropic initiative I
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-slate-200 hover:text-accent transition-colors">Imotara</a>{" "}
+          is a privacy-first AI emotional wellness companion — a philanthropic initiative I
           founded to address a quiet but growing crisis: the erosion of genuine emotional intelligence
           and authentic human connection in an age of algorithmic dependency, particularly among
           children and younger generations.
@@ -154,15 +169,21 @@ export default function ImotaraPage() {
           The right answer is technology that teaches humans to need it less.
         </p>
         <p className="mt-3 text-slate-300 leading-relaxed">
-          That conviction is the foundation of Imotara.
+          That conviction is the foundation of{" "}
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className={IL}>Imotara ↗</a>.
         </p>
       </section>
 
       {/* ── Origin Story ────────────────────────────────────────────── */}
       <section className="mb-10 rounded-xl border border-white/10 bg-gradient-to-b from-transparent to-white/2 p-6">
-        <h2 className="text-2xl font-semibold text-accent">Where This Began</h2>
+        <h2 className="text-2xl font-semibold text-accent">
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+            Where This Began ↗
+          </a>
+        </h2>
         <p className="mt-4 text-slate-300 leading-relaxed">
-          Imotara was not born in a boardroom. It began in a quieter place — in the concern of two
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-slate-200 hover:text-accent transition-colors">Imotara</a>{" "}
+          was not born in a boardroom. It began in a quieter place — in the concern of two
           mothers, Saswati and Parbati, who noticed what no report card could show: a child smiling
           less, a door closing faster, a growing silence that didn't have words.
         </p>
@@ -186,53 +207,65 @@ export default function ImotaraPage() {
 
       {/* ── What Imotara Is ─────────────────────────────────────────── */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold text-accent">What Imotara Is</h2>
+        <h2 className="text-2xl font-semibold text-accent">
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+            What Imotara Is ↗
+          </a>
+        </h2>
         <p className="mt-3 text-slate-300 leading-relaxed">
-          Imotara is a gentle, emotion-aware companion — designed to listen quietly, reflect softly,
-          and grow with a user's inner world over time. It is available as both a web application and
-          native mobile apps (iOS and Android). It supports 22 languages with native-script emotion
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-slate-200 hover:text-accent transition-colors">Imotara</a>{" "}
+          is a gentle, emotion-aware companion — designed to listen quietly, reflect softly,
+          and grow with a user's inner world over time. It is available as both a{" "}
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className={IL}>web application ↗</a>{" "}
+          and native mobile apps (iOS and Android). It supports 22 languages with native-script emotion
           detection, works fully offline for core features, and is built without ads, without
           engagement manipulation, and without paywalls on essential support.
         </p>
 
         <div className="mt-6 grid sm:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-white/10 bg-white/3 p-4">
-            <div className="font-medium text-slate-200 text-sm mb-2">Chat & Reflection</div>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              A private, non-judgemental space to express thoughts and feelings. The AI listens,
-              helps users name emotions they may not have words for, and responds with calm, contextual
-              support — not prescriptions or platitudes.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/3 p-4">
-            <div className="font-medium text-slate-200 text-sm mb-2">Emotional History & Patterns</div>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Users can track emotional patterns over time — building self-awareness through a personal
-              timeline of moods, reflections, and insights. Trends, not diagnoses. Patterns, not labels.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/3 p-4">
-            <div className="font-medium text-slate-200 text-sm mb-2">Daily Growth Prompts</div>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Guided daily reflection prompts designed for intentional inner work — not viral challenges
-              or social performance. Growth measured privately, for the individual alone.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/3 p-4">
-            <div className="font-medium text-slate-200 text-sm mb-2">Crisis Safety Layer</div>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Multilingual crisis detection with appropriate escalation paths. Designed with care for
-              younger and vulnerable users who may be in genuine distress — in their own language.
-            </p>
-          </div>
+          {[
+            {
+              title: "Chat & Reflection",
+              body: "A private, non-judgemental space to express thoughts and feelings. The AI listens, helps users name emotions they may not have words for, and responds with calm, contextual support — not prescriptions or platitudes.",
+            },
+            {
+              title: "Emotional History & Patterns",
+              body: "Users can track emotional patterns over time — building self-awareness through a personal timeline of moods, reflections, and insights. Trends, not diagnoses. Patterns, not labels.",
+            },
+            {
+              title: "Daily Growth Prompts",
+              body: "Guided daily reflection prompts designed for intentional inner work — not viral challenges or social performance. Growth measured privately, for the individual alone.",
+            },
+            {
+              title: "Crisis Safety Layer",
+              body: "Multilingual crisis detection with appropriate escalation paths. Designed with care for younger and vulnerable users who may be in genuine distress — in their own language.",
+            },
+          ].map((card) => (
+            <a
+              key={card.title}
+              href={IMOTARA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-xl border border-white/10 bg-white/3 p-4 hover:border-accent/30 hover:bg-white/5 transition-all group"
+            >
+              <div className="font-medium text-slate-200 text-sm mb-2 group-hover:text-accent transition-colors">{card.title} ↗</div>
+              <p className="text-sm text-slate-400 leading-relaxed">{card.body}</p>
+            </a>
+          ))}
         </div>
       </section>
 
       {/* ── Design Philosophy ────────────────────────────────────────── */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold text-accent">Design Philosophy</h2>
+        <h2 className="text-2xl font-semibold text-accent">
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+            Design Philosophy ↗
+          </a>
+        </h2>
         <p className="mt-2 text-slate-400">
-          The principles that govern how Imotara is built — and what it deliberately refuses to become.
+          The principles that govern how{" "}
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className={IL}>Imotara ↗</a>{" "}
+          is built — and what it deliberately refuses to become.
         </p>
         <div className="mt-5 grid sm:grid-cols-2 gap-4">
           {designPrinciples.map((item) => (
@@ -248,38 +281,53 @@ export default function ImotaraPage() {
       <section className="mb-10">
         <h2 className="text-2xl font-semibold text-accent">Technical Foundation</h2>
         <p className="mt-3 text-slate-300 leading-relaxed">
-          Imotara is engineered with the same standards I apply to enterprise platforms — privacy by
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-slate-200 hover:text-accent transition-colors">Imotara</a>{" "}
+          is engineered with the same standards I apply to enterprise platforms — privacy by
           design, offline resilience, multi-region scalability, and thoughtful AI orchestration. The
           architecture separates emotional processing from data storage, ensuring user conversations
           are never used for training or monetisation.
         </p>
         <div className="mt-5 grid sm:grid-cols-2 gap-4">
           {platformPillars.map((p) => (
-            <div key={p.label} className="rounded-xl border border-white/10 bg-white/3 p-4">
-              <div className="font-medium text-slate-200 text-sm mb-1">{p.label}</div>
+            <a
+              key={p.label}
+              href={IMOTARA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-xl border border-white/10 bg-white/3 p-4 hover:border-accent/30 hover:bg-white/5 transition-all group"
+            >
+              <div className="font-medium text-slate-200 text-sm mb-1 group-hover:text-accent transition-colors">{p.label} ↗</div>
               <p className="text-sm text-slate-400 leading-relaxed">{p.detail}</p>
-            </div>
+            </a>
           ))}
         </div>
       </section>
 
       {/* ── Language Reach ───────────────────────────────────────────── */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold text-accent">Reaching Across Languages</h2>
+        <h2 className="text-2xl font-semibold text-accent">
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+            Reaching Across Languages ↗
+          </a>
+        </h2>
         <p className="mt-3 text-slate-300 leading-relaxed">
-          Mental health support should not be a privilege of those who speak English. Imotara's
+          Mental health support should not be a privilege of those who speak English.{" "}
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className={IL}>Imotara's ↗</a>{" "}
           emotion detection, reflection prompts, and crisis support are built natively for 22
           languages — with particular depth for Indian regional languages, ensuring that children
           across the subcontinent can express themselves in the tongue they think and dream in.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {languages.map((lang) => (
-            <span
+            <a
               key={lang}
-              className="px-3 py-1 rounded-full text-xs border border-white/10 bg-white/3 text-slate-300"
+              href={IMOTARA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1 rounded-full text-xs border border-white/10 bg-white/3 text-slate-300 hover:border-accent/40 hover:text-accent transition-colors"
             >
               {lang}
-            </span>
+            </a>
           ))}
         </div>
       </section>
@@ -288,7 +336,8 @@ export default function ImotaraPage() {
       <section className="mb-10">
         <h2 className="text-2xl font-semibold text-accent">A Philanthropic, Not Commercial, Model</h2>
         <p className="mt-3 text-slate-300 leading-relaxed">
-          Imotara is deliberately structured to resist the incentives that corrupt most consumer
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-slate-200 hover:text-accent transition-colors">Imotara</a>{" "}
+          is deliberately structured to resist the incentives that corrupt most consumer
           technology. There are no ads. There is no engagement optimisation. The core emotional
           support experience has no paywall. Donations are strictly optional and never influence
           what any user can access.
@@ -318,7 +367,8 @@ export default function ImotaraPage() {
           rather than merely human attention.
         </p>
         <p className="mt-3 text-slate-300 leading-relaxed">
-          Imotara is my attempt to honour that responsibility — by applying the same engineering
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-slate-200 hover:text-accent transition-colors">Imotara</a>{" "}
+          is my attempt to honour that responsibility — by applying the same engineering
           rigour and strategic clarity I bring to enterprise transformation, toward a goal that is
           entirely non-commercial: helping a child find words for what they feel, in the language
           they speak, on the device they have, wherever they are.
@@ -330,8 +380,9 @@ export default function ImotaraPage() {
         <h3 className="text-lg font-semibold">Interested in partnering or learning more?</h3>
         <p className="mt-2 text-slate-300">
           If you represent a school, mental health NGO, research institution, or community
-          organisation and want to explore how Imotara could support the young people in your
-          care — I would be glad to speak with you.
+          organisation and want to explore how{" "}
+          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className={IL}>Imotara ↗</a>{" "}
+          could support the young people in your care — I would be glad to speak with you.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
@@ -341,7 +392,7 @@ export default function ImotaraPage() {
             Get in touch
           </Link>
           <a
-            href="https://imotara.app"
+            href={IMOTARA_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition"

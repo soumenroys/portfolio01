@@ -1,4 +1,5 @@
 // app/og/route.tsx
+/* eslint-disable @next/next/no-img-element */
 // Dynamic OG image generator — 1200×630 — used by all portfolio pages.
 // Usage: /og?title=Page+Title&sub=Optional+subtitle
 import { ImageResponse } from "next/og";
@@ -90,6 +91,7 @@ export async function GET(req: NextRequest) {
             >
               <img
                 src={avatarBase64}
+                alt="Soumen Roy"
                 width={212}
                 height={212}
                 style={{

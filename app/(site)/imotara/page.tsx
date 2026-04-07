@@ -1,4 +1,5 @@
 // /app/(site)/imotara/page.tsx
+/* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from "next";
 import Link from "next/link";
 

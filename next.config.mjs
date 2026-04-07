@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
   // Gzip/Brotli compression for all responses
   compress: true,
   // Serve modern image formats (AVIF first, WebP fallback)

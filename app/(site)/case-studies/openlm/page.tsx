@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { canonical } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
 
-const OG = "/og/case-studies/openlm.png"; // optional per-page OG image
+const OG = "/og?title=OpenLM+%E2%80%94+SaaS+Transformation&sub=Microservices+%C2%B7+AI+Analytics+%C2%B7+3%E2%86%9285%2B+team";
 
 export const metadata: Metadata = {
   title: `OpenLM — SaaS Platform Transformation | ${NAME}`,

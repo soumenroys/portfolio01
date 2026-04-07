@@ -12,6 +12,7 @@ export const metadata: Metadata = {
       "A privacy-first emotional wellness companion built to counter AI over-reliance and support mental health — especially for Gen Z and Gen Alpha.",
     url: "https://soumenroy.com/imotara",
     type: "website",
+    images: [{ url: "/og?title=Imotara+Initiative&sub=Emotional+wellness+for+the+next+generation", width: 1200, height: 630 }],
   },
 };
 

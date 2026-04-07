@@ -10,5 +10,5 @@ export function canonical(path: string = "/"): string {
 /** Reusable site-wide constants for OG/Twitter images, etc. */
 export const site = {
   url: SITE_URL,
-  ogDefault: "/og/og-default.png", // 1200×630 under /public/og/
+  ogDefault: "/og?title=Soumen+Roy&sub=AI%2C+SaaS+%26+Enterprise+Transformation+Leader",
 };

@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { canonical } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
 
-const OG = "/og/case-studies/grp.png"; // optional per-page OG image
+const OG = "/og?title=GRP+%E2%80%94+Industry+4.0+Transformation&sub=Manufacturing+analytics+%C2%B7+OT%2FIT+convergence+%C2%B7+Indonesia";
 
 export const metadata: Metadata = {
   title: `GRP — Manufacturing Modernization & Industry 4.0 | ${NAME}`,

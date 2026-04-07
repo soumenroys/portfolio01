@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     description:
       "Mastering 3D Plant Engineering: a hands-on guide for plant engineers and digital leaders on photogrammetry, BIM, CAD automation, and digital twin integration.",
     url: "https://soumenroy.com/publications",
+    images: [{ url: "/og?title=Publications&sub=Mastering+3D+Plant+Engineering%2C+Digitalisation+%26+Automation", width: 1200, height: 630 }],
   },
 };
 

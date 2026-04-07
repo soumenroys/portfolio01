@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description:
       "Discover → Pilot → Scale → Operate: the phased delivery framework Soumen Roy uses to de-risk enterprise and industrial digital transformations.",
     url: "https://soumenroy.com/approach",
+    images: [{ url: "/og?title=Transformation+Approach&sub=Discover+%E2%86%92+Pilot+%E2%86%92+Scale+%E2%86%92+Operate", width: 1200, height: 630 }],
   },
 };
 import { NAME, ROLE, DETAILED_RESUME_URL } from "@/lib/constants";

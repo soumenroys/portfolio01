@@ -6,7 +6,7 @@ import LightboxGallery from "@/components/LightboxGallery";
 import { canonical, site } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
 
-const OG = "/og/case-studies/mn-dastur-bim.png"; // 1200×630; if not ready, use "/og/og-default.png"
+const OG = "/og?title=M.+N.+Dastur+%E2%80%94+BIM+at+Scale&sub=32+disciplines+%C2%B7+50%2B+years+of+engineering+digitised";
 
 export const metadata: Metadata = {
   title: `M. N. Dastur — BIM Transformation at Scale | ${NAME}`,

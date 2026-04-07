@@ -6,6 +6,11 @@ export const metadata = {
   title: "ROI & Business Impact — Soumen Roy",
   description:
     "$50M+ ROI delivered through enterprise transformations — ARR growth, SaaS platform modernization, manufacturing analytics, and engineering digitalization.",
+  openGraph: {
+    title: "ROI & Business Impact | Soumen Roy",
+    url: "https://soumenroy.com/roi",
+    images: [{ url: "/og?title=ROI+%26+Business+Impact&sub=%2450M%2B+delivered+across+10%2B+enterprise+transformations", width: 1200, height: 630 }],
+  },
 };
 
 export default function RoiPage() {

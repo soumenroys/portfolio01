@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { canonical } from "@/lib/seo";
 import { NAME } from "@/lib/constants";
 
-const OG = "/og/case-studies/tata-steel.png"; // 1200×630 (optional). If missing, keep site.ogDefault instead.
+const OG = "/og?title=Tata+Steel+%E2%80%94+Digital+Engineering&sub=Drones+%C2%B7+LiDAR+%C2%B7+BIM+%C2%B7+Industry+4.0";
 
 export const metadata: Metadata = {
   title: `Tata Steel — Digital Engineering Transformation | ${NAME}`,

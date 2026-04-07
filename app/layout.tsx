@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 const SITE_URL = "https://soumenroy.com";
-const OG_IMAGE = "/og/og-default.png"; // place a 1200×630 image at /public/og/og-default.png
+const OG_IMAGE = "/og?title=Soumen+Roy&sub=AI%2C+SaaS+%26+Enterprise+Transformation+Leader";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

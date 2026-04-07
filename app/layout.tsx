@@ -150,11 +150,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </>
         )}
 
-        {/* JSON-LD: WebSite — enables Sitelinks Searchbox in Google */}
-        <Script
-          id="ld-website"
+        {/* JSON-LD: WebSite — must be SSR inline, not afterInteractive */}
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -176,10 +174,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
         {/* JSON-LD: Person */}
-        <Script
-          id="ld-person"
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",

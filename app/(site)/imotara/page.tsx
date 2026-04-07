@@ -1,7 +1,6 @@
 // /app/(site)/imotara/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Imotara — Philanthropic Initiative | Soumen Roy",
@@ -74,10 +73,8 @@ export default function ImotaraPage() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-6">
 
-      <Script
-        id="ld-imotara"
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
@@ -121,6 +118,7 @@ export default function ImotaraPage() {
       />
 
       {/* ── Header ─────────────────────────────────────────────────── */}
+
       <header className="mb-10">
         <div className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
           Philanthropic Initiative · Founded by Soumen Roy

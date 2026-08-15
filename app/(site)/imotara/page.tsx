@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 const IMOTARA_URL = "https://www.imotara.com/";
 
@@ -10,11 +11,12 @@ export const metadata: Metadata = {
   title: "Imotara — Philanthropic Initiative | Soumen Roy",
   description:
     "Imotara is a privacy-first AI emotional wellness companion founded by Soumen Roy — a philanthropic initiative to improve mental health and help younger generations build healthier relationships with technology.",
+  alternates: { canonical: canonical("/imotara") },
   openGraph: {
     title: "Imotara — Philanthropic Initiative | Soumen Roy",
     description:
       "A privacy-first emotional wellness companion built to counter AI over-reliance and support mental health — especially for Gen Z and Gen Alpha.",
-    url: "https://soumenroy.com/imotara",
+    url: canonical("/imotara"),
     type: "website",
     images: [{ url: "/og?title=Imotara+Initiative&sub=Emotional+wellness+for+the+next+generation", width: 1200, height: 630 }],
   },

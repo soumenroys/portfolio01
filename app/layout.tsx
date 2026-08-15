@@ -95,15 +95,8 @@ export const metadata: Metadata = {
   verification: {
     // Google Search Console
     google: "tuF_OrC42pJKVvXlFyzHEg3DH_9h6HWRqHhVaYBjQTw",
-    // Yandex and Yahoo are optional
-    yandex: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    yahoo: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    // Identity links (optional)
-    me: ["https://github.com/your-handle"],
-    // Bing Webmaster Tools uses the meta name "msvalidate.01"
-    other: {
-      "msvalidate.01": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    },
+    // Add yandex / yahoo / "msvalidate.01" (Bing) here once those tokens exist.
+    // Never ship placeholder values — they render as real meta tags on every page.
   },
 };
 

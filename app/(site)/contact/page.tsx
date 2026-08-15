@@ -1,4 +1,5 @@
 // app/(site)/contact/page.tsx
+import type { Metadata } from "next";
 import React, { Suspense } from "react";
 import Link from "next/link";
 import ContactForm from "../../../components/ContactForm";
@@ -11,10 +12,12 @@ import {
   RESUME_URL,
   DETAILED_RESUME_URL,
 } from "@/lib/constants";
+import { canonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Contact — Soumen Roy",
   description: `Contact ${NAME} — ${ROLE}`,
+  alternates: { canonical: canonical("/contact") },
 };
 
 export default function ContactPage() {

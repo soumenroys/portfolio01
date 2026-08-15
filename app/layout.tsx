@@ -16,11 +16,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://soumenroy.com";
 const OG_IMAGE = "/og?title=Soumen+Roy&sub=AI%2C+SaaS+%26+Enterprise+Transformation+Leader";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(site.url),
   title: {
     default: `${NAME} — ${ROLE}`,
     template: `%s | ${NAME}`,
@@ -41,7 +40,7 @@ export const metadata: Metadata = {
     "OpenLM",
     "Kolkata",
   ],
-  authors: [{ name: NAME, url: SITE_URL }],
+  authors: [{ name: NAME, url: site.url }],
   creator: NAME,
   publisher: NAME,
   alternates: {
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: SITE_URL,
+    url: site.url,
     siteName: NAME,
     title: `${NAME} — ${ROLE}`,
     description: TAGLINE,

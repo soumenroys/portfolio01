@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Enterprise Transformations | Soumen Roy",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/transformations" },
   openGraph: {
     title: "Enterprise Transformations | Soumen Roy",
-    url: "https://soumenroy.com/transformations",
+    url: canonical("/transformations"),
   },
 };
 

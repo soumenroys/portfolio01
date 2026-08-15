@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Manufacturing Analytics ROI | Soumen Roy",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/case-studies/manufacturing-analytics-roi" },
   openGraph: {
     title: "Manufacturing Analytics ROI | Soumen Roy",
-    url: "https://soumenroy.com/case-studies/manufacturing-analytics-roi",
+    url: canonical("/case-studies/manufacturing-analytics-roi"),
   },
 };
 

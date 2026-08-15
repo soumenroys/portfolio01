@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Tata Steel Digital Engineering | Soumen Roy",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/case-studies/tata-steel-digital-engineering" },
   openGraph: {
     title: "Tata Steel Digital Engineering | Soumen Roy",
-    url: "https://soumenroy.com/case-studies/tata-steel-digital-engineering",
+    url: canonical("/case-studies/tata-steel-digital-engineering"),
   },
 };
 

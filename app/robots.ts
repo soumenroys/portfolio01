@@ -1,7 +1,7 @@
 // app/robots.ts
 import type { MetadataRoute } from "next";
+import { site } from "@/lib/seo";
 
-const SITE_URL = "https://soumenroy.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         // disallow: ["/admin", "/api/private"], // add if needed
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    sitemap: `${site.url}/sitemap.xml`,
+    host: site.url,
   };
 }

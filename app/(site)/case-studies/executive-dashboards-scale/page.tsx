@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Executive Dashboards at Scale | Soumen Roy",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/case-studies/executive-dashboards-scale" },
   openGraph: {
     title: "Executive Dashboards at Scale | Soumen Roy",
-    url: "https://soumenroy.com/case-studies/executive-dashboards-scale",
+    url: canonical("/case-studies/executive-dashboards-scale"),
   },
 };
 

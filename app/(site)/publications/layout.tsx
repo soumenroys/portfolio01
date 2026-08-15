@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Publications | Soumen Roy",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: "Publications | Soumen Roy",
     description:
       "Mastering 3D Plant Engineering: a hands-on guide for plant engineers and digital leaders on photogrammetry, BIM, CAD automation, and digital twin integration.",
-    url: "https://soumenroy.com/publications",
+    url: canonical("/publications"),
     images: [{ url: "/og?title=Publications&sub=Mastering+3D+Plant+Engineering%2C+Digitalisation+%26+Automation", width: 1200, height: 630 }],
   },
 };

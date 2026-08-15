@@ -4,10 +4,10 @@
 // Usage: /og?title=Page+Title&sub=Optional+subtitle
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
+import { site } from "@/lib/seo";
 
 export const runtime = "edge";
 
-const SITE_URL = "https://soumenroy.com";
 const ACCENT   = "#6366f1"; // indigo-500
 const BG       = "#0b0f1a";
 const SURFACE  = "rgba(255,255,255,0.04)";
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
   const title    = searchParams.get("title") ?? "Soumen Roy";
   const sub      = searchParams.get("sub")   ?? "AI, SaaS & Enterprise Transformation Leader";
-  const avatarSrc = `${SITE_URL}/images/avatar.jpg`;
+  const avatarSrc = `${site.url}/images/avatar.jpg`;
 
   // Fetch avatar so ImageResponse can embed it
   const avatarData = await fetch(avatarSrc).then((r) => r.arrayBuffer());

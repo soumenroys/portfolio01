@@ -3,7 +3,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import { canonical } from "@/lib/seo";
+import { canonical, site } from "@/lib/seo";
 
 const IMOTARA_URL = "https://www.imotara.com/";
 
@@ -99,7 +99,7 @@ export default function ImotaraPage() {
             "author": {
               "@type": "Person",
               "name": "Soumen Roy",
-              "url": "https://soumenroy.com"
+              "url": site.url
             },
             "offers": {
               "@type": "Offer",

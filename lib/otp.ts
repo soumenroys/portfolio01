@@ -3,8 +3,37 @@ import crypto from "crypto";
 
 const OTP_TTL_MS = 10 * 60 * 1000; // 10 minutes
 
-function getSecret() {
-  return process.env.OTP_SECRET || process.env.SMTP_PASS || "portfolio-otp-secret";
+let warnedAboutFallback = false;
+
+/**
+ * Signing key for OTP tokens.
+ *
+ * OTP_SECRET is the only correct source. The SMTP_PASS fallback exists so that
+ * deployments predating OTP_SECRET keep working, but it couples token validity
+ * to a credential rotated for unrelated reasons — rotating SMTP silently
+ * invalidates every in-flight code. The previous hardcoded literal fallback is
+ * gone: it shipped in a public repo, so anyone could have forged tokens if both
+ * env vars were ever absent.
+ */
+function getSecret(): string {
+  const secret = process.env.OTP_SECRET;
+  if (secret) return secret;
+
+  const legacy = process.env.SMTP_PASS;
+  if (legacy) {
+    if (!warnedAboutFallback) {
+      warnedAboutFallback = true;
+      console.warn(
+        "[otp] OTP_SECRET is not set; falling back to SMTP_PASS. Set OTP_SECRET " +
+          "to decouple token signing from the mail credential."
+      );
+    }
+    return legacy;
+  }
+
+  throw new Error(
+    "OTP signing secret is not configured. Set OTP_SECRET in the environment."
+  );
 }
 
 export function signOtpToken(email: string, otp: string): string {

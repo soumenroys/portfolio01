@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Transformation Approach | Soumen Roy",
     description:
       "Discover → Pilot → Scale → Operate: the phased delivery framework Soumen Roy uses to de-risk enterprise and industrial digital transformations.",
-    url: "https://soumenroy.com/approach",
+    url: canonical("/approach"),
     images: [{ url: "/og?title=Transformation+Approach&sub=Discover+%E2%86%92+Pilot+%E2%86%92+Scale+%E2%86%92+Operate", width: 1200, height: 630 }],
   },
 };
@@ -21,6 +21,7 @@ import { NAME, ROLE, DETAILED_RESUME_URL } from "@/lib/constants";
 // Import client components (interactive)
 import DataFlowDiagramClient from "@/components/DataFlowDiagramClient";
 import GovernanceDiagramClient from "@/components/GovernanceDiagramClient";
+import { canonical } from "@/lib/seo";
 
 export default function ApproachPage() {
   return (

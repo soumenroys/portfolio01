@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Experience | Soumen Roy",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: "Experience | Soumen Roy",
     description:
       "Career timeline: from digital engineering in heavy industry to leading product and engineering tribes in global SaaS — with measurable outcomes at every stage.",
-    url: "https://soumenroy.com/experience",
+    url: canonical("/experience"),
     images: [{ url: "/og?title=Experience&sub=28%2B+years+across+SaaS%2C+Industry+4.0+%26+Enterprise+Transformation", width: 1200, height: 630 }],
   },
 };

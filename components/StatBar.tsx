@@ -9,6 +9,7 @@ const EXEC_STATS = [
     slug: "transformations",
     icon: <TrendingUp size={18} />,
     color: "text-violet-400",
+    hoverColor: "group-hover:text-violet-400",
     glow: "group-hover:shadow-violet-500/10",
   },
   {
@@ -17,6 +18,7 @@ const EXEC_STATS = [
     slug: "teams-led",
     icon: <Users size={18} />,
     color: "text-cyan-400",
+    hoverColor: "group-hover:text-cyan-400",
     glow: "group-hover:shadow-cyan-500/10",
   },
   {
@@ -25,6 +27,7 @@ const EXEC_STATS = [
     slug: "countries",
     icon: <Globe size={18} />,
     color: "text-emerald-400",
+    hoverColor: "group-hover:text-emerald-400",
     glow: "group-hover:shadow-emerald-500/10",
     flags: true,
   },
@@ -34,6 +37,7 @@ const EXEC_STATS = [
     slug: "roi",
     icon: <BarChart2 size={18} />,
     color: "text-amber-400",
+    hoverColor: "group-hover:text-amber-400",
     glow: "group-hover:shadow-amber-500/10",
   },
   {
@@ -42,6 +46,7 @@ const EXEC_STATS = [
     slug: "platforms-built",
     icon: <Layers size={18} />,
     color: "text-rose-400",
+    hoverColor: "group-hover:text-rose-400",
     glow: "group-hover:shadow-rose-500/10",
   },
 ];
@@ -59,7 +64,7 @@ export default function StatBar() {
           <div className={`flex justify-center mb-2 ${s.color} opacity-70 group-hover:opacity-100 transition-opacity`}>
             {s.icon}
           </div>
-          <div className={`text-xl font-bold tracking-tight text-slate-100 group-hover:${s.color} transition-colors`}>
+          <div className={`text-xl font-bold tracking-tight text-slate-100 ${s.hoverColor} transition-colors`}>
             {s.value}
           </div>
           {s.flags && (

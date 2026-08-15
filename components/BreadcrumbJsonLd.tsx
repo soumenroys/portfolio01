@@ -1,8 +1,8 @@
+import { site } from "@/lib/seo";
 // components/BreadcrumbJsonLd.tsx
 // Server component — renders BreadcrumbList JSON-LD inline for Google rich results.
 // Usage: <BreadcrumbJsonLd items={[{ name: "Experience", href: "/experience" }]} />
 
-const SITE_URL = "https://soumenroy.com";
 
 type Crumb = { name: string; href: string };
 
@@ -16,7 +16,7 @@ export default function BreadcrumbJsonLd({ items }: { items: Crumb[] }) {
       "@type": "ListItem",
       "position": i + 1,
       "name": crumb.name,
-      "item": `${SITE_URL}${crumb.href}`,
+      "item": `${site.url}${crumb.href}`,
     })),
   };
 

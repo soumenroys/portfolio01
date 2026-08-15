@@ -12,10 +12,7 @@ export const RESUME_URL = "/CV_Soumen-Roy.pdf";
 export const DETAILED_RESUME_URL = "/Detail-CV_Soumen-Roy.pdf";
 export const YEARS = "28+";
 
-export const STATS = [
-  { label: "Enterprise Transformations", value: "10+", slug: "transformations" },
-  { label: "Global Teams Led", value: "200+", slug: "teams-led" },
-  { label: "Countries of Impact", value: "3", slug: "countries" },
-  { label: "ROI Delivered", value: "$50M+", slug: "roi" },
-  { label: "Platforms Built", value: "Data & Microservices", slug: "platforms-built" },
-];
+// Headline stats live in components/StatBar.tsx, which owns their presentation
+// (icons, colours) alongside the copy. A duplicate list previously sat here,
+// unused and already drifted — "Data & Microservices" vs the rendered
+// "Data & AI". Add new stats in StatBar, not here.

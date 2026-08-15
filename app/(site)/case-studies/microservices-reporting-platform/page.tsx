@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Microservices Reporting Platform | Soumen Roy",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/case-studies/microservices-reporting-platform" },
   openGraph: {
     title: "Microservices Reporting Platform | Soumen Roy",
-    url: "https://soumenroy.com/case-studies/microservices-reporting-platform",
+    url: canonical("/case-studies/microservices-reporting-platform"),
   },
 };
 

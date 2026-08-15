@@ -260,8 +260,8 @@ export default function ExpertisePage() {
         <div className="space-y-3">
           {[
             {
-              headline: "World-first satellite + aerial photogrammetry integration for Google 3D Maps",
-              context: "Led the photogrammetry production team at Cadworld delivering the first-of-its-kind 3D mapping dataset for a global platform.",
+              headline: "Satellite + aerial photogrammetry integration for global 3D mapping",
+              context: "Led the photogrammetry production team at Cadworld, delivering 3D mapping datasets with OSIG (Canada) that fed Google's 3D mapping data pipeline.",
             },
             {
               headline: "Industry-first drone-based 3D modelling system at Tata Steel",

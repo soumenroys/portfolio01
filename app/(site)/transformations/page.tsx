@@ -81,12 +81,12 @@ const transformations = [
     tags: ["CAD Automation", "BIM", "AutoLISP"],
   },
   {
-    title: "World-First Photogrammetry Platform",
-    company: "Cadworld / Google (Canada)",
+    title: "Satellite + Aerial Photogrammetry Pipeline",
+    company: "Cadworld / OSIG (Canada)",
     period: "2000–2005",
     context: "No established pipeline for integrating satellite + aerial imagery for 3D mapping at global scale.",
-    outcome: "First-ever satellite + aerial photogrammetry integration — contributed to Google 3D Maps; productivity improved 50%.",
-    tags: ["Photogrammetry", "GIS", "Google", "World-First"],
+    outcome: "Built an early satellite + aerial photogrammetry integration feeding Google's 3D mapping data pipeline; productivity improved 50%.",
+    tags: ["Photogrammetry", "GIS", "3D Mapping"],
   },
   {
     title: "Executive Dashboards at Scale",

@@ -104,18 +104,18 @@ const roles = [
     domain: "GIS & Geospatial",
     domainColor: "bg-sky-500/15 text-sky-300 border-sky-500/20",
     dotColor: "bg-sky-400",
-    badge: { text: "World-First Achievement", color: "border-sky-400/40 bg-sky-400/10 text-sky-300" },
+    badge: { text: "Global Mapping Programme", color: "border-sky-400/40 bg-sky-400/10 text-sky-300" },
     summary:
-      "Led photogrammetry production and automation for global mapping clients — including a world-first integration of satellite imagery and aerial photography for 3D modelling in partnership with Google, contributing to what became Google 3D Maps.",
+      "Led photogrammetry production and automation for global mapping clients — including an early integration of satellite imagery and aerial photography for 3D modelling, delivered with OSIG (Canada) into the data pipeline behind Google's 3D mapping.",
     responsibilities: [
       "Led a 30-member photogrammetry team delivering large-scale 3D mapping services to global infrastructure clients.",
-      "Pioneered satellite-based imagery + aerial photography pipeline — the first of its kind globally — for high-fidelity 3D mapping at scale.",
+      "Built a satellite-imagery + aerial-photography pipeline for high-fidelity 3D mapping at scale, at a time when no established workflow for combining the two existed.",
       "Built AutoLISP and DCL automation tools for civil CAD workflows, improving team productivity by 50%.",
       "Owned end-to-end geospatial production quality: flight path design, aero-triangulation, vector capture, orthophoto generation.",
     ],
     outcomes: [
       { value: "50%", label: "Team productivity gain" },
-      { value: "World-first", label: "Satellite + aerial fusion" },
+      { value: "30", label: "Photogrammetry team led" },
     ],
   },
   {
@@ -333,11 +333,11 @@ export default function ExperiencePage() {
         <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-sky-400/10 px-3 py-1 text-xs font-medium text-sky-300 mb-3">
           ✦ Select International Project
         </div>
-        <h2 className="text-lg font-semibold text-accent">Photogrammetry — OSIG / Google (Canada)</h2>
+        <h2 className="text-lg font-semibold text-accent">Photogrammetry — Cadworld / OSIG (Canada)</h2>
         <p className="mt-2 text-sm text-slate-300 leading-relaxed">
-          Led a world-first photogrammetry program in partnership with OSIG (Canada) to deliver high-fidelity 3D mapping
-          datasets for a global platform. The project established quality controls, processing pipelines, and dataset
-          handoff standards — contributing directly to the foundation of Google 3D Maps.
+          Led a photogrammetry programme in partnership with OSIG (Canada) delivering high-fidelity 3D mapping
+          datasets for a global platform. The project established the quality controls, processing pipelines and
+          dataset handoff standards behind that output, which fed Google&rsquo;s 3D mapping data pipeline.
         </p>
         <ul className="mt-3 space-y-1">
           {[

@@ -26,8 +26,8 @@ export default function RoiPage() {
       <p className="mt-4 text-slate-300">
         Over {YEARS} years of leadership I have aligned technology investments with business
         outcomes — generating{" "}
-        <span className="font-semibold">$50M+ in measurable ROI</span> across manufacturing,
-        SaaS, and enterprise modernization programs.
+        <span className="font-semibold">$50M+ in cumulative measured ROI</span> across 10+
+        transformation programmes in manufacturing, SaaS, and enterprise modernization.
       </p>
 
       {/* Top-level summary metrics */}
@@ -51,7 +51,7 @@ export default function RoiPage() {
           Enterprise Value Creation
         </h2>
         <p className="text-sm text-slate-400 mb-6">
-          Revenue and commercial impact from platform transformation at OpenLM
+          Revenue and commercial impact from modernising a global enterprise SaaS platform
         </p>
 
         {/* Metric highlights */}
@@ -239,13 +239,76 @@ export default function RoiPage() {
 
         <section>
           <h2 className="text-xl md:text-2xl font-semibold text-accent">
-            How the $50M+ ROI Was Realized
+            How the $50M+ Was Built Up
           </h2>
-          <ul className="mt-2 list-disc list-inside text-slate-300 space-y-1">
-            <li><span className="font-semibold">Cost Savings:</span> decommissioned tooling, infra optimization, manual-effort reduction.</li>
-            <li><span className="font-semibold">Cost Avoidance:</span> early-risk detection, fewer change orders, better forecast accuracy.</li>
-            <li><span className="font-semibold">Revenue Enablement:</span> faster time-to-market, improved win-rates via timely insights.</li>
-          </ul>
+          <p className="mt-2 text-slate-300">
+            Cumulative measured impact across 10+ transformation programmes and four
+            organisations. Each line below is a result published elsewhere on this site —
+            the total combines realised savings, avoided cost, and revenue enabled.
+          </p>
+
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-white/15 text-left">
+                  <th className="py-2 pr-4 font-medium text-slate-200">Programme</th>
+                  <th className="py-2 pr-4 font-medium text-slate-200">Contribution</th>
+                  <th className="py-2 font-medium text-slate-200">Published result</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-300">
+                {[
+                  {
+                    programme: "Enterprise SaaS platform modernisation",
+                    period: "2022 – present",
+                    type: "Revenue enablement + cost savings",
+                    result: "Avg. customer renewal $2–5K → $35K+; infrastructure cost −70%",
+                  },
+                  {
+                    programme: "AI procurement & analytics, steel manufacturing",
+                    period: "2019 – 2022",
+                    type: "Cost savings",
+                    result: "$1M+ per year; inventory movement +80%; procurement cycle months → days",
+                  },
+                  {
+                    programme: "Industry 4.0 & digital engineering, Tata Steel",
+                    period: "Earlier",
+                    type: "Cost avoidance",
+                    result: "~30% revenue leakage recovered; engineering rework −20%",
+                  },
+                  {
+                    programme: "BIM transformation, M. N. Dastur",
+                    period: "Earlier",
+                    type: "Cost avoidance",
+                    result: "32 disciplines moved from 2D drafting to BIM-based virtual engineering",
+                  },
+                  {
+                    programme: "Global 3D mapping pipeline, Cadworld / OSIG",
+                    period: "2000 – 2005",
+                    type: "Cost savings",
+                    result: "Team productivity +50% through CAD and photogrammetry automation",
+                  },
+                ].map((row) => (
+                  <tr key={row.programme} className="border-b border-white/8 align-top">
+                    <td className="py-3 pr-4">
+                      <div className="text-slate-100">{row.programme}</div>
+                      <div className="text-xs text-slate-500 mt-0.5">{row.period}</div>
+                    </td>
+                    <td className="py-3 pr-4 text-slate-400">{row.type}</td>
+                    <td className="py-3">{row.result}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-4 text-xs text-slate-500 leading-relaxed">
+            <span className="text-slate-400 font-medium">What is counted:</span> realised cost
+            savings and revenue enabled, measured against before/after baselines agreed with
+            Finance and business-unit leaders; cost avoidance is included where that baseline was
+            agreed at the outset. Figures are cumulative across programmes and organisations over
+            {" "}{YEARS} years — not annual, and not attributable to any single organisation.
+          </p>
         </section>
 
         <section>

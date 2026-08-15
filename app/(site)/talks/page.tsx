@@ -105,7 +105,7 @@ export default function TalksPage() {
             },
             {
               topic: "Photogrammetry at Industrial Scale",
-              desc: "High-fidelity 3D mapping workflows, QA practices, and enterprise handoffs — including world-first satellite + aerial integration for global mapping.",
+              desc: "High-fidelity 3D mapping workflows, QA practices, and enterprise handoffs — including early satellite + aerial imagery integration for global mapping.",
             },
             {
               topic: "Revenue-Aligned Technology Strategy",

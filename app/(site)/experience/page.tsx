@@ -33,7 +33,7 @@ const roles = [
     ],
   },
   {
-    title: "Head — Business Process & Digital Transformation",
+    title: "Enterprise Technology & Transformation Leadership",
     company: "Gunung Raja Paksi (GRP)",
     period: "Jan 2019 – Sep 2022",
     location: "Indonesia",
@@ -41,12 +41,13 @@ const roles = [
     domainColor: "bg-amber-500/15 text-amber-300 border-amber-500/20",
     dotColor: "bg-amber-400",
     summary:
-      "Led digital backbone and ERP/analytics modernization for GRP during a transition to a public company — bridging executive reporting, plant operations, and procurement.",
+      "Owned the digital and data agenda for Indonesia's largest private steelmaker through its transition to a public company — spanning executive reporting, plant operations, procurement and enterprise systems.",
     responsibilities: [
-      "Drive ERP rollouts across 25+ departments and integrate finance, production and maintenance data for consolidated reporting.",
-      "Build executive dashboards unifying finance, HR, production, and maintenance to enable faster data-driven decisions.",
-      "Introduce mobile asset management and digital inventory flows to reduce manual reconciliation effort.",
-      "Design analytics-driven procurement intelligence and scrap pricing models to inform sourcing strategy.",
+      "Own the enterprise systems agenda — ERP rollouts across 25+ departments, integrating finance, production and maintenance data into a single consolidated reporting layer.",
+      "Establish board-level data governance — C-suite dashboards unifying finance, HR, production and maintenance, giving leadership a common set of numbers during the IPO transition.",
+      "Direct analytics-driven procurement strategy — predictive scrap-price and FX models enabling just-in-time sourcing and reducing cost volatility, worth $1M+ annually.",
+      "Modernise plant operations — mobile asset management and digital inventory flows replacing manual reconciliation, improving inventory movement by 80%.",
+      "Set the Industry 4.0 direction for a brownfield steel plant — OT/IT convergence, real-time operational data, and the engineering practices to sustain it.",
     ],
     outcomes: [
       { value: "$1M+", label: "Annual savings" },

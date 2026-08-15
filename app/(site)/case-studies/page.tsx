@@ -54,7 +54,35 @@ const studies = [
     title: "M. N. Dastur — BIM Transformation at Scale",
     blurb:
       "Converted 50+ years of classical 2D engineering to BIM-based virtual engineering across 32 disciplines.",
-    image: "/images/bim-collaboration.jpg", // ensure this file exists
+    image: "/images/bim-collaboration.jpg",
+  },
+  {
+    href: "/case-studies/microservices-reporting-platform",
+    title: "Microservices Reporting Platform",
+    blurb:
+      "Monolith re-architected to microservices with Kafka, Spark and S3/MinIO — reporting latency from hours to near-real-time.",
+    image: "/images/case-studies/microservices-reporting-platform/architecture.png",
+  },
+  {
+    href: "/case-studies/manufacturing-analytics-roi",
+    title: "Manufacturing Analytics ROI",
+    blurb:
+      "Predictive analytics for procurement and scrap cost in heavy industry — $1M+ annual savings, procurement cycles from months to days.",
+    image: "/images/case-studies/manufacturing-analytics-roi/architecture.png",
+  },
+  {
+    href: "/case-studies/executive-dashboards-scale",
+    title: "Executive Dashboards at Scale",
+    blurb:
+      "Power BI and QuickSight on governed semantic models — 85%+ monthly active executive adoption and standardised KPIs enterprise-wide.",
+    image: "/images/cde-dashboard.jpg",
+  },
+  {
+    href: "/case-studies/tata-steel-digital-engineering",
+    title: "Tata Steel — Digital Engineering at Plant Scale",
+    blurb:
+      "Drone inspection, LiDAR/GIS and digital twins applied across live plant operations.",
+    image: "/images/case-studies/tata-steel-digital-engineering/digital-twin.png",
   },
 ] as const satisfies ReadonlyArray<{
   href: Route;

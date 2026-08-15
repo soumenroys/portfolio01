@@ -31,7 +31,7 @@ export default function ContactPage() {
       <header className="mb-6">
         <h1 className="text-3xl font-bold text-accent">Get in touch</h1>
         <p className="mt-2 text-slate-300">
-          I consult on data platforms, Industry 4.0 and transformation programs. Use the form below to share a short brief and I’ll get back within 48 hours.
+          I consult on data platforms, Industry 4.0 and transformation programs. Use the form below to share a short brief and I’ll get back within 24–48 hours.
         </p>
       </header>
 

@@ -165,7 +165,7 @@ export default function HomePage() {
           </blockquote>
 
           <p className="mt-4 text-slate-400 text-sm md:text-base leading-relaxed max-w-xl">
-            {YEARS} of hands-on depth — delivering scalable platforms, revenue growth, and enterprise
+            {YEARS} years of hands-on depth — delivering scalable platforms, revenue growth, and enterprise
             transformation across SaaS, manufacturing, and industrial engineering.
           </p>
 
@@ -220,7 +220,7 @@ export default function HomePage() {
           <div className="text-xs font-medium text-violet-400 uppercase tracking-wider mb-2">Technology Stack</div>
           <h3 className="font-semibold text-slate-100 group-hover:text-white transition">Technology Expertise</h3>
           <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-            {YEARS} of depth across AI, SaaS platforms, data engineering, cloud infrastructure, and industrial
+            {YEARS} years of depth across AI, SaaS platforms, data engineering, cloud infrastructure, and industrial
             systems — from Spark &amp; Kafka to LiDAR, BIM, and digital twins.
           </p>
           <span className="mt-3 inline-flex items-center gap-1 text-accent text-sm group-hover:gap-2 transition-all">

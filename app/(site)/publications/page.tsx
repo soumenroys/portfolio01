@@ -131,7 +131,7 @@ export default function PublicationsPage() {
           <div className="text-sm text-slate-400">{ROLE}</div>
 
           <p className="mt-3 text-slate-300 text-sm">
-            Soumen Roy is an executive technology and transformation leader with 27+ years of experience leading digital engineering, Industry 4.0, and data platform programs
+            Soumen Roy is an executive technology and transformation leader with 28+ years of experience leading digital engineering, Industry 4.0, and data platform programs
             for heavy industry and enterprise software. He has led large multi-disciplinary teams, delivered 10+ enterprise transformations and built platforms that reduced
             analytic lead-times and delivered measurable ROI across India, Indonesia and Canada.
           </p>

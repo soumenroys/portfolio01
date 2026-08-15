@@ -45,7 +45,9 @@ async function sendOtpEmail(to: string, name: string, otp: string) {
   await transporter.sendMail({
     from: process.env.SMTP_FROM || `Soumen Roy <${process.env.SMTP_USER}>`,
     to,
-    subject: `Your verification code: ${otp}`,
+    // The code stays in the body only. In the subject it was readable from a
+    // notification list, a locked phone screen, and any mail-server log on the way.
+    subject: "Your verification code for soumenroy.com",
     html,
   });
 }

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     images: [{ url: "/og?title=Transformation+Approach&sub=Discover+%E2%86%92+Pilot+%E2%86%92+Scale+%E2%86%92+Operate", width: 1200, height: 630 }],
   },
 };
-import { NAME, ROLE, DETAILED_RESUME_URL } from "@/lib/constants";
+import { NAME, ROLE } from "@/lib/constants";
 
 // Import client components (interactive)
 import DataFlowDiagramClient from "@/components/DataFlowDiagramClient";
@@ -184,8 +184,10 @@ export default function ApproachPage() {
             Book a discussion
           </a>
 
-          <a href={DETAILED_RESUME_URL} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition">
-            Request the playbook
+          {/* Was labelled "Request the playbook" while linking straight to the CV —
+              wrong label, and it skipped the capture form every other CV link uses. */}
+          <a href="/contact?download=detailed#form" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 text-sm hover:bg-white/5 transition">
+            Download the detailed CV
           </a>
         </div>
       </div>

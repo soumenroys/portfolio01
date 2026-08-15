@@ -197,7 +197,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 "https://www.linkedin.com/in/sowmenroy",
                 "https://www.goodreads.com/author/show/34690983-soumen-roy",
                 "https://3dplantengineering.com",
-                "https://imotara.app"
+                "https://www.imotara.com"
               ]
             }),
           }}

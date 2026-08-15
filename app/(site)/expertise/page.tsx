@@ -80,7 +80,7 @@ const domains = [
     tagColor: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/20",
     headingColor: "text-emerald-300",
     narrative:
-      "Deployed and operated global cloud infrastructure with full CI/CD automation — increasing release cadence from 1–2 per year to daily deployments and cutting infrastructure cost by 30%.",
+      "Deployed and operated global cloud infrastructure with full CI/CD automation — increasing release cadence from 1–2 per year to daily deployments and cutting cloud costs by 30%.",
     skills: [
       "AWS",
       "Microsoft Azure",

@@ -8,20 +8,22 @@ import ContactForm from "@/components/ContactForm";
 
 const roles = [
   {
-    title: "Tribe Lead — Engineering & Product",
+    title: "Engineering & Product Leadership",
     company: "OpenLM",
     period: "Sep 2022 – Present",
-    location: "India (Global operations)",
+    location: "India · Global operations",
     domain: "SaaS & AI",
     domainColor: "bg-violet-500/15 text-violet-300 border-violet-500/20",
     dotColor: "bg-violet-400",
     summary:
-      "Lead product & engineering tribe for license lifecycle and analytics; accountable for product architecture, delivery, and India operations scaling.",
+      "Own end-to-end product and technology strategy for a global SaaS platform serving enterprise customers across the US, Europe and Japan. 85+ people across 4 squads.",
     responsibilities: [
-      "Architect and drive transition from a monolithic product to microservices and container-native SaaS.",
-      "Design and operate streaming & batch data pipelines (Apache Spark, Kafka, Airflow, NiFi) for telemetry and analytics.",
-      "Own hiring, org scaling, and engineering operations for India — recruiting, SRE practices, and vendor partnerships.",
-      "Partner with product and CX to deliver high-value dashboards (Power BI / Superset / QuickSight) and ML-enabled license forecasting.",
+      "Set technology direction — re-architected a monolithic product into container-native microservices, taking release cadence from 1–2 per year to daily and cutting downtime by 50%.",
+      "Own the commercial model alongside product — introduced consumption-based pricing with per-customer profitability tracking, and moved the customer segment from SMB to enterprise.",
+      "Built the organisation — grew engineering from 3 to 85+ across 4 squads and multiple regions, owning hiring, operating model, SRE practice and vendor partnerships.",
+      "Report to the CEO, founders and leadership on a weekly cadence — roadmap, transformation progress and business impact, informing decisions on product, expansion, hiring and infrastructure investment.",
+      "Own infrastructure spend and platform strategy — right-sized cloud architecture cut infrastructure cost by 70% while improving performance and reliability.",
+      "Set data governance standards — governed semantic models, data contracts and quality SLAs underpinning multi-tenant analytics and ML-enabled license forecasting.",
     ],
     outcomes: [
       { value: "3 → 85+", label: "Team scaled" },

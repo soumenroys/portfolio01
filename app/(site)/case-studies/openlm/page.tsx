@@ -59,7 +59,7 @@ export default function OpenLMCaseStudy() {
       <h1 className="text-3xl md:text-4xl font-bold mb-4 text-accent">
         OpenLM — SaaS Platform Transformation
       </h1>
-      <p className="text-slate-400 text-sm mb-6">Sept 2022 – Present &nbsp;·&nbsp; Tribe Lead</p>
+      <p className="text-slate-400 text-sm mb-6">Sept 2022 – Present &nbsp;·&nbsp; Engineering &amp; Product Leadership</p>
 
       {/* Metrics banner */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">

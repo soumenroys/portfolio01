@@ -6,6 +6,7 @@ import os from "os";
 import nodemailer from "nodemailer";
 import { verifyOtpToken } from "@/lib/otp";
 import { checkRateLimit, clientIp, escapeHtml } from "@/lib/rateLimit";
+import { field, emailField, readJsonBody, type FieldName } from "@/lib/validate";
 
 // This route also sends mail on an unauthenticated request, so it needs its own
 // budget. Looser than send-otp: a genuine visitor may legitimately submit the
@@ -15,7 +16,8 @@ const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
 type Body = {
   name: string;
-  email?: string;
+  // Required: validation rejects the request before this object is built.
+  email: string;
   contact?: string;
   company?: string;
   subject?: string;
@@ -130,14 +132,52 @@ async function sendEmailNotification(record: any) {
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as Body;
-
-    if (!body.name || !body.email) {
-      return NextResponse.json(
-        { ok: false, error: "name and email are required" },
-        { status: 400 }
-      );
+    const parsed = await readJsonBody(req);
+    if (!parsed.ok) {
+      return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
     }
+
+    // Validate every field: type, control characters, and length. Previously this
+    // only checked truthiness, so any field could be an object, an array, or
+    // megabytes of text on its way into an email body.
+    const fields: Array<[keyof Body & FieldName, boolean]> = [
+      ["name", true],
+      ["contact", false],
+      ["company", false],
+      ["subject", false],
+      ["message", false],
+      ["comments", false],
+      ["otp", false],
+      ["otpToken", false],
+      ["downloadUrl", false],
+    ];
+
+    const clean: Record<string, string> = {};
+    for (const [key, required] of fields) {
+      const result = field(parsed.value[key], key, { required });
+      if (!result.ok) {
+        return NextResponse.json({ ok: false, error: result.error }, { status: 400 });
+      }
+      clean[key] = result.value;
+    }
+
+    const emailResult = emailField(parsed.value.email, { required: true });
+    if (!emailResult.ok) {
+      return NextResponse.json({ ok: false, error: emailResult.error }, { status: 400 });
+    }
+
+    const body: Body = {
+      name: clean.name,
+      email: emailResult.value,
+      contact: clean.contact,
+      company: clean.company,
+      subject: clean.subject,
+      message: clean.message,
+      comments: clean.comments,
+      otp: clean.otp,
+      otpToken: clean.otpToken,
+      downloadUrl: clean.downloadUrl || null,
+    };
 
     const limited = checkRateLimit(`contact:ip:${clientIp(req)}`, IP_LIMIT, WINDOW_MS);
     if (!limited.ok) {

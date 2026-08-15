@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDown,
@@ -34,13 +34,13 @@ type NavItem = {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
 
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const dropdownRefs = useRef<Array<HTMLElement | null>>([]);
+  const openedViaKeyboard = useRef(false);
 
   // Scroll-aware background
   useEffect(() => {
@@ -79,9 +79,14 @@ export default function Navbar() {
     pathname === "/talks" ||
     false;
 
+  // Move focus into the submenu only when it was opened from the keyboard.
+  // This used to run on every activeDropdown change, and since hovering sets
+  // activeDropdown, merely passing the mouse over "Case Studies" yanked focus
+  // out of whatever the user was typing in and could scroll the page.
   useEffect(() => {
-    if (activeDropdown !== null && dropdownRefs.current[0]) {
+    if (activeDropdown !== null && openedViaKeyboard.current) {
       dropdownRefs.current[0]?.focus();
+      openedViaKeyboard.current = false;
     }
   }, [activeDropdown]);
 
@@ -133,6 +138,7 @@ export default function Navbar() {
     if ((e.key === "Enter" || e.key === " ") && childIndex === undefined) {
       if (links[parentIndex].children) {
         e.preventDefault();
+        openedViaKeyboard.current = true;
         setActiveDropdown(parentIndex);
       }
       return;
@@ -259,23 +265,17 @@ export default function Navbar() {
                               {child.dividerBefore && (
                                 <div className="my-1.5 mx-3 border-t border-white/8" />
                               )}
-                              <div
+                              {/* Real anchors, not divs. As divs these had no href, so
+                                  cmd-click, open-in-new-tab and status-bar preview all
+                                  failed — and six case-study URLs were invisible to
+                                  crawlers following the nav. */}
+                              <Link
+                                href={child.href as any}
                                 role="menuitem"
-                                tabIndex={0}
-                                onClick={() => {
-                                  setActiveDropdown(null);
-                                  router.push(child.href as any);
-                                }}
-                                onKeyDown={(e) => {
-                                  if (e.key === "Enter" || e.key === " ") {
-                                    setActiveDropdown(null);
-                                    router.push(child.href as any);
-                                  } else {
-                                    handleKeyDown(e as any, index, childIndex);
-                                  }
-                                }}
+                                onClick={() => setActiveDropdown(null)}
+                                onKeyDown={(e) => handleKeyDown(e as any, index, childIndex)}
                                 ref={(el) => { dropdownRefs.current[childIndex] = el; }}
-                                className={`flex items-center gap-2.5 mx-2 px-3 py-2 rounded-lg text-sm transition cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
+                                className={`flex items-center gap-2.5 mx-2 px-3 py-2 rounded-lg text-sm transition focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
                                   subActive
                                     ? "bg-accent/15 text-accent font-medium"
                                     : "text-slate-300 hover:text-white hover:bg-white/8"
@@ -283,7 +283,7 @@ export default function Navbar() {
                               >
                                 <span className="text-slate-500">{child.icon}</span>
                                 <span>{child.label}</span>
-                              </div>
+                              </Link>
                             </li>
                           );
                         })}

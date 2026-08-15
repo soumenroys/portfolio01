@@ -152,15 +152,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "name": NAME,
               "url": site.url,
               "description": TAGLINE,
-              "inLanguage": "en-US",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": `${site.url}/case-studies?q={search_term_string}`
-                },
-                "query-input": "required name=search_term_string"
-              }
+              "inLanguage": "en-US"
+              // No SearchAction: this site has no search endpoint. Declaring one
+              // for /case-studies?q= advertised a capability that does not exist,
+              // and the URL simply renders the unfiltered hub.
             }),
           }}
         />

@@ -4,6 +4,7 @@ import crypto from "crypto";
 import nodemailer from "nodemailer";
 import { signOtpToken } from "@/lib/otp";
 import { checkRateLimit, clientIp, escapeHtml } from "@/lib/rateLimit";
+import { field, emailField, readJsonBody } from "@/lib/validate";
 
 // This endpoint sends mail to an address supplied by an unauthenticated caller,
 // so without limits it is a mail-bomb amplifier pointed at our own SMTP
@@ -54,25 +55,23 @@ async function sendOtpEmail(to: string, name: string, otp: string) {
 
 export async function POST(req: Request) {
   try {
-    const { name, email } = (await req.json()) as { name?: string; email?: string };
-
-    if (!name?.trim() || !email?.trim()) {
-      return NextResponse.json(
-        { ok: false, error: "name and email are required" },
-        { status: 400 }
-      );
+    const body = await readJsonBody(req);
+    if (!body.ok) {
+      return NextResponse.json({ ok: false, error: body.error }, { status: 400 });
     }
 
-    const normalisedEmail = email.trim().toLowerCase();
-
-    // Reject anything that is not plausibly an address before we hand it to
-    // the mailer — cheap, and keeps junk out of the per-email bucket.
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalisedEmail)) {
-      return NextResponse.json(
-        { ok: false, error: "Please enter a valid email address" },
-        { status: 400 }
-      );
+    const nameField = field(body.value.name, "name", { required: true });
+    if (!nameField.ok) {
+      return NextResponse.json({ ok: false, error: nameField.error }, { status: 400 });
     }
+
+    const emailResult = emailField(body.value.email, { required: true });
+    if (!emailResult.ok) {
+      return NextResponse.json({ ok: false, error: emailResult.error }, { status: 400 });
+    }
+
+    const name = nameField.value;
+    const normalisedEmail = emailResult.value;
 
     const byIp = checkRateLimit(`send-otp:ip:${clientIp(req)}`, IP_LIMIT, WINDOW_MS);
     const byEmail = checkRateLimit(`send-otp:email:${normalisedEmail}`, EMAIL_LIMIT, WINDOW_MS);
@@ -93,7 +92,7 @@ export async function POST(req: Request) {
     const token = signOtpToken(normalisedEmail, otp);
 
     // Send OTP email
-    await sendOtpEmail(normalisedEmail, name.trim(), otp);
+    await sendOtpEmail(normalisedEmail, name, otp);
 
     return NextResponse.json({ ok: true, token });
   } catch (err: any) {

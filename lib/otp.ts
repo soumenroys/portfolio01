@@ -36,9 +36,37 @@ function getSecret(): string {
   );
 }
 
+/**
+ * Hash of the code, bound to the address it was issued for.
+ *
+ * The token travels to the browser, so it must never contain the code itself.
+ * An earlier version embedded the plaintext OTP, which meant anyone could call
+ * send-otp, base64-decode the response and read the code without ever seeing
+ * the email — the gate verified nothing. Salting with the email stops a token
+ * issued for one address being replayed against another even before the
+ * explicit email check below.
+ */
+function hashOtp(email: string, otp: string): string {
+  return crypto
+    .createHash("sha256")
+    .update(`${email.toLowerCase()}|${otp}`)
+    .digest("hex");
+}
+
+/** Constant-time compare of two hex strings of equal expected length. */
+function safeEqualHex(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  try {
+    return crypto.timingSafeEqual(Buffer.from(a, "hex"), Buffer.from(b, "hex"));
+  } catch {
+    return false;
+  }
+}
+
 export function signOtpToken(email: string, otp: string): string {
   const exp = Date.now() + OTP_TTL_MS;
-  const payload = `${email}|${otp}|${exp}`;
+  const normalised = email.toLowerCase();
+  const payload = `${normalised}|${hashOtp(normalised, otp)}|${exp}`;
   const sig = crypto
     .createHmac("sha256", getSecret())
     .update(payload)
@@ -56,18 +84,23 @@ export function verifyOtpToken(
     const parts = decoded.split("|");
     if (parts.length !== 4) return { ok: false, reason: "invalid token" };
 
-    const [tEmail, tOtp, tExp, tSig] = parts;
-    const payload = `${tEmail}|${tOtp}|${tExp}`;
+    const [tEmail, tOtpHash, tExp, tSig] = parts;
+    const payload = `${tEmail}|${tOtpHash}|${tExp}`;
     const expectedSig = crypto
       .createHmac("sha256", getSecret())
       .update(payload)
       .digest("hex");
 
-    if (tSig !== expectedSig) return { ok: false, reason: "invalid signature" };
-    if (Date.now() > Number(tExp)) return { ok: false, reason: "code expired" };
+    // Constant-time so the signature can't be recovered byte-by-byte via timing.
+    if (!safeEqualHex(tSig, expectedSig)) return { ok: false, reason: "invalid signature" };
+
+    const exp = Number(tExp);
+    if (!Number.isFinite(exp)) return { ok: false, reason: "invalid token" };
+    if (Date.now() > exp) return { ok: false, reason: "code expired" };
     if (tEmail.toLowerCase() !== email.toLowerCase())
       return { ok: false, reason: "email mismatch" };
-    if (tOtp !== otp) return { ok: false, reason: "incorrect code" };
+    if (!safeEqualHex(tOtpHash, hashOtp(email, otp)))
+      return { ok: false, reason: "incorrect code" };
 
     return { ok: true };
   } catch {

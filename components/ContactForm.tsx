@@ -92,10 +92,19 @@ export default function ContactForm({
     if (raw === "resume" || raw === "short" || raw === "cv") {
       setDownloadUrl(RESUME_URL); return;
     }
+    // Anything else must match a known CV path exactly.
+    //
+    // This previously accepted any value starting with "/", which also matches a
+    // protocol-relative URL: ?download=//evil.tld/malware.pdf passed the check and
+    // the browser resolved it as an external host, so our branded form would hand
+    // the visitor an attacker-hosted file. An allowlist is the only safe form of
+    // this check — prefix matching on "/" cannot express it.
     try {
-      const decoded = decodeURIComponent(qp);
-      if (decoded.startsWith("/")) { setDownloadUrl(decoded); return; }
-    } catch { /* ignore */ }
+      const decoded = decodeURIComponent(qp).trim();
+      if (decoded === RESUME_URL || decoded === DETAILED_RESUME_URL) {
+        setDownloadUrl(decoded); return;
+      }
+    } catch { /* malformed encoding — fall through to null */ }
     setDownloadUrl(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, downloadUrlProp]);

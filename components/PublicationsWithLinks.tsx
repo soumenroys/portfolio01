@@ -43,7 +43,17 @@ const recordings = [
 export default function PublicationsWithLinks() {
   return (
     <section className="mb-8">
-      <h2 className="text-xl font-semibold text-accent mb-4">Recordings & talks</h2>
+      {/* These are third-party videos, not recordings of Soumen's own sessions —
+          the heading and note must keep that distinction explicit. */}
+      <h2 className="text-xl font-semibold text-accent mb-1">Recommended viewing</h2>
+      <p className="text-sm text-slate-400 mb-4">
+        External talks and webinars I point people to on these topics. These are other
+        speakers&rsquo; recordings, not my own sessions &mdash; for those, see{" "}
+        <a href="/talks" className="text-accent hover:underline underline-offset-2">
+          Talks &amp; Presentations
+        </a>
+        .
+      </p>
 
       <div className="grid gap-4">
         {recordings.map((r) => (

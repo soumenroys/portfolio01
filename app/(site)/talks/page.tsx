@@ -1,5 +1,12 @@
 // app/(site)/talks/page.tsx
-"use client";
+// Server component — this page has no hooks or handlers, so it needs no client bundle.
+//
+// Recording links were removed deliberately. The YouTube IDs previously linked here
+// were third-party videos (one of them a well-known conference talk by another
+// speaker) presented under these talk titles, which misrepresented them as
+// recordings of these sessions. The talks are real; the recordings were not ours to
+// show. Do not re-add a "Watch recording" button without a verified URL of the
+// actual session.
 import { NAME } from "@/lib/constants";
 
 export default function TalksPage() {
@@ -9,10 +16,7 @@ export default function TalksPage() {
       event: "International Mapping Conference",
       date: "Aug 2022",
       location: "Toronto, Canada",
-      // updated real recording
-      video: "https://www.youtube.com/watch?v=TcGlAtuyp6U",
       slides: "/slides/photogrammetry_industrial_scale.pdf",
-      img: "/images/talks/photogrammetry-thumbnail.png",
       summary:
         "Overview of high-fidelity photogrammetry workflows, QA practices and enterprise handoffs used in large mapping & plant projects.",
     },
@@ -21,10 +25,7 @@ export default function TalksPage() {
       event: "Manufacturing Analytics Summit",
       date: "Mar 2021",
       location: "Jakarta, Indonesia",
-      // updated real recording
-      video: "https://www.youtube.com/watch?v=ktcRXyE8SaY",
       slides: "/slides/industry4_otit_convergence.pdf",
-      img: "/images/talks/industry4-thumbnail.png",
       summary:
         "Case studies from brownfield steel plants — edge adapters, streaming ingestion and KPI-driven operations dashboards.",
     },
@@ -33,10 +34,7 @@ export default function TalksPage() {
       event: "Data Platforms Exchange",
       date: "Nov 2020",
       location: "Virtual",
-      // updated real recording
-      video: "https://www.youtube.com/watch?v=CDWp_xyCdzw",
       slides: "/slides/scaling_data_platforms.pdf",
-      img: "/images/talks/data-platforms-thumbnail.png",
       summary:
         "Technical patterns for lakehouse adoption, Iceberg/Parquet best practices and governance for trusted executive dashboards.",
     },
@@ -47,23 +45,16 @@ export default function TalksPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-accent">Talks & Presentations</h1>
         <p className="mt-3 text-slate-300">
-          Talks, conference presentations and workshop sessions delivered by {NAME}. Below are selected recordings,
-          slides and short abstracts — for additional references or to invite a talk, please use the contact page.
+          Talks, conference presentations and workshop sessions delivered by {NAME}. Below are selected
+          sessions with slides and short abstracts — for additional references or to invite a talk,
+          please use the contact page.
         </p>
       </header>
 
       <section className="space-y-8">
         {talks.map((t) => (
-          <article key={t.title} className="rounded-xl border border-white/10 p-6 flex gap-6 items-start">
-            <div className="w-36 flex-shrink-0">
-              <a href={t.video} target="_blank" rel="noreferrer">
-                <div className="w-full h-20 rounded-md border border-white/10 bg-white/5 flex items-center justify-center text-slate-500 text-xs text-center px-2">
-                  ▶ Watch
-                </div>
-              </a>
-            </div>
-
-            <div className="flex-1">
+          <article key={t.title} className="rounded-xl border border-white/10 p-6">
+            <div>
               <h2 className="text-xl font-semibold text-accent">{t.title}</h2>
               <div className="text-sm text-slate-400 mt-1">
                 {t.event} • {t.location} • {t.date}
@@ -72,17 +63,6 @@ export default function TalksPage() {
               <p className="mt-3 text-slate-300 text-sm">{t.summary}</p>
 
               <div className="mt-4 flex flex-wrap gap-3">
-                {t.video && (
-                  <a
-                    href={t.video}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium hover:opacity-95 transition"
-                  >
-                    Watch recording
-                  </a>
-                )}
-
                 {t.slides && (
                   <a
                     href={t.slides}

@@ -9,3 +9,8 @@ smtp-test-verbose.js
 tsconfig.tsbuildinfo
 *.tsbuildinfo
 portfolio01.code-workspace
+
+# Contact-form submissions contain PII (names, emails, phones, IPs).
+# Never commit these — this repo is public.
+data/
+contacts.json

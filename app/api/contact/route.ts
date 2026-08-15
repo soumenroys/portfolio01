@@ -19,9 +19,14 @@ type Body = {
   otp?: string;
 };
 
-// prefer project data path when writable (local dev); in prod fallback to tmp
-const PROJECT_CONTACTS = path.join(process.cwd(), "data", "contacts.json");
-const TMP_CONTACTS = path.join(os.tmpdir(), "contacts.json");
+// Submissions contain PII (name, email, phone, IP), so they must never land inside
+// the repo — this project is public and a tracked data/contacts.json leaked 10 real
+// enquiries before. Set CONTACTS_LOG_PATH to an absolute path outside the working
+// tree for a durable local log; otherwise we use tmp, which is ephemeral on
+// serverless. Either way the notification email is the authoritative capture.
+const CONTACTS_LOG = process.env.CONTACTS_LOG_PATH
+  ? path.resolve(process.env.CONTACTS_LOG_PATH)
+  : path.join(os.tmpdir(), "contacts.json");
 
 // helper: read JSON file safely
 function readJson(filePath: string) {
@@ -157,19 +162,9 @@ export async function POST(req: Request) {
       timestamp: Date.now(),
     };
 
-    // First attempt: try appending to project data path (works locally)
-    let saved = tryAppendToFile(PROJECT_CONTACTS, record);
-
-    // If failed (likely read-only in production), try temp dir (ephemeral)
-    if (!saved) {
-      saved = tryAppendToFile(TMP_CONTACTS, record);
-      if (saved) {
-        console.warn(`Data saved to tmp path (${TMP_CONTACTS}) — note: this is ephemeral on serverless hosts.`);
-      }
-    }
-
-    if (!saved) {
-      console.warn("Could not persist contact to disk; continuing without file save.");
+    // Best-effort local log. Never inside the repo — see CONTACTS_LOG above.
+    if (!tryAppendToFile(CONTACTS_LOG, record)) {
+      console.warn("Could not persist contact to disk; relying on email notification.");
     }
 
     // try to send notification email; don't fail the request if email fails

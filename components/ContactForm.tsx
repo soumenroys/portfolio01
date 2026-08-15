@@ -1,7 +1,7 @@
 // components/ContactForm.tsx
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { EMAIL, RESUME_URL, DETAILED_RESUME_URL } from "@/lib/constants";
 
@@ -70,28 +70,28 @@ export default function ContactForm({
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<null | { ok: boolean; msg: string }>(null);
   const [emailBtnLabel, setEmailBtnLabel] = useState("Open email client");
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(downloadUrlProp);
 
   // OTP verification state (download flow only)
   const [downloadStep, setDownloadStep] = useState<DownloadStep>("details");
   const [otpToken, setOtpToken] = useState<string>("");
   const [otp, setOtp] = useState<string>("");
 
-  // Resolve ?download= query param
-  useEffect(() => {
-    if (downloadUrlProp !== null) {
-      setDownloadUrl(downloadUrlProp);
-      return;
-    }
+  // Resolve ?download= query param.
+  //
+  // Derived during render rather than pushed into state by an effect. It is a
+  // pure function of the prop and the query string, so storing it meant an
+  // extra render pass and a frame where downloadUrl was stale — which is what
+  // react-hooks/set-state-in-effect flags.
+  const downloadUrl = useMemo<string | null>(() => {
+    if (downloadUrlProp !== null) return downloadUrlProp;
+
     const qp = searchParams?.get?.("download") ?? null;
-    if (!qp) { setDownloadUrl(null); return; }
+    if (!qp) return null;
+
     const raw = qp.trim().toLowerCase();
-    if (raw === "detailed" || raw === "detail" || raw === "long") {
-      setDownloadUrl(DETAILED_RESUME_URL); return;
-    }
-    if (raw === "resume" || raw === "short" || raw === "cv") {
-      setDownloadUrl(RESUME_URL); return;
-    }
+    if (raw === "detailed" || raw === "detail" || raw === "long") return DETAILED_RESUME_URL;
+    if (raw === "resume" || raw === "short" || raw === "cv") return RESUME_URL;
+
     // Anything else must match a known CV path exactly.
     //
     // This previously accepted any value starting with "/", which also matches a
@@ -101,12 +101,10 @@ export default function ContactForm({
     // this check — prefix matching on "/" cannot express it.
     try {
       const decoded = decodeURIComponent(qp).trim();
-      if (decoded === RESUME_URL || decoded === DETAILED_RESUME_URL) {
-        setDownloadUrl(decoded); return;
-      }
+      if (decoded === RESUME_URL || decoded === DETAILED_RESUME_URL) return decoded;
     } catch { /* malformed encoding — fall through to null */ }
-    setDownloadUrl(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return null;
   }, [searchParams, downloadUrlProp]);
 
   useEffect(() => {

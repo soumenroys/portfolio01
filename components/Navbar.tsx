@@ -125,10 +125,19 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [mobileOpen]);
 
-  useEffect(() => {
+  // Close both menus when the route changes — including browser back/forward,
+  // which never fires the links' own onClick handlers.
+  //
+  // Adjusted during render rather than in an effect. React handles a setState
+  // during render of the same component by re-running it before committing, so
+  // the menus never paint open on the new route; an effect would let one frame
+  // through first. This is also what react-hooks/set-state-in-effect asks for.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
     setActiveDropdown(null);
     setMobileOpen(false);
-  }, [pathname]);
+  }
 
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLElement>,

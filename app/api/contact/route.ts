@@ -5,6 +5,13 @@ import path from "path";
 import os from "os";
 import nodemailer from "nodemailer";
 import { verifyOtpToken } from "@/lib/otp";
+import { checkRateLimit, clientIp, escapeHtml } from "@/lib/rateLimit";
+
+// This route also sends mail on an unauthenticated request, so it needs its own
+// budget. Looser than send-otp: a genuine visitor may legitimately submit the
+// contact form a few times, and download submissions are already OTP-gated.
+const IP_LIMIT = 10;
+const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
 type Body = {
   name: string;
@@ -97,16 +104,20 @@ async function sendEmailNotification(record: any) {
     ? `CV Download — ${record.name}`
     : `Website contact — ${record.name}`;
 
+  // Every field here is attacker-controlled, so escape before interpolating and
+  // only convert newlines to <br/> after escaping.
+  const multiline = (value: unknown) => escapeHtml(value).replace(/\n/g, "<br/>");
+
   const html = `
-    <p><strong>Name:</strong> ${record.name}</p>
-    <p><strong>Email:</strong> ${record.email || "—"}</p>
-    <p><strong>Contact:</strong> ${record.contact || "—"}</p>
-    <p><strong>Company:</strong> ${record.company || "—"}</p>
-    <p><strong>Subject:</strong> ${record.subject || "—"}</p>
-    <p><strong>Message:</strong><br/>${(record.message || "—").replace(/\n/g, "<br/>")}</p>
-    <p><strong>Comments / Suggestions:</strong><br/>${(record.comments || "—").replace(/\n/g, "<br/>")}</p>
-    <p><strong>Download URL:</strong> ${record.downloadUrl || "—"}</p>
-    <p><strong>Time:</strong> ${new Date(record.timestamp).toLocaleString()}</p>
+    <p><strong>Name:</strong> ${escapeHtml(record.name)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(record.email)}</p>
+    <p><strong>Contact:</strong> ${escapeHtml(record.contact)}</p>
+    <p><strong>Company:</strong> ${escapeHtml(record.company)}</p>
+    <p><strong>Subject:</strong> ${escapeHtml(record.subject)}</p>
+    <p><strong>Message:</strong><br/>${multiline(record.message)}</p>
+    <p><strong>Comments / Suggestions:</strong><br/>${multiline(record.comments)}</p>
+    <p><strong>Download URL:</strong> ${escapeHtml(record.downloadUrl)}</p>
+    <p><strong>Time:</strong> ${escapeHtml(new Date(record.timestamp).toLocaleString())}</p>
   `;
 
   await transporter.sendMail({
@@ -125,6 +136,15 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { ok: false, error: "name and email are required" },
         { status: 400 }
+      );
+    }
+
+    const limited = checkRateLimit(`contact:ip:${clientIp(req)}`, IP_LIMIT, WINDOW_MS);
+    if (!limited.ok) {
+      const minutes = Math.ceil(limited.retryAfter / 60);
+      return NextResponse.json(
+        { ok: false, error: `Too many submissions. Please try again in ${minutes} minute${minutes === 1 ? "" : "s"}.` },
+        { status: 429, headers: { "Retry-After": String(limited.retryAfter) } }
       );
     }
 
@@ -178,7 +198,8 @@ export async function POST(req: Request) {
   } catch (err: any) {
     console.error("contact route error:", err);
     return NextResponse.json(
-      { ok: false, error: err?.message || "unknown" },
+      // Log detail server-side; return something generic to the client.
+      { ok: false, error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }

@@ -240,9 +240,11 @@ export default function ContactForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) {
-        const txt = await res.text().catch(() => "Server error");
-        throw new Error(txt || "Failed to submit");
+      const data = await res.json().catch(() => ({} as { error?: string }));
+      if (!res.ok || !data.ok) {
+        // Surface the server's message (e.g. the 429 rate-limit copy) rather
+        // than dumping the raw response body into the status banner.
+        throw new Error(data.error || "Failed to submit");
       }
       setStatus({ ok: true, msg: "Message sent — thank you! I'll respond shortly." });
       clearDownloadQuery();

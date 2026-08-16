@@ -66,12 +66,12 @@ const roles = [
     dotColor: "bg-cyan-400",
     badge: { text: "Industry First", color: "border-cyan-400/40 bg-cyan-400/10 text-cyan-300" },
     summary:
-      "Led digital engineering, drone & photogrammetry programs and CAD/BIM automation at one of India's largest steel producers.",
+      "Owned the digital engineering agenda at one of India's largest steel producers — bringing drone survey, LiDAR and digital twins into live plant operations across 800+ acres of brownfield site.",
     responsibilities: [
-      "Piloted drone-based 3D modelling, photogrammetry and LiDAR workflows for large brownfield sites to accelerate design.",
-      "Integrated GIS, BIM, and digital twin workflows with engineering and maintenance processes for improved asset visibility.",
-      "Developed CAD automation (AutoLISP) to reduce manual drafting and speed engineering cycles.",
-      "Operationalised Industry 4.0 pilots into repeatable engineering practices.",
+      "Set the Industry 4.0 direction for plant engineering — drone-based 3D modelling, photogrammetry and LiDAR replacing manual survey across 800+ acres of operating plant.",
+      "Made the data usable rather than merely captured: GIS, BIM and digital twin workflows wired into the engineering and maintenance processes that already governed the site.",
+      "Converted pilots into standing practice — the step most Industry 4.0 programmes never complete, and the one that turns a demonstration into ~30% revenue leakage recovered.",
+      "Built the CAD automation (AutoLISP) underneath it, so the new workflows reduced drafting effort instead of adding to it.",
     ],
     outcomes: [
       { value: "~30%", label: "Revenue leakage recovered" },
@@ -88,11 +88,12 @@ const roles = [
     domainColor: "bg-emerald-500/15 text-emerald-300 border-emerald-500/20",
     dotColor: "bg-emerald-400",
     summary:
-      "Built standard 3D BIM workflows, enterprise CAD/GIS deployments, and automation that accelerated engineering delivery across multi-discipline projects.",
+      "Owned the conversion of a firm with 50 years of 2D drafting practice onto BIM-based virtual engineering — 32 disciplines, each with its own conventions and its own senior people to persuade.",
     responsibilities: [
-      "Standardize BIM and CAD processes, integrate document management with engineering tools and reduce handoff friction.",
-      "Design and deliver company-wide training and governance for digital engineering standards.",
-      "Lead automation efforts (scripted CAD tools) to reduce repeatable manual work across projects.",
+      "Ran the BIM transformation across 32 engineering disciplines, sequencing by discipline rather than by project so that each group converted with people who had already done it.",
+      "Owned the standards and governance that made the models authoritative — without which a BIM rollout produces expensive 3D pictures alongside the drawings that still decide things.",
+      "Built the scripted CAD automation that cut delivery cycles by 30% and reduced dependency on scarce specialist capacity by 68%.",
+      "Led the training and adoption programme, which was the actual constraint: the technology was available years before the practice changed.",
     ],
     outcomes: [
       { value: "30%", label: "Delivery cycle reduced" },

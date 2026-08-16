@@ -25,6 +25,42 @@ export const ARTICLES: Article[] = [
     readingMinutes: 6,
     tags: ["Platform strategy", "Engineering leadership", "Technical debt"],
   },
+  {
+    slug: "how-ot-it-convergence-fails",
+    title: "How OT/IT convergence actually fails in brownfield plants",
+    dek:
+      "The pilot works. The rollout does not. After doing this across steel plants in two countries, the failure is almost never the technology.",
+    published: "2026-08-14",
+    readingMinutes: 7,
+    tags: ["Industry 4.0", "OT/IT convergence", "Manufacturing"],
+  },
+  {
+    slug: "thirty-two-disciplines-change-management",
+    title: "What 32 engineering disciplines taught me about change management",
+    dek:
+      "Moving a 50-year-old engineering firm from drawing boards to BIM. The technology was the easy half.",
+    published: "2026-08-12",
+    readingMinutes: 6,
+    tags: ["BIM", "Change management", "Engineering leadership"],
+  },
+  {
+    slug: "smb-to-enterprise-saas",
+    title: "Moving a SaaS product from SMB to enterprise: what actually has to change",
+    dek:
+      "Not the sales deck. The architecture, the pricing model, the support structure and the security posture — usually in that order, and usually underestimated.",
+    published: "2026-08-10",
+    readingMinutes: 7,
+    tags: ["SaaS", "Pricing strategy", "Product strategy"],
+  },
+  {
+    slug: "numbers-that-survive-an-ipo",
+    title: "The numbers that survive an IPO, and the ones that don't",
+    dek:
+      "Sitting inside a steelmaker's transition to a public company changes what you consider a metric. A short account of which numbers held up.",
+    published: "2026-08-08",
+    readingMinutes: 6,
+    tags: ["Data governance", "Executive reporting", "Manufacturing"],
+  },
 ];
 
 export function getArticle(slug: string): Article | undefined {

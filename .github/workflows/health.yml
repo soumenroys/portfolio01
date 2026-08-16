@@ -1,0 +1,105 @@
+name: Production health
+
+# A deterministic uptime, redirect and certificate check. Deliberately not a
+# Claude routine: there is nothing to reason about, and a workflow in this repo
+# keeps running for free whether or not anyone is around.
+#
+# When this fails, GitHub emails the repo owner. That is the whole alerting
+# mechanism and it needs no configuration.
+on:
+  schedule:
+    # 06:15 UTC daily — off the hour, since :00 is heavily contended on Actions
+    # and scheduled jobs get queued.
+    - cron: "15 6 * * *"
+  # So it can be triggered by hand from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apex serves the site
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://soumenroy.com --max-time 30)
+          echo "https://soumenroy.com -> $code"
+          [ "$code" = "200" ] || { echo "::error::Apex domain returned $code, expected 200"; exit 1; }
+
+      - name: www redirects to apex
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://www.soumenroy.com --max-time 30)
+          dest=$(curl -sI https://www.soumenroy.com --max-time 30 | tr -d '\r' | awk 'tolower($1)=="location:"{print $2}')
+          echo "https://www.soumenroy.com -> $code -> $dest"
+          case "$code" in
+            301|308) ;;
+            *) echo "::error::www returned $code, expected a permanent redirect"; exit 1 ;;
+          esac
+          case "$dest" in
+            https://soumenroy.com/*) ;;
+            *) echo "::error::www redirects to '$dest', expected https://soumenroy.com/"; exit 1 ;;
+          esac
+
+      - name: Key pages respond
+        run: |
+          fail=0
+          for p in "" about writing experience expertise roi case-studies contact publications approach imotara; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://soumenroy.com/$p" --max-time 30)
+            printf '  %-16s %s\n' "/$p" "$code"
+            [ "$code" = "200" ] || { echo "::error::/$p returned $code"; fail=1; }
+          done
+          exit $fail
+
+      - name: Machine-readable surfaces intact
+        run: |
+          fail=0
+          urls=$(curl -s https://soumenroy.com/sitemap.xml --max-time 30 | grep -c '<loc>' || echo 0)
+          echo "sitemap URLs: $urls"
+          # Guards against a build that silently drops routes.
+          [ "$urls" -ge 25 ] || { echo "::error::sitemap has $urls URLs, expected >= 25"; fail=1; }
+          for f in robots.txt llms.txt; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://soumenroy.com/$f" --max-time 30)
+            printf '  %-12s %s\n' "$f" "$code"
+            [ "$code" = "200" ] || { echo "::error::/$f returned $code"; fail=1; }
+          done
+          exit $fail
+
+      - name: Contact API is alive
+        run: |
+          # Invalid address on purpose: exercises the route and its validation
+          # without sending mail. A 400 means the handler is running.
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+            https://soumenroy.com/api/contact/send-otp \
+            -H 'Content-Type: application/json' \
+            -d '{"name":"healthcheck","email":"not-an-address"}' --max-time 30)
+          echo "send-otp validation probe -> $code"
+          [ "$code" = "400" ] || { echo "::error::send-otp returned $code, expected 400. The CV download flow may be broken."; exit 1; }
+
+      - name: Certificates have runway
+        run: |
+          fail=0
+          for host in soumenroy.com www.soumenroy.com; do
+            end=$(echo | openssl s_client -connect "$host:443" -servername "$host" 2>/dev/null \
+                  | openssl x509 -noout -enddate | cut -d= -f2)
+            end_ts=$(date -d "$end" +%s)
+            days=$(( (end_ts - $(date +%s)) / 86400 ))
+            printf '  %-22s expires in %s days (%s)\n' "$host" "$days" "$end"
+            if [ "$days" -lt 10 ]; then
+              echo "::error::$host certificate expires in $days days — renewal has not happened"
+              fail=1
+            elif [ "$days" -lt 21 ]; then
+              echo "::warning::$host certificate expires in $days days"
+            fi
+          done
+          exit $fail
+
+      - name: Security headers still applied
+        run: |
+          fail=0
+          headers=$(curl -sI https://soumenroy.com --max-time 30 | tr 'A-Z' 'a-z')
+          for h in x-content-type-options x-frame-options referrer-policy strict-transport-security content-security-policy; do
+            if echo "$headers" | grep -q "^$h:"; then
+              printf '  %-32s present\n' "$h"
+            else
+              echo "::error::missing header: $h"; fail=1
+            fi
+          done
+          exit $fail

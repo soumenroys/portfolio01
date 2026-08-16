@@ -291,8 +291,15 @@ export default function ExperiencePage() {
                       </span>
                     </button>
 
-                    {/* Expanded content */}
-                    {isOpen && (
+                    {/* Expanded content.
+                        Always rendered, hidden with CSS rather than unmounted. It was
+                        previously `{isOpen && ...}`, which meant every collapsed role's
+                        summary, responsibilities and outcomes existed nowhere in the
+                        served HTML — invisible to search engines and to anything reading
+                        the page without executing clicks. Only the default-open role was
+                        ever crawlable. Accordion content that stays in the DOM is indexed
+                        normally. */}
+                    <div hidden={!isOpen}>
                       <div className="px-5 pb-5 border-t border-white/6">
                         <p className="mt-4 text-sm text-slate-400 leading-relaxed">{role.summary}</p>
 
@@ -323,7 +330,7 @@ export default function ExperiencePage() {
                           </ul>
                         </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
               );

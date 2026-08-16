@@ -76,10 +76,16 @@ jobs:
       - name: Certificates have runway
         run: |
           fail=0
+          # GNU date on the runner, BSD date on a Mac. Supporting both means this
+          # step can be dry-run locally instead of first executing in CI.
+          to_epoch() {
+            date -d "$1" +%s 2>/dev/null || date -j -f "%b %d %T %Y %Z" "$1" +%s 2>/dev/null
+          }
           for host in soumenroy.com www.soumenroy.com; do
             end=$(echo | openssl s_client -connect "$host:443" -servername "$host" 2>/dev/null \
                   | openssl x509 -noout -enddate | cut -d= -f2)
-            end_ts=$(date -d "$end" +%s)
+            end_ts=$(to_epoch "$end")
+            [ -n "$end_ts" ] || { echo "::error::could not parse expiry '$end' for $host"; fail=1; continue; }
             days=$(( (end_ts - $(date +%s)) / 86400 ))
             printf '  %-22s expires in %s days (%s)\n' "$host" "$days" "$end"
             if [ "$days" -lt 10 ]; then

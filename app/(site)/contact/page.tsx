@@ -7,7 +7,6 @@ import EmailLink from "@/components/EmailLink";
 import {
   NAME,
   ROLE,
-  PHONE,
   LINKEDIN,
   RESUME_URL,
   DETAILED_RESUME_URL,
@@ -52,11 +51,18 @@ export default function ContactPage() {
                 <EmailLink className="underline hover:text-accent" />
               </div>
 
+              {/* Phone deliberately not published. A number in public HTML is
+                  scraped continuously by spam and voice-fraud operations, and
+                  unlike an email address it cannot be filtered once harvested.
+                  Callers are routed through the form below instead. */}
               <div>
                 <span className="block text-xs text-slate-400">Phone</span>
-                <a className="underline hover:text-accent" href={`tel:${PHONE.replace(/\s/g, "")}`}>
-                  {PHONE}
-                </a>
+                <span className="text-slate-300">
+                  Shared on request &mdash;{" "}
+                  <Link href={requestCallHref} className="underline hover:text-accent">
+                    ask via the form
+                  </Link>
+                </span>
               </div>
 
               <div>

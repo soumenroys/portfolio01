@@ -85,6 +85,16 @@ export default function ContactPage() {
                   Download Detailed CV (PDF)
                 </Link>
               </div>
+
+              {/* Referees are named privately, never listed here. Publishing them
+                  would put third parties in front of every scraper and cold-outreach
+                  bot that reads this page, without their say. */}
+              <div>
+                <span className="block text-xs text-slate-400">References</span>
+                <span className="text-slate-300">
+                  Senior professional references available on request
+                </span>
+              </div>
             </div>
           </div>
 

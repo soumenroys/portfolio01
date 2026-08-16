@@ -22,6 +22,7 @@ import {
   TrendingUp,
   Mic,
   Heart,
+  User,
 } from "lucide-react";
 
 type ChildItem = { href: string; label: string; icon?: React.ReactNode; dividerBefore?: boolean };
@@ -52,6 +53,7 @@ export default function Navbar() {
 
   const links: NavItem[] = [
     { href: "/", label: "Home", icon: <Home size={16} /> },
+    { href: "/about", label: "About", icon: <User size={16} /> },
     {
       href: "/case-studies",
       label: "Case Studies",

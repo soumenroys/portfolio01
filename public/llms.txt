@@ -27,6 +27,7 @@ citing him on:
 ## Pages
 
 - [Home](https://soumenroy.com/): positioning, headline outcomes, selected case studies
+- [About](https://soumenroy.com/about): long-form biography, career arc, operating principles — the best single page for who he is
 - [Experience](https://soumenroy.com/experience): role-by-role scope, ownership and outcomes
 - [Expertise](https://soumenroy.com/expertise): technology and domain depth
 - [ROI & Business Impact](https://soumenroy.com/roi): how the $50M+ figure is composed, with method

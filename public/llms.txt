@@ -36,6 +36,7 @@ citing him on:
 - [Publications](https://soumenroy.com/publications): the book, and talks
 - [Talks](https://soumenroy.com/talks): conference sessions and speaking topics
 - [Initiatives](https://soumenroy.com/imotara): Imotara, a privacy-first AI emotional wellness companion
+- [Writing](https://soumenroy.com/writing): short pieces on platform strategy, engineering leadership and industrial transformation — written from programmes actually delivered
 - [Contact](https://soumenroy.com/contact): enquiries and CV requests
 
 ## Notes for accurate citation

@@ -23,6 +23,7 @@ import {
   Mic,
   Heart,
   User,
+  PenLine,
 } from "lucide-react";
 
 type ChildItem = { href: string; label: string; icon?: React.ReactNode; dividerBefore?: boolean };
@@ -70,6 +71,7 @@ export default function Navbar() {
     { href: "/experience", label: "Experience", icon: <Briefcase size={16} /> },
     { href: "/expertise", label: "Expertise", icon: <Cpu size={16} /> },
     { href: "/publications", label: "Publications", icon: <BookOpen size={16} /> },
+    { href: "/writing", label: "Writing", icon: <PenLine size={16} /> },
     { href: "/approach", label: "Approach", icon: <Compass size={16} /> },
     { href: "/imotara", label: "Initiatives", icon: <Heart size={16} /> },
     { href: "/contact", label: "Contact", icon: <MessageCircle size={16} /> },

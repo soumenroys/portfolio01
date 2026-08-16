@@ -5,14 +5,14 @@
 // so this migration came as a package with the Next 16 upgrade rather than
 // as an optional cleanup.
 //
-// Rule parity with the previous .eslintrc.json is deliberate. Adding
-// `next/typescript` surfaces 20 pre-existing `no-explicit-any` errors — all
-// genuine, none related to this upgrade. Landing them together would make a
-// breaking framework upgrade unbisectable, so they are a separate follow-up.
+// `next/typescript` is enabled. The old .eslintrc.json was bare
+// `next/core-web-vitals` with no TypeScript rules at all, which is why ~20
+// `any` annotations sat unflagged in the API routes and components.
 import next from "eslint-config-next";
 import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypeScript from "eslint-config-next/typescript";
 
-export default [
+const config = [
   {
     ignores: [
       ".next/**",
@@ -23,4 +23,7 @@ export default [
   },
   ...(Array.isArray(next) ? next : [next]),
   ...(Array.isArray(nextCoreWebVitals) ? nextCoreWebVitals : [nextCoreWebVitals]),
+  ...(Array.isArray(nextTypeScript) ? nextTypeScript : [nextTypeScript]),
 ];
+
+export default config;

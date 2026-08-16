@@ -1,5 +1,6 @@
 // /components/StatBar.tsx
 import Link from "next/link";
+import type { Route } from "next";
 import { TrendingUp, Users, Globe, BarChart2, Layers } from "lucide-react";
 
 const EXEC_STATS = [
@@ -56,7 +57,7 @@ export default function StatBar() {
       {EXEC_STATS.map((s) => (
         <Link
           key={s.label}
-          href={`/${s.slug}` as any}
+          href={`/${s.slug}` as Route}
           aria-label={`View details for ${s.label}`}
           className={`group block rounded-xl border border-white/8 bg-white/2 p-4 hover:border-white/20 hover:bg-white/4 hover:shadow-lg transition-all duration-200 text-center ${s.glow}`}
         >

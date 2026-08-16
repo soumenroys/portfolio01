@@ -4,6 +4,15 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
+// gtag is injected by the GA script tag in the root layout, so it is not
+// present on the Window type. Declaring it beats casting at each use.
+type Gtag = (command: string, ...args: unknown[]) => void;
+declare global {
+  interface Window {
+    gtag?: Gtag;
+  }
+}
+
 /**
  * Fires a pageview, waiting for gtag if it isn't ready yet.
  *
@@ -27,7 +36,7 @@ function sendPageview(url: string) {
   };
 
   const fire = () => {
-    const gtag = (window as any).gtag;
+    const gtag = window.gtag;
     if (typeof gtag !== "function") return false;
     gtag("event", "page_view", payload);
     return true;

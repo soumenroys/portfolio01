@@ -95,7 +95,7 @@ export async function POST(req: Request) {
     await sendOtpEmail(normalisedEmail, name, otp);
 
     return NextResponse.json({ ok: true, token });
-  } catch (err: any) {
+  } catch (err) {
     console.error("send-otp error:", err);
     // Don't echo internal errors (SMTP hostnames, auth failures) to the client.
     return NextResponse.json(

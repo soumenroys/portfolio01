@@ -10,8 +10,6 @@ export const runtime = "edge";
 
 const ACCENT   = "#6366f1"; // indigo-500
 const BG       = "#0b0f1a";
-const SURFACE  = "rgba(255,255,255,0.04)";
-const BORDER   = "rgba(255,255,255,0.10)";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;

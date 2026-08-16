@@ -8,8 +8,6 @@ import {
   NAME,
   ROLE,
   LINKEDIN,
-  RESUME_URL,
-  DETAILED_RESUME_URL,
 } from "@/lib/constants";
 import { canonical } from "@/lib/seo";
 

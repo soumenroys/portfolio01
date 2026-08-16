@@ -41,7 +41,6 @@ export default function PublicationsPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
       <header className="flex flex-col md:flex-row items-start gap-6 mb-6">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
           src={coverSrc}
           alt="Mastering 3D Plant Engineering — book cover"

@@ -1,6 +1,5 @@
 // /app/approach/page.tsx
 import type { Metadata } from "next";
-import Link from "next/link";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
     images: [{ url: "/og?title=Transformation+Approach&sub=Discover+%E2%86%92+Pilot+%E2%86%92+Scale+%E2%86%92+Operate", width: 1200, height: 630 }],
   },
 };
-import { NAME, ROLE } from "@/lib/constants";
 
 // Import client components (interactive)
 import DataFlowDiagramClient from "@/components/DataFlowDiagramClient";

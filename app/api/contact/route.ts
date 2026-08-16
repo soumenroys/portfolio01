@@ -7,12 +7,28 @@ import nodemailer from "nodemailer";
 import { verifyOtpToken } from "@/lib/otp";
 import { checkRateLimit, clientIp, escapeHtml } from "@/lib/rateLimit";
 import { field, emailField, readJsonBody, type FieldName } from "@/lib/validate";
+import { errorCode } from "@/lib/errors";
 
 // This route also sends mail on an unauthenticated request, so it needs its own
 // budget. Looser than send-otp: a genuine visitor may legitimately submit the
 // contact form a few times, and download submissions are already OTP-gated.
 const IP_LIMIT = 10;
 const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+/** A submission as persisted and emailed. */
+type ContactRecord = {
+  name: string;
+  email: string;
+  contact: string | null;
+  company: string | null;
+  subject: string | null;
+  message: string | null;
+  comments: string | null;
+  downloadUrl: string | null;
+  userAgent: string | null;
+  ip: string | null;
+  timestamp: number;
+};
 
 type Body = {
   name: string;
@@ -38,7 +54,7 @@ const CONTACTS_LOG = process.env.CONTACTS_LOG_PATH
   : path.join(os.tmpdir(), "contacts.json");
 
 // helper: read JSON file safely
-function readJson(filePath: string) {
+function readJson(filePath: string): ContactRecord[] {
   try {
     if (!fs.existsSync(filePath)) return [];
     const raw = fs.readFileSync(filePath, "utf8");
@@ -50,12 +66,12 @@ function readJson(filePath: string) {
 }
 
 // helper: write JSON file safely
-function writeJson(filePath: string, arr: any[]) {
+function writeJson(filePath: string, arr: ContactRecord[]) {
   const dir = path.dirname(filePath);
   if (!fs.existsSync(dir)) {
     try {
       fs.mkdirSync(dir, { recursive: true });
-    } catch (e) {
+    } catch {
       // ignore - may be read-only
     }
   }
@@ -63,21 +79,21 @@ function writeJson(filePath: string, arr: any[]) {
 }
 
 // Try append to a candidate path; returns true if succeeded
-function tryAppendToFile(candidatePath: string, record: any): boolean {
+function tryAppendToFile(candidatePath: string, record: ContactRecord): boolean {
   try {
     const arr = readJson(candidatePath);
     arr.push(record);
     writeJson(candidatePath, arr);
     console.log(`Appended contact to ${candidatePath}`);
     return true;
-  } catch (err: any) {
-    console.warn(`Failed to append to ${candidatePath}:`, err && err.code ? err.code : err);
+  } catch (err) {
+    console.warn(`Failed to append to ${candidatePath}:`, errorCode(err) ?? err);
     return false;
   }
 }
 
 // Send email using nodemailer (best-effort)
-async function sendEmailNotification(record: any) {
+async function sendEmailNotification(record: ContactRecord) {
   const host = process.env.SMTP_HOST;
   if (!host) {
     console.warn("SMTP not configured; skipping email notification.");
@@ -235,7 +251,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
+  } catch (err) {
     console.error("contact route error:", err);
     return NextResponse.json(
       // Log detail server-side; return something generic to the client.

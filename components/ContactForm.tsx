@@ -3,7 +3,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import type { Route } from "next";
 import { EMAIL, RESUME_URL, DETAILED_RESUME_URL } from "@/lib/constants";
+import { errorMessage } from "@/lib/errors";
 
 // Common country dial codes
 const COUNTRY_CODES = [
@@ -140,7 +142,9 @@ export default function ContactForm({
   const clearDownloadQuery = () => {
     try {
       const hash = window.location.hash || "#form";
-      router.replace((pathname + hash) as any);
+      // Composed at runtime from the current path, so it cannot be statically
+      // typed as a known route; assert to Route rather than to any.
+      router.replace((pathname + hash) as Route);
     } catch { /* ignore */ }
   };
 
@@ -164,8 +168,8 @@ export default function ContactForm({
       setOtpToken(data.token);
       setDownloadStep("verify");
       setStatus({ ok: true, msg: `Verification code sent to ${form.email}. Check your inbox.` });
-    } catch (err: any) {
-      setStatus({ ok: false, msg: err?.message || "Could not send verification code." });
+    } catch (err) {
+      setStatus({ ok: false, msg: errorMessage(err, "Could not send verification code.") });
     } finally {
       setLoading(false);
     }
@@ -209,8 +213,8 @@ export default function ContactForm({
       if (onClose) setTimeout(() => onClose(), 800);
       setForm({ name: "", email: "", countryCode: "+91", contact: "", company: "", subject: "", message: "", comments: "" });
       setOtp("");
-    } catch (err: any) {
-      setStatus({ ok: false, msg: err?.message || "Something went wrong." });
+    } catch (err) {
+      setStatus({ ok: false, msg: errorMessage(err, "Something went wrong.") });
     } finally {
       setLoading(false);
     }
@@ -256,8 +260,8 @@ export default function ContactForm({
       setStatus({ ok: true, msg: "Message sent — thank you! I'll respond shortly." });
       clearDownloadQuery();
       setForm({ name: "", email: "", countryCode: "+91", contact: "", company: "", subject: "", message: "", comments: "" });
-    } catch (err: any) {
-      setStatus({ ok: false, msg: err?.message || "Something went wrong." });
+    } catch (err) {
+      setStatus({ ok: false, msg: errorMessage(err, "Something went wrong.") });
     } finally {
       setLoading(false);
     }
@@ -392,8 +396,8 @@ export default function ContactForm({
                 if (!data.ok) throw new Error(data.error);
                 setOtpToken(data.token);
                 setStatus({ ok: true, msg: "New code sent." });
-              } catch (err: any) {
-                setStatus({ ok: false, msg: err?.message || "Could not resend." });
+              } catch (err) {
+                setStatus({ ok: false, msg: errorMessage(err, "Could not resend.") });
               } finally {
                 setLoading(false);
               }

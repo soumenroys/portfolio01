@@ -1,6 +1,5 @@
 // /app/(site)/roi/page.tsx
 import type { Metadata } from "next";
-import Link from "next/link";
 import { YEARS } from "@/lib/constants";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { canonical } from "@/lib/seo";

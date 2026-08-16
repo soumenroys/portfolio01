@@ -4,6 +4,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { Route } from "next";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDown,
@@ -26,9 +27,9 @@ import {
   PenLine,
 } from "lucide-react";
 
-type ChildItem = { href: string; label: string; icon?: React.ReactNode; dividerBefore?: boolean };
+type ChildItem = { href: Route; label: string; icon?: React.ReactNode; dividerBefore?: boolean };
 type NavItem = {
-  href: string;
+  href: Route;
   label: string;
   icon?: React.ReactNode;
   children?: ChildItem[];
@@ -242,7 +243,7 @@ export default function Navbar() {
                     onClick={() => setActiveDropdown((p) => (p === index ? null : index))}
                     aria-expanded={isOpen}
                     aria-haspopup="true"
-                    onKeyDown={(e) => handleKeyDown(e as any, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
                     className={`px-3 py-2 rounded-md transition font-medium inline-flex items-center gap-1.5 ${
                       isActive
                         ? "bg-accent/15 text-accent"
@@ -283,10 +284,10 @@ export default function Navbar() {
                                   failed — and six case-study URLs were invisible to
                                   crawlers following the nav. */}
                               <Link
-                                href={child.href as any}
+                                href={child.href}
                                 role="menuitem"
                                 onClick={() => setActiveDropdown(null)}
-                                onKeyDown={(e) => handleKeyDown(e as any, index, childIndex)}
+                                onKeyDown={(e) => handleKeyDown(e, index, childIndex)}
                                 ref={(el) => { dropdownRefs.current[childIndex] = el; }}
                                 className={`flex items-center gap-2.5 mx-2 px-3 py-2 rounded-lg text-sm transition focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
                                   subActive
@@ -310,7 +311,7 @@ export default function Navbar() {
             return (
               <li key={item.href}>
                 <Link
-                  href={item.href as any}
+                  href={item.href}
                   className={`px-3 py-2 rounded-md transition font-medium inline-flex items-center gap-1.5 ${
                     isActive
                       ? "bg-accent/15 text-accent"
@@ -357,7 +358,7 @@ export default function Navbar() {
                 return (
                   <div key={item.href}>
                     <Link
-                      href={item.href as any}
+                      href={item.href}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition ${
                         isActive
                           ? "bg-accent/15 text-accent"
@@ -379,7 +380,7 @@ export default function Navbar() {
                                 <div className="my-1.5 border-t border-white/8" />
                               )}
                               <Link
-                                href={child.href as any}
+                                href={child.href}
                                 className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition ${
                                   subActive
                                     ? "bg-accent/15 text-accent font-medium"

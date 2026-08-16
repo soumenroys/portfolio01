@@ -164,9 +164,18 @@ export default function HomePage() {
             &ldquo;{QUOTE}&rdquo;
           </blockquote>
 
-          <p className="mt-4 text-slate-400 text-sm md:text-base leading-relaxed max-w-xl">
-            {YEARS} years of hands-on depth — delivering scalable platforms, revenue growth, and enterprise
-            transformation across SaaS, manufacturing, and industrial engineering.
+          {/* Leads with ownership, not depth. "Hands-on depth" read as individual
+              contributor to an executive audience — the scope, the reporting line and
+              the commercial mandate are what signal the level. */}
+          <p className="mt-4 text-slate-300 text-sm md:text-base leading-relaxed max-w-xl">
+            I own technology and product strategy end to end — the roadmap reported weekly to
+            CEO and founders, the commercial model beneath it, the organisation that builds it,
+            and the infrastructure spend it runs on.
+          </p>
+          <p className="mt-2.5 text-slate-400 text-sm md:text-base leading-relaxed max-w-xl">
+            {YEARS} years across enterprise SaaS, steel manufacturing and industrial
+            engineering — 85+ engineers across 4 squads today, $50M+ in cumulative measured
+            ROI across 10+ transformation programmes.
           </p>
 
           <div className="inline-flex items-center gap-2 mt-4 rounded-full border border-accent/20 bg-accent/8 px-4 py-1.5">

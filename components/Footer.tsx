@@ -32,7 +32,6 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-white/6 text-xs text-slate-600 flex items-center justify-between gap-4">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
-          <span className="text-slate-700">v0.0.1</span>
         </div>
       </div>
     </footer>

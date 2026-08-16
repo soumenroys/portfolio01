@@ -186,8 +186,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "knowsAbout": [
                 "AI Strategy", "SaaS", "Digital Transformation",
                 "Industry 4.0", "Data Platforms", "Enterprise Architecture",
-                "3D Plant Engineering", "BIM", "Mental Health Technology"
+                "3D Plant Engineering", "BIM", "Photogrammetry", "LiDAR",
+                "OT/IT Convergence", "Steel Manufacturing", "Mental Health Technology"
               ],
+              // Ties the Person entity to the book. Without this the authorship
+              // credential is prose only — invisible to anything reading structured data.
+              "hasOccupation": {
+                "@type": "Occupation",
+                "name": "Technology and Transformation Leadership"
+              },
+              "workExample": {
+                "@type": "Book",
+                "name": "Mastering 3D Plant Engineering, Digitalisation & Automation",
+                "url": `${site.url}/publications`
+              },
               "sameAs": [
                 "https://www.linkedin.com/in/sowmenroy",
                 "https://www.goodreads.com/author/show/34690983-soumen-roy",

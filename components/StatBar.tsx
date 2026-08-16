@@ -13,7 +13,7 @@ const EXEC_STATS = [
     glow: "group-hover:shadow-violet-500/10",
   },
   {
-    label: "Global Teams Led",
+    label: "Professionals Led",
     value: "200+",
     slug: "teams-led",
     icon: <Users size={18} />,
@@ -29,7 +29,6 @@ const EXEC_STATS = [
     color: "text-emerald-400",
     hoverColor: "group-hover:text-emerald-400",
     glow: "group-hover:shadow-emerald-500/10",
-    flags: true,
   },
   {
     label: "ROI Delivered",
@@ -67,13 +66,6 @@ export default function StatBar() {
           <div className={`text-xl font-bold tracking-tight text-slate-100 ${s.hoverColor} transition-colors`}>
             {s.value}
           </div>
-          {s.flags && (
-            <div className="mt-1 flex items-center justify-center gap-1 text-sm">
-              <span role="img" aria-label="India">🇮🇳</span>
-              <span role="img" aria-label="Indonesia">🇮🇩</span>
-              <span role="img" aria-label="Canada">🇨🇦</span>
-            </div>
-          )}
           <div className="mt-1.5 text-xs text-slate-500 group-hover:text-slate-400 transition-colors leading-snug">
             {s.label}
           </div>

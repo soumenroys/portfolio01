@@ -19,7 +19,7 @@ export default function TeamsLedPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
       <BreadcrumbJsonLd items={[{ name: "Global Teams Led", href: "/teams-led" }]} />
-      <h1 className="text-3xl font-bold mb-6 text-accent">200+ Teams Led</h1>
+      <h1 className="text-3xl font-bold mb-6 text-accent">200+ Professionals Led</h1>
 
       <p className="text-slate-300 mb-6">
         Over 28+ years I have had the privilege of leading and mentoring diverse

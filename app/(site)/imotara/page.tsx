@@ -1,11 +1,30 @@
 // /app/(site)/imotara/page.tsx
 /* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { canonical, site } from "@/lib/seo";
 
 const IMOTARA_URL = "https://www.imotara.com/";
+
+/**
+ * Checked-in edit date for this page, NOT a build timestamp. `new Date()` here
+ * would freeze at prerender time and then bump on every unrelated redeploy —
+ * the same plausible-looking lie `app/sitemap.ts` was fixed to stop telling.
+ * Bump this by hand when the page's content actually changes.
+ */
+const LAST_UPDATED = "2026-08-17";
+
+/** DD MMM YY, e.g. "17 Aug 26". UTC-pinned so it can't drift by timezone. */
+function formatShortDate(iso: string): string {
+  return new Date(iso + "T00:00:00Z").toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "2-digit",
+    timeZone: "UTC",
+  });
+}
 
 export const metadata: Metadata = {
   title: "Imotara — Philanthropic Initiative | Soumen Roy",
@@ -129,25 +148,50 @@ export default function ImotaraPage() {
 
       {/* ── Header ─────────────────────────────────────────────────── */}
       <header className="mb-10">
-        <div className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
-          Philanthropic Initiative · Founded by Soumen Roy
-        </div>
-        <h1 className="text-3xl font-bold">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+          {/* Mark-only asset (heart + star, no wordmark): a circular badge would
+              clip the "Imotara" lettering, and the H1 alongside already says it.
+              The white plate keeps the mark off the slate-900 background. */}
           <a
             href={IMOTARA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent hover:opacity-80 transition-opacity"
+            aria-label="Visit Imotara (opens in a new tab)"
+            className="group shrink-0 self-start sm:self-auto rounded-full bg-white p-1 ring-1 ring-white/15 shadow-lg shadow-black/20 hover:ring-accent/40 hover:shadow-accent/10 hover:-translate-y-0.5 transition-all duration-200"
           >
-            Imotara ↗
+            <Image
+              src="/images/imotara-mark.png"
+              alt="Imotara logo"
+              width={128}
+              height={128}
+              priority
+              className="h-20 w-20 sm:h-24 sm:w-24 object-contain group-hover:scale-[1.03] transition-transform duration-200"
+            />
           </a>
-        </h1>
-        <p className="mt-1 text-lg text-slate-400 font-medium">
-          <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
-            An Emotion-Aware Companion for Human Flourishing
-          </a>
-        </p>
-        <p className="mt-4 text-slate-300 max-w-3xl leading-relaxed">
+
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
+              Philanthropic Initiative · Founded by Soumen Roy
+            </div>
+            <h1 className="text-3xl font-bold">
+              <a
+                href={IMOTARA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:opacity-80 transition-opacity"
+              >
+                Imotara ↗
+              </a>
+            </h1>
+            <p className="mt-1 text-lg text-slate-400 font-medium">
+              <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+                An Emotion-Aware Companion for Human Flourishing
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <p className="mt-6 text-slate-300 max-w-3xl leading-relaxed">
           <a href={IMOTARA_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-slate-200 hover:text-accent transition-colors">Imotara</a>{" "}
           is a privacy-first AI emotional wellness companion — a philanthropic initiative I
           founded to address a quiet but growing crisis: the erosion of genuine emotional intelligence
@@ -405,6 +449,12 @@ export default function ImotaraPage() {
           </a>
         </div>
       </div>
+
+      {/* ── Last updated ────────────────────────────────────────────── */}
+      <p className="mt-8 pt-6 border-t border-white/6 text-xs text-slate-500">
+        Last Updated on{" "}
+        <time dateTime={LAST_UPDATED}>{formatShortDate(LAST_UPDATED)}</time>
+      </p>
 
     </div>
   );

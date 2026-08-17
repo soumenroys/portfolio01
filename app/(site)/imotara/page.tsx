@@ -8,24 +8,6 @@ import { canonical, site } from "@/lib/seo";
 
 const IMOTARA_URL = "https://www.imotara.com/";
 
-/**
- * Checked-in edit date for this page, NOT a build timestamp. `new Date()` here
- * would freeze at prerender time and then bump on every unrelated redeploy —
- * the same plausible-looking lie `app/sitemap.ts` was fixed to stop telling.
- * Bump this by hand when the page's content actually changes.
- */
-const LAST_UPDATED = "2026-08-17";
-
-/** DD MMM YY, e.g. "17 Aug 26". UTC-pinned so it can't drift by timezone. */
-function formatShortDate(iso: string): string {
-  return new Date(iso + "T00:00:00Z").toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "2-digit",
-    timeZone: "UTC",
-  });
-}
-
 export const metadata: Metadata = {
   title: "Imotara — Philanthropic Initiative | Soumen Roy",
   description:
@@ -449,12 +431,6 @@ export default function ImotaraPage() {
           </a>
         </div>
       </div>
-
-      {/* ── Last updated ────────────────────────────────────────────── */}
-      <p className="mt-8 pt-6 border-t border-white/6 text-xs text-slate-500">
-        Last Updated on{" "}
-        <time dateTime={LAST_UPDATED}>{formatShortDate(LAST_UPDATED)}</time>
-      </p>
 
     </div>
   );

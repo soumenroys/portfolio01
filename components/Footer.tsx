@@ -1,4 +1,5 @@
 import { NAME, ROLE, LINKEDIN, TAGLINE } from "@/lib/constants";
+import { BUILD_DATE_ISO, BUILD_DATE_SHORT } from "@/lib/buildInfo";
 import EmailLink from "@/components/EmailLink";
 
 export default function Footer() {
@@ -30,8 +31,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-white/6 text-xs text-slate-600 flex items-center justify-between gap-4">
+        <div className="mt-8 pt-6 border-t border-white/6 text-xs text-slate-600 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
+          <span>
+            Last Updated on{" "}
+            <time dateTime={BUILD_DATE_ISO}>{BUILD_DATE_SHORT}</time>
+          </span>
         </div>
       </div>
     </footer>
